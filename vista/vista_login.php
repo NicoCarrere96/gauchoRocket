@@ -7,7 +7,7 @@
 					<div class="card">
 						<div class="loginBox">
 							
-							<form action="/mvc/login" method="post">                           	
+							<form action="/GauchoRocket/login" method="post">                           	
 								<div class="form-group">									
 									<input type="email" class="form-control input-lg" name="email" placeholder="Email" required>        
 								</div>							
@@ -19,7 +19,7 @@
 <!--  							<p><a href="#showForm" data-toggle="collapse" aria-expanded="false" aria-controls="collapse">No recuerdas tu password?</a></p>	
 							<div class="collapse" id="showForm">
 								<div class='well'>
-									<form action="/mvc/login" method="post">
+									<form action="/GauchoRocket/login" method="post">
 										<div class="form-group">										
 											<input type="email" class="form-control" name="email-spassword" placeholder="Ingrese email asociado con el password." required>
 										</div>
@@ -28,7 +28,7 @@
 								</div>
 							</div> -->
 													
-							<hr><p>Nuevo en el sitio? <a href="/mvc/registro" title="Registrarse">Registrarse</a>.</p>								
+							<hr><p>Nuevo en el sitio? <a href="/GauchoRocket/registro" title="Registrarse">Registrarse</a>.</p>								
 						</div>
 					</div>
 				</div>

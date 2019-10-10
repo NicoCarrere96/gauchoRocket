@@ -4,7 +4,7 @@
           <div class="card">
             <div class="loginBox">
               
-              <form action="/mvc/registro" method="post">                             
+              <form action="/GauchoRocket/registro" method="post">                             
                 <div class="form-group">                  
                   <input type="text" class="form-control input-lg" name="nombre" placeholder="Nombre" required>        
                 </div>              
