@@ -9,7 +9,7 @@ function login_index(){
         validarLogin($usuario, $password);
     }
     if(isset($_GET["registro"])){
-        echo "Usuario creado correctamente";
+        echo "<div class='w3-container w3-content w3-center'>Usuario creado correctamente</div>";
     }
 
     include_once("vista/vista_login.php");

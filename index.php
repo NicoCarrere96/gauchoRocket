@@ -20,7 +20,7 @@ include_once("public/footer.php");
 
 function parseRoutes(){
     $urlAndParams = explode('?', $_SERVER['REQUEST_URI']);
-    return explode('mvc/', $urlAndParams[0]);
+    return explode('GauchoRocket/', $urlAndParams[0]);
 }
 
 function extractModuleName($routes){
