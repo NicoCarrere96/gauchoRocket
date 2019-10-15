@@ -18,7 +18,7 @@ function validarLogin($usuario, $password){
         if($userConfirm["hash"] != md5($usuario)){
             session_start();
             $_SESSION["logueado"] = TRUE;
-            header("location: buscador");
+            header("location: home");
         } else {
             echo "<div class='w3-container w3-content w3-center' >Falta confirmar su cuenta</div>";
         }
