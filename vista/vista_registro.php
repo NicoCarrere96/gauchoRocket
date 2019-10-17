@@ -1,3 +1,7 @@
+<div class="page-header" style="background-color: lightgrey;">
+    <h1 class="text-center" style="padding-top: 10px;">Registrese en Gaucho Rocket</h1>
+</div>
+
 <div class="container-fluid">
       <div class="row">
         <div class="col-lg-12">   
@@ -10,11 +14,23 @@
                 </div>              
                  <div class="form-group">                  
                   <input type="text" class="form-control input-lg" name="apellido" placeholder="Apellido" required>        
-                </div>              
-                <div class="form-group">                  
+                </div>
+                  <div class="form-group">
+                      <input type="text" class="form-control input-lg" name="dni" placeholder="DNI" required>
+                  </div>
+                  <div class="form-group">
+                      <input type="date" class="form-control input-lg" name="fecha_nac" placeholder="Fecha de Nacimiento" required>
+                  </div>
+                  <div class="form-group">
+                      <input type="text" class="form-control input-lg" name="direccion" placeholder="Direccion" required>
+                  </div>
+                  <div class="form-group">
                   <input type="email" class="form-control input-lg" name="email" placeholder="Email" required>        
-                </div>              
-                <div class="form-group">        
+                </div>
+                  <div class="form-group">
+                      <input type="text" class="form-control input-lg" name="nick" placeholder="Nombre de Usuario" required>
+                  </div>
+                  <div class="form-group">
                   <input type="password" class="form-control input-lg" name="password" placeholder="Contrase&ntilde;a" required>       
                 </div>
                 <div class="form-group">        
@@ -28,5 +44,3 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>

@@ -21,6 +21,6 @@
         <a href="/GauchoRocket/login" class="w3-bar-item w3-button w3-padding-large">Login</a>
     </div>
 </div>
-
+<div class="w3-container w3-margin-top">
 <!-- Page content -->
 
