@@ -12,15 +12,22 @@
     body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 </style>
 <body>
-
 <!-- Navbar -->
 <div class="w3-top">
     <div class="w3-bar w3-black w3-card">
-<!--        <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>-->
+<!--    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>-->        
         <a href="/GauchoRocket/home" class="w3-bar-item w3-button w3-padding-large"><i class="fa fa-rocket"></i>GauchoRocket</a>
-        <a href="/GauchoRocket/login" class="w3-bar-item w3-button w3-padding-large">Login</a>
+        <?php
+            session_start(); 
+            if(isset($_SESSION["logueado"])){
+                echo "<a href='/GauchoRocket/login?logout=1' class='w3-bar-item w3-button w3-padding-large'>Cerrar Sesion</a>";
+            } else {
+                echo "<a href='/GauchoRocket/login' class='w3-bar-item w3-button w3-padding-large'>Login</a>";
+            }
+        ?>
     </div>
 </div>
-<div class="w3-container w3-margin-top">
+
+<div class="w3-container w3-padding-large">
 <!-- Page content -->
 

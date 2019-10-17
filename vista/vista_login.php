@@ -9,7 +9,7 @@
 							
 							<form action="/GauchoRocket/login" method="post">                           	
 								<div class="form-group">									
-									<input type="email" class="form-control input-lg" name="email" placeholder="Email" required>        
+									<input type="text" class="form-control input-lg" name="nick" placeholder="Usuario" required>        
 								</div>							
 								<div class="form-group">        
 									<input type="password" class="form-control input-lg" name="password" placeholder="Password" required>       

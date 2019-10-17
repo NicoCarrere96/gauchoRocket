@@ -6,7 +6,7 @@ function validarLogin($usuario, $password){
 
     $conn = getConexion();
 
-    $sql = "SELECT * FROM usuario WHERE email ='".$usuario."' AND password='".md5($password)."'"; 
+    $sql = "SELECT * FROM usuario WHERE nick ='".$usuario."' AND password='".md5($password)."'"; 
     $consulta = mysqli_query ($conn,$sql);    
     
     if($user = mysqli_fetch_assoc($consulta)) {

@@ -1,8 +1,5 @@
 
-<header class="w3-display-container w3-content" style="max-width:1500px;">
-    <img class="w3-image" src="img/fondo3.jpg" alt="" style="min-width:1000px" width=100%>
-
-    <div class="w3-display-left w3-padding w3-col">
+    <div class="w3-padding w3-margin">
         <div class="w3-container w3-deep-orange w3-round">
             <h2><i class="fa fa-rocket w3-margin-right"></i>Buscador de Vuelos</h2>
         </div>
@@ -55,33 +52,34 @@
                     </div>
                 </div>
 
-                <button name="btn-buscador" class="w3-button w3-dark-grey" type="submit"><i class="fa fa-search w3-margin-right"></i> Buscar</button>
+                <button name="btn-buscador" class="w3-button w3-dark-grey w3-margin-bottom w3-right" type="submit"><i class="fa fa-search w3-margin-right"></i> Buscar</button>
             </form>
         </div>
     </div>
-</header>
 
 
-<div class="w3-row-padding w3-margin w3-padding-16">
-      <div class="w3-container w3-red">
+
+
+    <div class="w3-margin w3-container">
+        <div class="w3-container w3-deep-orange w3-round">
           <h2><i class="fa fa-rocket w3-margin-right"></i>Vuelos</h2>
-      </div>
-
-<?php
-    foreach ( $vuelos as $vuelo){
-        echo   "<div class='w3-third w3-margin-bottom'>
-                    <img src='img/hab_simple.jpg' alt='Luna' style='width:100%'>
-                    <div class='w3-container w3-white'>
-                        <h3>". $vuelo['destino'] ."</h3>
-                        <h6 class='w3-opacity'>Desde $9.999</h6>
-                        <p>". $vuelo['tipo'] ."</p>
-                        <p>Fecha:". $vuelo['fecha'] ."</p>
-                        <p class='w3-large'><i class='fa fa-bath'></i> <i class='fa fa-phone'></i> <i class='fa fa-wifi'></i></p>
-                <!--   <button class='w3-button w3-block w3-black w3-margin-bottom'>Elegir Habitacion</button>-->
-                    </div>
-                </div>";
-    }
-?>
+        </div>
+        <div class='w3-row'>
+            <?php
+                foreach ( $vuelos as $vuelo){
+                    echo   "<div class='w3-third w3-section w3-border w3-white' style='margin: 1% 1%; width: 31%; padding: 1%'>
+                                    <h3>". $vuelo['origen'] ." -> ".$vuelo['destino'] ."</h3>
+                                    <h6 class='w3-opacity'>Desde $9.999</h6>
+                                    <p>". $vuelo['tipo'] ."</p>
+                                    <p>Fecha:". $vuelo['fecha'] ."</p>";
+                                if(isset($_SESSION["logueado"])){
+                                    echo "<button class='w3-button w3-block w3-black w3-auto'>Reservar</button>";
+                                }
+                    echo    "</div>";
+                                
+                }
+            ?>
+        </div>
     </div>
 
 
@@ -98,6 +96,4 @@
             <p><button class="w3-button w3-black w3-padding-large" type="submit">Enviar Mensaje</button></p>
         </form>
     </div>
-</div>
-</body>
-</html>
+
