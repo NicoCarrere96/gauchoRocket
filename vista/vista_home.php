@@ -84,16 +84,21 @@
 
 
     <div class="w3-container" id="contacto">
-        <h2>Contactese</h2>
-        <p>Si tiene alguna consulta, no dude en contactarse.</p>
-        <i class="fa fa-map-marker w3-text-red" style="width:30px"></i> Moron, Bs.As.<br>
-        <i class="fa fa-phone w3-text-red" style="width:30px"></i> Telefono 4468-2039<br>
-        <i class="fa fa-envelope w3-text-red" style="width:30px"> </i> Email: gauchorocket@mail.com<br>
-        <form action="/contacto.php" target="_blank">
-            <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Nombre" required name="Name"></p>
-            <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Email" required name="Email"></p>
-            <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Mensaje" required name="Mensaje"></p>
-            <p><button class="w3-button w3-black w3-padding-large" type="submit">Enviar Mensaje</button></p>
-        </form>
+        <button onclick="mostrarInfo('contactoForm')" class="w3-btn w3-block w3-black w3-left-align"><h4>Contacto</h4></button>
+        <div id="contactoForm" class="w3-container w3-hide">
+            
+            <p>Si tiene alguna consulta, no dude en contactarse.</p>
+            
+            <i class="fa fa-map-marker w3-text-red" style="width:30px"></i> Moron, Bs.As.<br>
+            <i class="fa fa-phone w3-text-red" style="width:30px"></i> Telefono 4468-2039<br>
+            <i class="fa fa-envelope w3-text-red" style="width:30px"> </i> Email: gauchorocket@mail.com<br>
+            
+            <form action="/contacto.php" target="_blank">
+                <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Nombre" required name="Name"></p>
+                <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Email" required name="Email"></p>
+                <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Mensaje" required name="Mensaje"></p>
+                <p><button class="w3-button w3-black w3-padding-large" type="submit">Enviar Mensaje</button></p>
+            </form>
+        </div>
     </div>
 
