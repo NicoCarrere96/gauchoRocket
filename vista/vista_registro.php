@@ -1,6 +1,6 @@
 <br>
 <div class="page-header w3-text-white" style="background-image: url('public/img/fondo4.jpg'); background-size: cover ">
-    <h1 class="text-center" style="padding-top: 10px;">Registrese en Gaucho Rocket<img src="img/rocket.png" height="50px"></h1>
+    <h1 class="text-center" style="padding-top: 10px;">Registrese en Gaucho Rocket<img src="public/img/rocket.png" height="50px"></h1>
 </div>
 
 <div class="container-fluid">
