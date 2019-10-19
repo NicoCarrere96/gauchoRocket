@@ -1,5 +1,6 @@
-<div class="page-header" style="background-color: lightgrey;">
-    <h1 class="text-center" style="padding-top: 10px;">Registrese en Gaucho Rocket</h1>
+<br>
+<div class="page-header w3-text-white" style="background-image: url('public/img/fondo4.jpg'); background-size: cover ">
+    <h1 class="text-center" style="padding-top: 10px;">Registrese en Gaucho Rocket<img src="img/rocket.png" height="50px"></h1>
 </div>
 
 <div class="container-fluid">
@@ -36,7 +37,7 @@
                 <div class="form-group">        
                   <input type="password" class="form-control input-lg" name="rpt-password" placeholder="Repetir Contrase&ntilde;a" required>       
                 </div>                      
-                  <button type="submit" name="btn-registro" class="btn btn-success btn-block">Registrarse</button>
+                  <button type="submit" name="btn-registro" class="btn btn-block w3-deep-orange">Registrarse</button>
               </form>
                 </div>
               </div>

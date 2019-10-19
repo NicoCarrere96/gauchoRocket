@@ -14,3 +14,12 @@ p {
     margin-top: 20px;
     margin-bottom: 10px;
 }
+
+.bgg    {
+    background-image: url("public/img/fondo2.jpg");
+}
+
+a:link
+{
+    text-decoration:none;
+}

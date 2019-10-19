@@ -1,4 +1,6 @@
-
+   <br>
+    <div style="background-image: url('public/img/fondo7.jpg'); background-size: cover ">
+        <br>
     <div class="w3-padding w3-margin">
         <div class="w3-container w3-deep-orange w3-round">
             <h2><i class="fa fa-rocket w3-margin-right"></i>Buscador de Vuelos</h2>
@@ -80,6 +82,7 @@
                 }
             ?>
         </div>
+    </div>
     </div>
 
 
