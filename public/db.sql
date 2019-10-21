@@ -149,7 +149,6 @@ ALTER TABLE `tipo_vuelo`
 --
 ALTER TABLE `usuario`
   ADD UNIQUE KEY `nick` (`nick`),
-  ADD PRIMARY KEY (`dni`),
   ADD KEY `dni` (`dni`);
 
 --
@@ -176,8 +175,8 @@ ALTER TABLE `vuelo`
 --
 -- Constraints for table `persona`
 --
-ALTER TABLE `usuario`
-  ADD CONSTRAINT `persona_ibfk_1` FOREIGN KEY (`usuario.dni`) REFERENCES `persona` (`persona.dni`);
+ALTER TABLE `persona`
+  ADD CONSTRAINT `persona_ibfk_1` FOREIGN KEY (`dni`) REFERENCES `usuario` (`dni`);
 
 --
 -- Constraints for table `vuelo`

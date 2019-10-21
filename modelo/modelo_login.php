@@ -20,11 +20,16 @@ function validarLogin($usuario, $password){
             $_SESSION["logueado"] = TRUE;
             header("location: home");
         } else {
+
             echo "<div class='w3-container w3-content w3-center' >Falta confirmar su cuenta</div>";
         }
     
     } else {
-        echo "<div class='w3-container w3-margin-top w3-padding-16 w3-content w3-center' >Mail o contrase&ntilde;a incorrectos</div>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<div class='w3-center' >Mail o contrase&ntilde;a incorrectos</div>";
         agregarLog("$usuario intento ingresar al sistema");
     }
 }
