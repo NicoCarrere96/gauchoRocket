@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Oct 15, 2019 at 01:26 AM
+-- Generation Time: Oct 17, 2019 at 02:00 AM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.8
 
@@ -13,6 +13,32 @@ SET time_zone = "+00:00";
 --
 -- Database: `gauchorocket`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `confirmación`
+--
+
+CREATE TABLE `confirmación` (
+  `hash` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `persona`
+--
+
+CREATE TABLE `persona` (
+  `nombre` varchar(30) NOT NULL,
+  `apellido` varchar(30) NOT NULL,
+  `fecha_nac` date NOT NULL,
+  `dni` bigint(20) NOT NULL,
+  `direccion` varchar(30) NOT NULL,
+  `tipo_pasajero` tinyint(4) NOT NULL,
+  `mail` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -34,17 +60,29 @@ INSERT INTO `tipo_vuelo` (`id`, `descripcion`) VALUES
 (2, 'entredestinos'),
 (3, 'tour');
 
---
--- Indexes for dumped tables
---
+-- --------------------------------------------------------
 
 --
--- Indexes for table `tipo_vuelo`
+-- Table structure for table `usuario`
 --
-ALTER TABLE `tipo_vuelo`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id` (`id`);
 
+CREATE TABLE `usuario` (
+  `nick` varchar(40) NOT NULL,
+  `password` varchar(40) NOT NULL,
+  `rol` varchar(15) NOT NULL,
+  `dni` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `usuario`
+--
+
+INSERT INTO `usuario` (`nick`, `password`, `rol`, `dni`) VALUES
+('gaucho', '827ccb0eea8a706c4c34a16891f84e7b', '2', 1111111111),
+('qwerty', '81dc9bdb52d04dc20036dbd8313ed055', '2', 1122334455),
+('xxxxx', '81dc9bdb52d04dc20036dbd8313ed055', '2', 2233445566);
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `vuelo`
@@ -93,6 +131,27 @@ INSERT INTO `vuelo` (`id`, `fecha`, `origen`, `destino`, `tipo`, `cant_pasaj`) V
 --
 
 --
+-- Indexes for table `persona`
+--
+ALTER TABLE `persona`
+  ADD PRIMARY KEY (`dni`),
+  ADD KEY `dni` (`dni`);
+
+--
+-- Indexes for table `tipo_vuelo`
+--
+ALTER TABLE `tipo_vuelo`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id` (`id`);
+
+--
+-- Indexes for table `usuario`
+--
+ALTER TABLE `usuario`
+  ADD UNIQUE KEY `nick` (`nick`),
+  ADD KEY `dni` (`dni`);
+
+--
 -- Indexes for table `vuelo`
 --
 ALTER TABLE `vuelo`
@@ -112,6 +171,12 @@ ALTER TABLE `vuelo`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `persona`
+--
+ALTER TABLE `persona`
+  ADD CONSTRAINT `persona_ibfk_1` FOREIGN KEY (`dni`) REFERENCES `usuario` (`dni`);
 
 --
 -- Constraints for table `vuelo`

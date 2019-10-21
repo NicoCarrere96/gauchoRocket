@@ -6,7 +6,7 @@ function validarLogin($usuario, $password){
 
     $conn = getConexion();
 
-    $sql = "SELECT * FROM usuario WHERE email ='".$usuario."' AND password='".md5($password)."'"; 
+    $sql = "SELECT * FROM usuario WHERE nick ='".$usuario."' AND password='".md5($password)."'"; 
     $consulta = mysqli_query ($conn,$sql);    
     
     if($user = mysqli_fetch_assoc($consulta)) {
@@ -18,13 +18,18 @@ function validarLogin($usuario, $password){
         if($userConfirm["hash"] != md5($usuario)){
             session_start();
             $_SESSION["logueado"] = TRUE;
-            header("location: buscador");
+            header("location: home");
         } else {
+
             echo "<div class='w3-container w3-content w3-center' >Falta confirmar su cuenta</div>";
         }
     
     } else {
-        echo "<div class='w3-container w3-content w3-center' >Mail o contrase&ntilde;a incorrectos</div>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<div class='w3-center' >Mail o contrase&ntilde;a incorrectos</div>";
         agregarLog("$usuario intento ingresar al sistema");
     }
 }
