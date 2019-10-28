@@ -2,11 +2,11 @@
 include_once("helpers/conexion.php");
 include_once("helpers/logger.php");
 
-function registrar($email, $password, $nombre, $apellido){
+function registrar($nick, $email, $password, $nombre, $apellido, $dni, $direccion, $fecha_nac){
     
     $db_conexion = getConexion();
     
-    $query = "SELECT * FROM usuario WHERE email = '".$email."'";
+    $query = "SELECT * FROM usuario WHERE nick = '".$nick."'";
     $resultado = mysqli_query($db_conexion, $query);
 
 
@@ -15,24 +15,27 @@ function registrar($email, $password, $nombre, $apellido){
         header('Location: error.php');
 
     } else {
-        
-    $insertar_valor = "INSERT INTO usuario (nombre , apellido , email, password, rol) VALUES ('" . $nombre . "', '" . $apellido . "', '" . $email . "', '" .md5($password). "', 2)";
-    $registro = mysqli_query($db_conexion,$insertar_valor );
+        $insertar_valor = "INSERT INTO usuario (nick, password, rol, dni) VALUES ('" . $nick . "', '" .md5($password). "',2,'".$dni."')";
+        $registro_usuario = mysqli_query($db_conexion,$insertar_valor );
+        $insertar_persona = "INSERT INTO persona (nombre, apellido, dni, direccion, fecha_nac, mail, tipo_pasajero) 
+                         VALUES ('". $nombre ."','". $apellido ."','". $dni ."', '". $direccion ."','" . $fecha_nac ."','". $email ."', 0)";
+        $registro_persona = mysqli_query($db_conexion,$insertar_persona );
+
       
-    $guardarHash = "INSERT INTO confirmacion (hash) VALUES ('". md5($email) ."')";
+    $guardarHash = "INSERT INTO confirmacion (hash) VALUES ('". md5($nick) ."')";
     $confirmacion = mysqli_query($db_conexion, $guardarHash);
 
     /* enviarMailConfirmacion(md5($email), $email); */
 
     header('Location: login?registro=correcto');
-    agregarLog("Se registro $nombre $apellido ($email)");
+    agregarLog("Se registro $nombre $apellido ($nick)");
     }
 
     mysqli_close($db_conexion);
 
 }
 
-function enviarMailConfirmacion($hash, $email){
+function enviarMailConfirmacion($hash, $nick){
     $subject = "Confirmar usuario";
     $body = "<div>
                 <p>Haga click en el siguiente boton para confirmar su cuenta</p>
@@ -52,5 +55,5 @@ function enviarMailConfirmacion($hash, $email){
     //ruta del mensaje desde origen a destino 
     $headers .= "Return-path: holahola@desarrolloweb.com\r\n"; 
     
-    mail($email, $subject, $body, $headers);
+    mail($nick, $subject, $body, $headers);
 }

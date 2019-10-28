@@ -3,21 +3,36 @@
 <title>Gaucho Rocket</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="public/css/w4.css">
 <link rel="stylesheet" href="public/css/w3.css">
 <link rel="stylesheet" href="public/css/bootstrap.min.css" >
 <link rel="stylesheet" href="public/css/custom.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+    body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
+</style>
 <body>
-
 <!-- Navbar -->
 <div class="w3-top">
     <div class="w3-bar w3-black w3-card">
-        <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-        <a href="/GauchoRocket/login" class="w3-bar-item w3-button w3-padding-large">Login</a>
+<!--    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>-->        
+        <span class="w3-bar-item w3-white w3-padding-large"><img src="public/img/rocket.png" height="15px">GauchoRocket</span>
+        <a href="/GauchoRocket/home" style="text-decoration:none" class="w3-bar-item w3-button w3-padding-large">Buscador de Vuelos</a>
+        <?php
+            session_start(); 
+            if(isset($_SESSION["logueado"])){
+
+                echo "<a href='/GauchoRocket/login?logout=1' style=\"text-decoration:none\" class='w3-bar-item w3-text-white w3-padding-large w3-display-right'>Cerrar Sesion</a>";
+            } else {
+                echo "<a href='/GauchoRocket/login' style=\"text-decoration:none\" class='w3-bar-item w3-button w3-padding-large w3-display-right w3-margin-right'>Login</a>";
+            }
+        ?>
     </div>
 </div>
 
+<div class="w3-container-fluid">
 <!-- Page content -->
-<div class="w3-content" style="max-width:2000px;margin-top:46px">
 
