@@ -25,12 +25,12 @@ function reserva_index(){
             $pasajero['nombre'] = $_POST["nombre-pasajero-$i"];
             $pasajero['apellido'] = $_POST["apellido-pasajero-$i"];
             $pasajero['direccion'] = $_POST["direccion-pasajero-$i"];
-            $pasajero['email'] = $_POST["email-pasajero-$i"];
+            $pasajero['mail'] = $_POST["email-pasajero-$i"];
             $pasajero['dni'] = $_POST["dni-pasajero-$i"];
             $pasajero['fecha_nac'] = $_POST["fecha_nac-pasajero-$i"];
             $pasajeros[] = $pasajero;
         }
 
-        generarReserva($id_vuelo, $cantidad, $pasajeros, $tipo_cabina);
+        generarReserva($id_vuelo, $pasajeros, $tipo_cabina);
     }
 }
