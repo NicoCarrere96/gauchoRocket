@@ -20,11 +20,11 @@ include_once("public/footer.php");
 
 function parseRoutes(){
     $urlAndParams = explode('?', $_SERVER['REQUEST_URI']);
-    return explode('GauchoRocket/', $urlAndParams[0]);
+    return explode('gauchoRocket/', $urlAndParams[0]);
 }
 
 function extractModuleName($routes){
-    return !empty($routes[1]) ? $routes[1] : "login";
+    return !empty($routes[1]) ? $routes[1] : "home";
 }
 
 function extractActionName($routes){

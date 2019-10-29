@@ -27,7 +27,3 @@ function home_index(){
     $tipos_vuelo = getTipos();
     include("vista/vista_home.php");
 }
-
-if(isset($_POST["btn-reservar"])){
-    $cantidad = $_POST["cantidad"];
-}

@@ -1,23 +1,31 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Oct 17, 2019 at 02:00 AM
--- Server version: 5.7.26
--- PHP Version: 7.3.8
+-- Servidor: localhost
+-- Tiempo de generación: 29-10-2019 a las 01:49:53
+-- Versión del servidor: 10.1.37-MariaDB
+-- Versión de PHP: 7.3.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
 --
--- Database: `gauchorocket`
+-- Base de datos: `gauchorocket`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `confirmación`
+-- Estructura de tabla para la tabla `confirmación`
 --
 
 CREATE TABLE `confirmación` (
@@ -27,7 +35,7 @@ CREATE TABLE `confirmación` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `persona`
+-- Estructura de tabla para la tabla `persona`
 --
 
 CREATE TABLE `persona` (
@@ -40,22 +48,44 @@ CREATE TABLE `persona` (
   `mail` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `persona`
+--
+
+INSERT INTO `persona` (`nombre`, `apellido`, `fecha_nac`, `dni`, `direccion`, `tipo_pasajero`, `mail`) VALUES
+('admin', 'admin', '1970-12-31', 11122333, 'varela 223', 0, 'admin@test.com');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tipo_vuelo`
+-- Estructura de tabla para la tabla `reserva`
+--
+
+CREATE TABLE `reserva` (
+  `id_reserva` bigint(20) NOT NULL,
+  `dni_pasajero` bigint(20) NOT NULL,
+  `cod_reserva` varchar(50) NOT NULL,
+  `id_vuelo` int(11) NOT NULL,
+  `tipo_cabina` bigint(20) NOT NULL,
+  `pagado` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipo_vuelo`
 --
 
 CREATE TABLE `tipo_vuelo` (
-  `id` tinyint(4) NOT NULL,
+  `id_tipo_vuelo` tinyint(4) NOT NULL,
   `descripcion` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `tipo_vuelo`
+-- Volcado de datos para la tabla `tipo_vuelo`
 --
 
-INSERT INTO `tipo_vuelo` (`id`, `descripcion`) VALUES
+INSERT INTO `tipo_vuelo` (`id_tipo_vuelo`, `descripcion`) VALUES
 (1, 'suborbital'),
 (2, 'entredestinos'),
 (3, 'tour');
@@ -63,7 +93,7 @@ INSERT INTO `tipo_vuelo` (`id`, `descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuario`
+-- Estructura de tabla para la tabla `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -74,22 +104,20 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `usuario`
+-- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`nick`, `password`, `rol`, `dni`) VALUES
-('gaucho', '827ccb0eea8a706c4c34a16891f84e7b', '2', 1111111111),
-('qwerty', '81dc9bdb52d04dc20036dbd8313ed055', '2', 1122334455),
-('xxxxx', '81dc9bdb52d04dc20036dbd8313ed055', '2', 2233445566);
+('admin', '81dc9bdb52d04dc20036dbd8313ed055', '2', 11122333);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `vuelo`
+-- Estructura de tabla para la tabla `vuelo`
 --
 
 CREATE TABLE `vuelo` (
-  `id` int(11) NOT NULL,
+  `id_vuelo` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `origen` varchar(50) NOT NULL,
   `destino` varchar(50) NOT NULL,
@@ -98,10 +126,10 @@ CREATE TABLE `vuelo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `vuelo`
+-- Volcado de datos para la tabla `vuelo`
 --
 
-INSERT INTO `vuelo` (`id`, `fecha`, `origen`, `destino`, `tipo`, `cant_pasaj`) VALUES
+INSERT INTO `vuelo` (`id_vuelo`, `fecha`, `origen`, `destino`, `tipo`, `cant_pasaj`) VALUES
 (1, '2019-10-20', 'Marte', 'Luna', 2, 40),
 (2, '2019-10-21', 'Buenos Aires', 'Ankara', 1, 100),
 (3, '2019-10-21', 'Buenos Aires', 'EEI', 1, 100),
@@ -127,59 +155,86 @@ INSERT INTO `vuelo` (`id`, `fecha`, `origen`, `destino`, `tipo`, `cant_pasaj`) V
 (23, '2019-10-16', 'Buenos Aires', 'OrbitalHotel', 1, 200);
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `persona`
+-- Indices de la tabla `persona`
 --
 ALTER TABLE `persona`
   ADD PRIMARY KEY (`dni`),
   ADD KEY `dni` (`dni`);
 
 --
--- Indexes for table `tipo_vuelo`
+-- Indices de la tabla `reserva`
+--
+ALTER TABLE `reserva`
+  ADD PRIMARY KEY (`id_reserva`),
+  ADD KEY `dni_pasajero` (`dni_pasajero`),
+  ADD KEY `id_vuelo` (`id_vuelo`);
+
+--
+-- Indices de la tabla `tipo_vuelo`
 --
 ALTER TABLE `tipo_vuelo`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id` (`id`);
+  ADD PRIMARY KEY (`id_tipo_vuelo`),
+  ADD KEY `id` (`id_tipo_vuelo`);
 
 --
--- Indexes for table `usuario`
+-- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`nick`,`dni`),
   ADD UNIQUE KEY `nick` (`nick`),
-  ADD KEY `dni` (`dni`);
+  ADD UNIQUE KEY `dni` (`dni`) USING BTREE;
 
 --
--- Indexes for table `vuelo`
+-- Indices de la tabla `vuelo`
 --
 ALTER TABLE `vuelo`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`id_vuelo`),
   ADD KEY `tipo` (`tipo`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `vuelo`
+-- AUTO_INCREMENT de la tabla `reserva`
+--
+ALTER TABLE `reserva`
+  MODIFY `id_reserva` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `vuelo`
 --
 ALTER TABLE `vuelo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_vuelo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `persona`
+-- Filtros para la tabla `reserva`
 --
-ALTER TABLE `persona`
-  ADD CONSTRAINT `persona_ibfk_1` FOREIGN KEY (`dni`) REFERENCES `usuario` (`dni`);
+ALTER TABLE `reserva`
+  ADD CONSTRAINT `reserva_ibfk_1` FOREIGN KEY (`dni_pasajero`) REFERENCES `persona` (`dni`),
+  ADD CONSTRAINT `reserva_ibfk_2` FOREIGN KEY (`id_vuelo`) REFERENCES `vuelo` (`id_vuelo`);
 
 --
--- Constraints for table `vuelo`
+-- Filtros para la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`dni`) REFERENCES `persona` (`dni`);
+
+--
+-- Filtros para la tabla `vuelo`
 --
 ALTER TABLE `vuelo`
-  ADD CONSTRAINT `vuelo_ibfk_1` FOREIGN KEY (`tipo`) REFERENCES `tipo_vuelo` (`id`);
+  ADD CONSTRAINT `vuelo_ibfk_1` FOREIGN KEY (`tipo`) REFERENCES `tipo_vuelo` (`id_tipo_vuelo`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

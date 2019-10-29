@@ -7,8 +7,8 @@ function mostrarInfo(id) {
     }
   }
 
-  function abrirModal(modal) {
-    let popUp = document.getElementById(modal);
-    popUp.style.display='block';
+function abrirModalReserva(idVuelo){
+    document.getElementById('id_vuelo').value = idVuelo;
+    document.getElementById('cantidad_pasajeros').style.display='block'
 
-  }
+}

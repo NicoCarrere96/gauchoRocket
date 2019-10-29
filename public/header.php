@@ -18,16 +18,15 @@
 <!-- Navbar -->
 <div class="w3-top">
     <div class="w3-bar w3-black w3-card">
-<!--    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>-->        
         <span class="w3-bar-item w3-white w3-padding-large"><img src="public/img/rocket.png" height="15px">GauchoRocket</span>
-        <a href="/GauchoRocket/home" style="text-decoration:none" class="w3-bar-item w3-button w3-padding-large">Buscador de Vuelos</a>
+        <a href="/gauchoRocket/home" style="text-decoration:none" class="w3-bar-item w3-button w3-padding-large">Home</a>
         <?php
             session_start(); 
             if(isset($_SESSION["logueado"])){
 
-                echo "<a href='/GauchoRocket/login?logout=1' style=\"text-decoration:none\" class='w3-bar-item w3-text-white w3-padding-large w3-display-right'>Cerrar Sesion</a>";
+                echo "<a href='/gauchoRocket/login?logout=1' style=\"text-decoration:none\" class='w3-bar-item w3-text-white w3-padding-large w3-display-right'>Cerrar Sesion</a>";
             } else {
-                echo "<a href='/GauchoRocket/login' style=\"text-decoration:none\" class='w3-bar-item w3-button w3-padding-large w3-display-right w3-margin-right'>Login</a>";
+                echo "<a href='/gauchoRocket/login' style=\"text-decoration:none\" class='w3-bar-item w3-button w3-padding-large w3-display-right w3-margin-right'>Login</a>";
             }
         ?>
     </div>

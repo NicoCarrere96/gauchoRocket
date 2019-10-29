@@ -6,10 +6,9 @@
     <div class="w3-container w3-margin-left w3-margin-bottom">
 
         <div class="col-xs-12 nopadding">
-            <form action="gauchorocket/reserva" method="post">
+            <form action="/gauchoRocket/reserva" method="post">
             <?php
-            $cantidad = $_POST['cantidad'];
-            for ( $i = 1; $i<$cantidad; $i++){
+            for ( $i = 1; $i <= $cantidad; $i++){
                 echo "
             <div class='container nopadding'>
             <div class='col-xs-12' id='passenger-".$i."'>
@@ -55,11 +54,26 @@
                 </div>
                 ";}
                 ?>
-                <p><button class="w3-button w3-black w3-animate-zoom botonReserva" type="submit">Confirmar Reserva</button></p>
-            </form>
+                <br>
+                <div>
+                    <label for="tipo_cabina">Seleccione Tipo de Cabina</label>
+                    <select class="w3-select" name="tipo_cabina" id="tipo_cabina">
+                        <option value="suite">Suite</option>
+                        <option value="general">General</option>
+                        <option value="familiar">Familiar</option>
+                    </select>
+                </div>
 
-            </div>
-            </div>
+                <input type="hidden" name="id_vuelo" value="<?=$id_vuelo ?>">
+                <input type="hidden" name="cantidad_pasajeros" value="<?=$cantidad ?>">
+                <br>
+                <div>
+                    <button class="w3-button w3-black w3-animate-zoom" type="submit" name="btn-reservar">Confirmar Reserva</button>
+                </div>
+            </form>
+            
+        </div>
+</div>
 
 
 
