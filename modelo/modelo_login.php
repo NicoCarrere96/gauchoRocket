@@ -12,7 +12,9 @@ function validarLogin($usuario, $password){
     
     mysqli_stmt_bind_param($stmt, "ss", $usuario, $passmd5);
 
+
     mysqli_stmt_execute($stmt);
+
     
     if($user = mysqli_stmt_fetch($stmt)) {
         

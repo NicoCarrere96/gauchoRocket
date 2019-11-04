@@ -9,8 +9,7 @@
 <link rel="stylesheet" href="public/css/w3.css">
 <link rel="stylesheet" href="public/css/bootstrap.min.css" >
 <link rel="stylesheet" href="public/css/custom.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <style>
     body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 </style>
@@ -20,13 +19,14 @@
     <div class="w3-bar w3-black w3-card">
         <span class="w3-bar-item w3-white w3-padding-large"><img src="public/img/rocket.png" height="15px">GauchoRocket</span>
         <a href="/gauchoRocket/home" style="text-decoration:none" class="w3-bar-item w3-button w3-padding-large">Home</a>
+
         <?php
             session_start(); 
             if(isset($_SESSION["logueado"])){
-
                 echo "<a href='/gauchoRocket/login?logout=1' style=\"text-decoration:none\" class='w3-bar-item w3-text-white w3-padding-large w3-display-right'>Cerrar Sesion</a>";
             } else {
                 echo "<a href='/gauchoRocket/login' style=\"text-decoration:none\" class='w3-bar-item w3-button w3-padding-large w3-display-right w3-margin-right'>Login</a>";
+
             }
         ?>
     </div>

@@ -16,11 +16,12 @@ function registrar($nick, $email, $password, $nombre, $apellido, $dni, $direccio
 
     } else {
         $insertar_persona = "INSERT INTO persona (nombre, apellido, dni, direccion, fecha_nac, mail, tipo_pasajero) 
-                         VALUES ('". $nombre ."','". $apellido ."','". $dni ."', '". $direccion ."','" . $fecha_nac ."','". $email ."', 0)";
+            VALUES ('". $nombre ."','". $apellido ."','". $dni ."', '". $direccion ."','" . $fecha_nac ."','". $email ."', 0)";
         $registro_persona = mysqli_query($db_conexion,$insertar_persona );
         
         $insertar_valor = "INSERT INTO usuario (nick, password, rol, dni) VALUES ('" . $nick . "', '" .md5($password). "',2,'".$dni."')";
         $registro_usuario = mysqli_query($db_conexion,$insertar_valor );
+
 
       
     $guardarHash = "INSERT INTO confirmacion (hash) VALUES ('". md5($nick) ."')";
@@ -28,7 +29,7 @@ function registrar($nick, $email, $password, $nombre, $apellido, $dni, $direccio
 
     /* enviarMailConfirmacion(md5($email), $email); */
 
-    //header('Location: login?registro=correcto');
+    header('Location: login?registro=correcto');
     agregarLog("Se registro $nombre $apellido ($nick)");
     }
 

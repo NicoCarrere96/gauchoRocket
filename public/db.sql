@@ -3,7 +3,6 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Oct 29, 2019 at 09:18 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.8
 
@@ -36,7 +35,7 @@ CREATE TABLE `persona` (
   `fecha_nac` date NOT NULL,
   `dni` bigint(20) NOT NULL,
   `direccion` varchar(30) NOT NULL,
-  `tipo_pasajero` tinyint(4) NOT NULL DEFAULT '1',
+  `tipo_pasajero` tinyint(4) NOT NULL DEFAULT '0',
   `mail` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -78,6 +77,7 @@ INSERT INTO `reserva` (`id_reserva`, `dni_pasajero`, `cod_reserva`, `id_vuelo`, 
 (11, 12121212, '58', 3, 'suite', 0),
 (12, 13131313, '58', 3, 'suite', 0);
 
+
 -- --------------------------------------------------------
 
 --
@@ -117,6 +117,7 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`nick`, `password`, `rol`, `dni`) VALUES
 ('admin', '81dc9bdb52d04dc20036dbd8313ed055', '2', 11122333);
+
 
 -- --------------------------------------------------------
 
@@ -188,6 +189,7 @@ ALTER TABLE `tipo_vuelo`
   ADD PRIMARY KEY (`id_tipo_vuelo`),
   ADD KEY `id` (`id_tipo_vuelo`);
 
+
 --
 -- Indexes for table `usuario`
 --
@@ -195,6 +197,7 @@ ALTER TABLE `usuario`
   ADD PRIMARY KEY (`nick`,`dni`),
   ADD UNIQUE KEY `nick` (`nick`),
   ADD UNIQUE KEY `dni` (`dni`) USING BTREE;
+
 
 --
 -- Indexes for table `vuelo`
@@ -219,6 +222,7 @@ ALTER TABLE `reserva`
 ALTER TABLE `vuelo`
   MODIFY `id_vuelo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
+
 --
 -- Constraints for dumped tables
 --
@@ -236,8 +240,10 @@ ALTER TABLE `reserva`
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`dni`) REFERENCES `persona` (`dni`);
 
+
 --
 -- Constraints for table `vuelo`
 --
 ALTER TABLE `vuelo`
   ADD CONSTRAINT `vuelo_ibfk_1` FOREIGN KEY (`tipo`) REFERENCES `tipo_vuelo` (`id_tipo_vuelo`);
+

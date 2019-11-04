@@ -1,5 +1,6 @@
 function mostrarInfo(id) {
     let x = document.getElementById(id);
+
     if (x.className.indexOf("w3-show") == -1) {
       x.className += " w3-show";
     } else { 
@@ -12,3 +13,4 @@ function abrirModalReserva(idVuelo){
     document.getElementById('cantidad_pasajeros').style.display='block'
 
 }
+
