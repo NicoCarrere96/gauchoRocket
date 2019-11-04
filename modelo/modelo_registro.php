@@ -15,11 +15,13 @@ function registrar($nick, $email, $password, $nombre, $apellido, $dni, $direccio
         header('Location: error.php');
 
     } else {
+        $insertar_persona = "INSERT INTO persona (nombre, apellido, dni, direccion, fecha_nac, mail, tipo_pasajero) 
+            VALUES ('". $nombre ."','". $apellido ."','". $dni ."', '". $direccion ."','" . $fecha_nac ."','". $email ."', 0)";
+        $registro_persona = mysqli_query($db_conexion,$insertar_persona );
+        
         $insertar_valor = "INSERT INTO usuario (nick, password, rol, dni) VALUES ('" . $nick . "', '" .md5($password). "',2,'".$dni."')";
         $registro_usuario = mysqli_query($db_conexion,$insertar_valor );
-        $insertar_persona = "INSERT INTO persona (nombre, apellido, dni, direccion, fecha_nac, mail, tipo_pasajero) 
-                         VALUES ('". $nombre ."','". $apellido ."','". $dni ."', '". $direccion ."','" . $fecha_nac ."','". $email ."', 0)";
-        $registro_persona = mysqli_query($db_conexion,$insertar_persona );
+
 
       
     $guardarHash = "INSERT INTO confirmacion (hash) VALUES ('". md5($nick) ."')";
@@ -39,9 +41,9 @@ function enviarMailConfirmacion($hash, $nick){
     $subject = "Confirmar usuario";
     $body = "<div>
                 <p>Haga click en el siguiente boton para confirmar su cuenta</p>
-                <a href='localhost/GauchoRocket/confirmar?hash=$hash'> <button>Confirmar cuenta</button></a>
+                <a href='localhost/gauchoRocket/confirmar?hash=$hash'> <button>Confirmar cuenta</button></a>
                 <br>
-                <p>En caso de no poder ingresar, <a href='localhost/GauchoRocket/confirmar?hash=$hash'>localhost/GauchoRocket/confirmar?hash=$hash</a></p>
+                <p>En caso de no poder ingresar, <a href='localhost/gauchoRocket/confirmar?hash=$hash'>localhost/gauchoRocket/confirmar?hash=$hash</a></p>
                 <p>Se ruega no contestar este mail</p>
                 </div>";
     

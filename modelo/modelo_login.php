@@ -3,26 +3,47 @@ include("helpers/conexion.php");
 include("helpers/logger.php");
 
 function validarLogin($usuario, $password){
-
-    $conn = getConexion();
-
-    $sql = "SELECT * FROM usuario WHERE nick ='".$usuario."' AND password='".md5($password)."'"; 
-    $consulta = mysqli_query ($conn,$sql);    
+    $passmd5 = md5($password);
     
-    if($user = mysqli_fetch_assoc($consulta)) {
-        
-        $confirmado = "SELECT * FROM confirmacion WHERE hash ='".md5($usuario)."'"; 
-        $confirmacion = mysqli_query ($conn,$sql);
-        $userConfirm = mysqli_fetch_assoc($consulta);
+    $conn = getConexion();
+    
+    $sql = "SELECT * FROM usuario WHERE nick = ? AND password = ?"; 
+    $stmt = mysqli_prepare ($conn,$sql);    
+    
+    mysqli_stmt_bind_param($stmt, "ss", $usuario, $passmd5);
 
-        if($userConfirm["hash"] != md5($usuario)){
-            session_start();
+
+    mysqli_stmt_execute($stmt);
+
+    
+    if($user = mysqli_stmt_fetch($stmt)) {
+        
+        mysqli_close($conn);
+        
+        $otraConn = getConexion();
+        $hashConfirmacion = md5($usuario);
+
+        $consulta = "SELECT * FROM confirmacion WHERE hash = ?"; 
+        
+        $stmt_confirmacion = mysqli_prepare ($otraConn,$consulta);
+        
+
+        mysqli_stmt_bind_param($stmt_confirmacion, "s", $hashConfirmacion);
+        
+        mysqli_stmt_execute($stmt_confirmacion);
+
+        if($result = mysqli_stmt_fetch($stmt_confirmacion)){
+            echo "<br>";
+            echo "<br>";
+            echo "<br>";
+            echo "<br>";
+            echo "<div class='w3-container w3-content w3-center' >Falta confirmar su cuenta</div>";
+        } else {
             $_SESSION["logueado"] = TRUE;
             header("location: home");
-        } else {
-
-            echo "<div class='w3-container w3-content w3-center' >Falta confirmar su cuenta</div>";
+            
         }
+        mysqli_close($otraConn);
     
     } else {
         echo "<br>";
@@ -32,4 +53,5 @@ function validarLogin($usuario, $password){
         echo "<div class='w3-center' >Mail o contrase&ntilde;a incorrectos</div>";
         agregarLog("$usuario intento ingresar al sistema");
     }
+
 }

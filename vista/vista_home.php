@@ -1,18 +1,21 @@
    <br>
-    <div style="background-image: url('public/img/fondo7.jpg'); background-size: cover ">
+<div style="background-image: url('public/img/fondo7.jpg'); background-size: cover ">
+
         <br>
     <div class="w3-padding w3-margin">
         <div class="w3-container w3-deep-orange w3-round">
             <h2><i class="fa fa-rocket w3-margin-right"></i>Buscador de Vuelos</h2>
         </div>
         <div class="w3-container w3-white">
-            <form action="/GauchoRocket/home" method="post">
+            <form action="/gauchoRocket/home" method="post">
+
                 <div class="w3-row-padding w3-margin">
 
                     <label>Seleccione tipo de vuelo</label>
                     <?php
                         foreach( $tipos_vuelo as $tipo_vuelo){
-                            echo "<input class='w3-radio w3-margin' type='radio' name='tipo' value='". $tipo_vuelo["id"] ."' checked>
+                            echo "<input class='w3-radio w3-margin' type='radio' name='tipo' value='". $tipo_vuelo["id_tipo_vuelo"] ."' checked>
+
                             <label>". $tipo_vuelo["descripcion"] ."</label>";
 
                         }
@@ -75,7 +78,8 @@
                                     <p>". $vuelo['tipo'] ."</p>
                                     <p>Fecha:". $vuelo['fecha'] ."</p>";
                                 if(isset($_SESSION["logueado"])){
-                                    echo "<button class='w3-button w3-block w3-black w3-auto'>Reservar</button>";
+                                    echo "<button onclick='abrirModalReserva(". $vuelo['id_vuelo'] .")' class='w3-button w3-block w3-black w3-auto'>Reservar</button>";
+
                                 }
                     echo    "</div>";
                                 
@@ -83,7 +87,8 @@
             ?>
         </div>
     </div>
-    </div>
+</div>
+
 
 
     <div class="w3-container" id="contacto">
@@ -103,5 +108,21 @@
                 <p><button class="w3-button w3-black w3-padding-large" type="submit">Enviar Mensaje</button></p>
             </form>
         </div>
+    </div>  
+    <div id="cantidad_pasajeros" class="w3-modal">
+        <div class="w3-modal-content">
+                <header class="w3-container w3-deep-orange">
+                    <span onclick="document.getElementById('cantidad_pasajeros').style.display='none'"
+                    class="w3-button w3-display-topright">&times;</span>
+                <h2>Ingrese la cantidad de pasajeros</h2>
+            </header>
+                <form class="w3-container" action="/gauchoRocket/reserva" method="post">
+                    <input type="hidden" name="id_vuelo" id="id_vuelo">
+                    <label for="cantidad">Pasajeros</label>
+                    <input class="w3-input" name="cantidad" type="text">
+                    <button class='w3-button w3-block w3-black w3-margin' name="btn-cantidad-pasajeros" type="submit">Enviar</button>
+                </form>
+        </div>
     </div>
+
 

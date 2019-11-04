@@ -5,7 +5,7 @@ function buscarVuelo($tipo, $fecha_desde, $fecha_hasta, $origen, $destino){
     $conn = getConexion();
 
     $sql = "SELECT * FROM vuelo v 
-            join tipo_vuelo tp on v.tipo = tp.id
+            join tipo_vuelo tp on v.tipo = tp.id_tipo_vuelo
             WHERE (fecha BETWEEN '". $fecha_desde ."' AND '". $fecha_hasta ."' )";
 
     if($tipo != null || $tipo != ""){
@@ -27,6 +27,7 @@ function buscarVuelo($tipo, $fecha_desde, $fecha_hasta, $origen, $destino){
 
         while($row = mysqli_fetch_assoc($result)) {
             $vuelo = Array();
+            $vuelo['id_vuelo'] = $row["id_vuelo"];
             $vuelo['tipo'] =  $row["descripcion"];
             $vuelo['origen'] =  $row["origen"];
             $vuelo['destino'] =  $row["destino"];
@@ -44,7 +45,7 @@ function todosLosVuelos(){
     $conn = getConexion();
 
     $sql = "SELECT * FROM vuelo v 
-            JOIN tipo_vuelo tp ON v.tipo = tp.id";
+            JOIN tipo_vuelo tp ON v.tipo = tp.id_tipo_vuelo";
 
     $result = mysqli_query($conn, $sql);
 
@@ -53,6 +54,7 @@ function todosLosVuelos(){
 
         while($row = mysqli_fetch_assoc($result)) {
             $vuelo = Array();
+            $vuelo['id_vuelo'] = $row["id_vuelo"];
             $vuelo['tipo'] =  $row["descripcion"];
             $vuelo['origen'] =  $row["origen"];
             $vuelo['destino'] =  $row["destino"];
@@ -78,7 +80,7 @@ function getTipos(){
 
         while($row = mysqli_fetch_assoc($result)) {
             $tipo = Array();
-            $tipo['id'] =  $row["id"];
+            $tipo['id_tipo_vuelo'] =  $row["id_tipo_vuelo"];
             $tipo['descripcion'] =  $row["descripcion"];
             $tipos[] = $tipo;
         }
