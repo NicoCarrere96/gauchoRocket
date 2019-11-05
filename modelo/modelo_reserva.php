@@ -8,7 +8,9 @@ function validarCantidadPasajeros($id_vuelo, $cantidad){
 function generarReserva($id_vuelo, $pasajeros, $tipo_cabina){
     $conn = getConexion();
 
-    $cod_reserva = rand(0,100);
+    $generador_codigo = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    $cod_reserva = substr(str_shuffle($generador_codigo), 0, 8);
 
     foreach ($pasajeros as $pasajero){
         $selectPersona = "SELECT * FROM persona WHERE dni = '". $pasajero['dni']."'";
@@ -28,6 +30,8 @@ function generarReserva($id_vuelo, $pasajeros, $tipo_cabina){
         ('".$pasajero['dni']."', '". $cod_reserva. "', '". $id_vuelo ."', '". $tipo_cabina ."', 0)";
         $resultInsertReserva = mysqli_query($conn, $insertReserva);
     }
+
+    return $cod_reserva;
 }
 
 ?>
