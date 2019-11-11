@@ -1,7 +1,7 @@
 <?php
 
 include_once('modelo/modelo_home.php');
-include_once ('modelo/modelo_pagar');
+include_once('modelo/modelo_pagar.php');
 
 function home_index(){
     if(isset($_POST["btn-buscador"])){

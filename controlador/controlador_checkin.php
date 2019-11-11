@@ -5,10 +5,10 @@ function checkin_index()
 {
     if (isset($_POST["btn-checkin"])) {
         $cod_reserva = $_POST['cod_reserva'];
-        $dni = $_POST['dni'];
-        registrarCheckin($cod_reserva, $dni);
-        header('location:home');
+        registrarCheckin($cod_reserva);
+        include_once('vista/vista_tarjeta_embarque.php');
+    } else {
+        include_once('vista/vista_checkin.php');
     }
 
-    include_once('vista/vista_checkin.php');
 }
