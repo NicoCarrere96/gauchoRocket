@@ -64,10 +64,10 @@ function consultarDatosReserva($cod_reserva){
 
         }
 
-        return $datos_reserva;
     }
-
-
+    
+    
+    return $datos_reserva;
 
 }
 ?>

@@ -1,6 +1,7 @@
 <?php
 
 include_once('modelo/modelo_checkin.php');
+
 function checkin_index()
 {
     if (isset($_POST["btn-checkin"])) {

@@ -15,7 +15,7 @@ function chequeoMedico_index(){
         }
 
         $personas_noValidadas = validarChequeo($cod_reserva);
-        if(sizeof($personas_noValidadas) > 0){
+        if(sizeOf($personas_noValidadas) > 0){
 
             include_once ('vista/vista_chequeoMedico.php');
         } else {

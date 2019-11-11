@@ -15,12 +15,14 @@
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>DNI</th>
+                        <th>Asiento</th>
                     </tr>
 
                     <tr>
-                        <th>Tester</th>
-                        <th>Testando</th>
-                        <th>12345699</th>
+                        <td>Tester</td>
+                        <td>Testando</td>
+                        <td>12345699</td>
+                        <td>Fila 0 - Asiento 0</td>
                     </tr>
                 </table>
             </div>

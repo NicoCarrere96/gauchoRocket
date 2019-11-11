@@ -14,7 +14,14 @@
                     for($i = 0; $i < 12; $i ++){
                         echo "<tr>";
                         for($j = 0; $j < 12; $j ++){
-                            echo "<td class='w3-border'>Fila: $j, Col: $i</td>";
+                        ?>
+                        <td id="asiento-<?=$i?><?=$j?>"
+                        class='w3-border w3-panel w3-red'
+                        onclick='seleccionarAsiento(<?=$i?>, <?=$j?>)'>
+                           Col: <?=$j?>, Fila: <?=$i?>
+                
+                            </td>
+                            <?php
                         }
                         echo "</tr>";
                     }  
@@ -26,7 +33,10 @@
             <div class="w3-col m4 l4">
                 <div class="card">
                     <div >
-                       <a class="w3-button w3-block w3-black w3-margin" href="selector_asientos">Enviar</a>
+                        <form id="asientos-seleccionados" action="tarjeta_embarque" method="post">
+                            <button name="btn-asientos" class="w3-button w3-block w3-black w3-margin" type="submit">Enviar</button>
+                            <h3>Asientos Seleccionados: </h3>
+                        </form>
 
                     </div>
                 </div>
