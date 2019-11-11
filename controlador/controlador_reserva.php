@@ -31,6 +31,8 @@ function reserva_index(){
             $pasajeros[] = $pasajero;
         }
 
-        generarReserva($id_vuelo, $pasajeros, $tipo_cabina);
+        $cod_reserva = generarReserva($id_vuelo, $pasajeros, $tipo_cabina);
+
+        include_once('vista/vista_cod_reserva.php');
     }
 }
