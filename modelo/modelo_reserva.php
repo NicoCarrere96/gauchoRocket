@@ -25,13 +25,49 @@ function generarReserva($id_vuelo, $pasajeros, $tipo_cabina){
         }
 
         $insertReserva = "INSERT INTO reserva
-        (dni_pasajero, cod_reserva, id_vuelo, tipo_cabina, pagado) 
+        (dni_pasajero, cod_reserva, id_vuelo, tipo_cabina, pagado, checkin) 
         VALUES
-        ('".$pasajero['dni']."', '". $cod_reserva. "', '". $id_vuelo ."', '". $tipo_cabina ."', 0)";
+        ('".$pasajero['dni']."', '". $cod_reserva. "', '". $id_vuelo ."', '". $tipo_cabina ."', 0, 0)";
         $resultInsertReserva = mysqli_query($conn, $insertReserva);
     }
 
     return $cod_reserva;
 }
 
+function consultarDatosReserva($cod_reserva){
+
+    $db_conexion = getConexion();
+
+    $sql = "SELECT * FROM reserva r
+            JOIN vuelo v ON r.id_vuelo = v.id_vuelo
+            JOIN persona p ON r.dni_pasajero = p.dni
+            WHERE r.cod_reserva = '". $cod_reserva ."'";
+
+    $result = mysqli_query($db_conexion, $sql);
+
+    $datos_reserva = Array();
+
+    if (mysqli_num_rows($result) > 0) {
+
+        while($row = mysqli_fetch_assoc($result)) {
+            $dato = Array();
+            $dato['id_vuelo'] = $row["id_vuelo"];
+            $dato['tipo'] =  $row["descripcion"];
+            $dato['origen'] =  $row["origen"];
+            $dato['destino'] =  $row["destino"];
+            $dato['fecha'] = $row["fecha"];
+            $dato['nombre'] = $row["nombre"];
+            $dato['apellido'] = $row['apellido'];
+            $dato['dni'] = $row['dni'];
+
+            $datos_reserva[] = $dato;
+
+        }
+
+        return $datos_reserva;
+    }
+
+
+
+}
 ?>

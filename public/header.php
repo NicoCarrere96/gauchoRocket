@@ -19,6 +19,11 @@
     <div class="w3-bar w3-black w3-card">
         <span class="w3-bar-item w3-white w3-padding-large"><img src="public/img/rocket.png" height="15px">GauchoRocket</span>
         <a href="/gauchoRocket/home" style="text-decoration:none" class="w3-bar-item w3-button w3-padding-large">Home</a>
+        <?php
+        if(isset($_SESSION["pagado"])){
+            echo "<a href='/gauchoRocket/checkin' style=\"text-decoration:none\" class='w3-bar-item w3-button w3-padding-large'>Check-In</a>";
+        }
+        ?>
 
         <?php
             session_start(); 
@@ -28,6 +33,7 @@
                 echo "<a href='/gauchoRocket/login' style=\"text-decoration:none\" class='w3-bar-item w3-button w3-padding-large w3-display-right w3-margin-right'>Login</a>";
 
             }
+
         ?>
     </div>
 </div>

@@ -1,6 +1,7 @@
 <?php
 
 include_once('modelo/modelo_home.php');
+include_once ('modelo/modelo_pagar');
 
 function home_index(){
     if(isset($_POST["btn-buscador"])){
@@ -25,5 +26,6 @@ function home_index(){
     $origenes = getOrigenes();
     $destinos = getDestinos();
     $tipos_vuelo = getTipos();
+
     include("vista/vista_home.php");
 }

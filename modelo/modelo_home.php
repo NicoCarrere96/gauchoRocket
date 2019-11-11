@@ -136,4 +136,5 @@ function getDestinos(){
 
     return $destinos;
 }
+
 ?>
