@@ -26,6 +26,8 @@ function  registrarCheckin($cod_reserva){
         $checkin_usuario = mysqli_query($db_conexion,$realizarCheckin);
 
 
+    } else {
+        header("location: checkin");
     }
 
     return $pasajeros;
