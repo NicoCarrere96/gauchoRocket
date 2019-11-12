@@ -7,14 +7,14 @@
             <h2><i class="fa fa-rocket w3-margin-right"></i>Buscador de Vuelos</h2>
         </div>
         <div class="w3-container w3-white">
-            <form action="/gauchoRocket2/home" method="post">
+            <form action="home" method="post">
 
                 <div class="w3-row-padding w3-margin">
 
                     <label>Seleccione tipo de vuelo</label>
                     <?php
                         foreach( $tipos_vuelo as $tipo_vuelo){
-                            echo "<input class='w3-radio w3-margin' type='radio' name='tipo' value='". $tipo_vuelo["id_tipo_vuelo"] ."' checked>
+                            echo "<input class='w3-radio w3-margin' type='radio' name='tipo' value='". $tipo_vuelo["id_tipo_viaje"] ."' checked>
 
                             <label>". $tipo_vuelo["descripcion_tv"] ."</label>";
 
@@ -73,8 +73,13 @@
             <?php
                 foreach ( $vuelos as $vuelo){
                     echo   "<div class='w3-third w3-section w3-border w3-white' style='margin: 1% 1%; width: 31%; padding: 1%'>
-                                    <h3>". $vuelo['origen'] ." -> ".$vuelo['destino'] ."</h3>
-                                    <h6 class='w3-opacity'>Desde $99.999</h6>
+                                    <h3>". $vuelo['origen'] ;
+                                
+                                if($vuelo['id_tipo'] == 3){
+                                    echo " -> ".$vuelo['destino'] ."</h3>";
+                                }
+
+                            echo"<h6 class='w3-opacity'>Desde $99.999</h6>
                                     <p>". $vuelo['tipo'] ."</p>
                                     <p>Fecha:". $vuelo['fecha'] ."</p>";
                                 if(isset($_SESSION["logueado"])){
@@ -116,7 +121,7 @@
                     class="w3-button w3-display-topright">&times;</span>
                 <h2>Ingrese la cantidad de pasajeros</h2>
             </header>
-                <form class="w3-container" action="/gauchoRocket2/reserva" method="post">
+                <form class="w3-container" action="/gauchoRocket/reserva" method="post">
                     <input type="hidden" name="id_vuelo" id="id_vuelo">
                     <label for="cantidad">Pasajeros</label>
                     <input class="w3-input" name="cantidad" type="text">

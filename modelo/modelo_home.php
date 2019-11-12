@@ -61,6 +61,7 @@ function todosLosVuelos(){
         while($row = mysqli_fetch_assoc($result)) {
             $vuelo = Array();
             $vuelo['id_vuelo'] = $row["id_vuelo"];
+            $vuelo['id_tipo'] = $row["id_tipo_viaje"];
             $vuelo['tipo'] =  $row["descripcion_tv"];
             $vuelo['origen'] =  $row["descripcion"];
             $vuelo['destino'] =  $row["descripcion"];
