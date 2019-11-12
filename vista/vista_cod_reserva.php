@@ -18,7 +18,11 @@
 
         <footer class="w3-container w3-deep-orange">
             <h3>Codigo de reserva: </h3> <h2 class="w3-center"><strong><?= $cod_reserva ?></strong></h2>
+            <div>
+                <a href="chequeoMedico?cod_reserva=<?= $cod_reserva ?>" class="w3-button w3-black w3-animate-zoom" name="btn-valida-chequeo">Continuar</a>
+            </div>
         </footer>
 
     </div>
+
 </div>

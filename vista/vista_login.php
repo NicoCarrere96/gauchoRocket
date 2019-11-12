@@ -8,7 +8,7 @@
 					<div class="card">
 						<div class="loginBox">
 							
-							<form action="/gauchoRocket/login" method="post">                           	
+							<form action="/gauchoRocket2/login" method="post">
 								<div class="form-group">									
 									<input type="text" class="form-control input-lg" name="nick" placeholder="Usuario" required>        
 								</div>							
@@ -29,7 +29,7 @@
 								</div>
 							</div> -->
 													
-							<hr><p>Nuevo en el sitio? <a href="/gauchoRocket/registro" title="Registrarse">Registrarse</a>.</p>								
+							<hr><p>Nuevo en el sitio? <a href="/gauchoRocket2/registro" title="Registrarse">Registrarse</a>.</p>
 						</div>
 					</div>
 				</div>

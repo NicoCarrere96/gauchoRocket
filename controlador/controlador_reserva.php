@@ -4,7 +4,7 @@ include_once('modelo/modelo_reserva.php');
 
 function reserva_index(){
     if(isset($_POST['btn-cantidad-pasajeros'])){
-        $id_vuelo = $_POST['id_vuelo'];
+        $reserva_vuelo = $_POST['id_vuelo'];
         $cantidad = $_POST['cantidad'];
 
         if(validarCantidadPasajeros($id_vuelo, $cantidad)){
@@ -15,9 +15,9 @@ function reserva_index(){
 
     }
     if(isset($_POST['btn-reservar'])){
-        $id_vuelo = $_POST['id_vuelo'];
+        $reserva_vuelo = $_POST['id_vuelo'];
         $cantidad = $_POST['cantidad_pasajeros'];
-        $tipo_cabina = $_POST['tipo_cabina'];
+        $reserva_trayecto = $_POST['reserva_trayecto'];
         $pasajeros = Array();
 
         for ($i = 1; $i <= $cantidad; $i++){
@@ -31,7 +31,7 @@ function reserva_index(){
             $pasajeros[] = $pasajero;
         }
 
-        $cod_reserva = generarReserva($id_vuelo, $pasajeros, $tipo_cabina);
+        $cod_reserva = generarReserva($reserva_vuelo, $pasajeros, $reserva_trayecto);
 
         include_once('vista/vista_cod_reserva.php');
     }

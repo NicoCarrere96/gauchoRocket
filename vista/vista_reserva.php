@@ -6,7 +6,7 @@
     <div class="w3-container w3-margin-left w3-margin-bottom">
 
         <div class="col-xs-12 nopadding">
-            <form action="/gauchoRocket/reserva" method="post">
+            <form action="/gauchoRocket2/reserva" method="post">
             <?php
             for ( $i = 1; $i <= $cantidad; $i++){
                 echo "
@@ -55,16 +55,8 @@
                 ";}
                 ?>
                 <br>
-                <div>
-                    <label for="tipo_cabina">Seleccione Tipo de Cabina</label>
-                    <select class="w3-select" name="tipo_cabina" id="tipo_cabina">
-                        <option value="suite">Suite</option>
-                        <option value="general">General</option>
-                        <option value="familiar">Familiar</option>
-                    </select>
-                </div>
 
-                <input type="hidden" name="id_vuelo" value="<?=$id_vuelo ?>">
+                <input type="hidden" name="id_vuelo" value="<?=$reserva_vuelo ?>">
                 <input type="hidden" name="cantidad_pasajeros" value="<?=$cantidad ?>">
                 <br>
                 <div>
