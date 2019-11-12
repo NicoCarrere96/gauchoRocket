@@ -1,4 +1,5 @@
-
+<br>
+<br>
 <div class="w3-panel w3-black w3-leftbar w3-border-blue">
     <h1>Pagar reserva</h1>
     </div>

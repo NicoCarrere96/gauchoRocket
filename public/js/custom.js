@@ -19,11 +19,17 @@ function abrirModalTurno(dni, cod_reserva){
     document.getElementById('turno_chequeo').style.display='block';
 }
 
-
-function seleccionarAsiento(fila, columna){
+function seleccionarAsiento(fila, columna, cantidad_pasajeros){
   let asiento = document.getElementById("asiento-" + fila + columna);
   let form = document.getElementById("asientos-seleccionados");
-  if(asiento.classList.contains('w3-red')){
+  let inputExist = document.getElementById(fila + "-" + columna)
+
+  if(form.getElementsByTagName('input').length - 1 >= cantidad_pasajeros && inputExist == null){
+    alert("Solo puede seleccionar " + cantidad_pasajeros + " asiento/s");
+    return;
+  } 
+
+  if(inputExist == null){
     asiento.classList.remove('w3-red');
     asiento.classList.add('w3-green');
     
@@ -32,14 +38,26 @@ function seleccionarAsiento(fila, columna){
     inputFila.value = fila + "-" + columna;
     inputFila.setAttribute("readOnly", "true");
     inputFila.name = "asientos[]";
+    inputFila.id = fila + "-" + columna;
 
     form.appendChild(inputFila);
 
   } else {
     asiento.classList.remove('w3-green');
     asiento.classList.add('w3-red');
+    inputExist.remove();
   }
 
 
 
 }
+$("input:radio[name=tipo]").click(function() {  
+  if($(this).is(':checked') && $(this).val() == 3) {  
+     $("#destino-div").removeClass('hide');
+     $("#destino").attr("disabled", false);
+  } else {
+    $("#destino-div").addClass('hide');
+    $("#destino").attr("disabled", true);
+  }
+}); 
+

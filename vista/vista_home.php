@@ -39,14 +39,14 @@
                             <option value="" disabled selected>Seleccione Origen</option>
                             <?php
                             foreach( $origenes as $origen ){
-                                echo "<option value='".$origen["origen"] ."'>". $origen["origen"] ."</option>";
+                                echo "<option value='". $origen["origen"] ."'>". $origen["origen"] ."</option>";
                             }
                             ?>
                         </select>
                     </div>
-                    <div class="w3-half">
+                    <div class="w3-half" id="destino-div">
                         <label><i class="fa fa-rocket"></i> Destino</label>
-                        <select class="w3-select w3-border w3-padding-16 w3-margin-top" name="destino">
+                        <select class="w3-select w3-border w3-padding-16 w3-margin-top" id="destino" name="destino" disabled>
                             <option value="" disabled selected>Seleccione Destino</option>
                             <?php
                             foreach( $destinos as $destino ){

@@ -11,14 +11,14 @@
                 <h3>Asientos</h3>
                 <table class="w3-table w3-border">
                   <?php
-                    for($i = 0; $i < 12; $i ++){
+                    for($i = 0; $i < $cabina['filas']; $i ++){
                         echo "<tr>";
-                        for($j = 0; $j < 12; $j ++){
+                        for($j = 0; $j < $cabina['asientos']; $j ++){
                         ?>
                         <td id="asiento-<?=$i?><?=$j?>"
-                        class='w3-border w3-panel w3-red'
-                        onclick='seleccionarAsiento(<?=$i?>, <?=$j?>)'>
-                           Col: <?=$j?>, Fila: <?=$i?>
+                        class='w3-border w3-panel w3-red w3-center'
+                        onclick='seleccionarAsiento(<?=$i?>, <?=$j?>, <?=sizeOf($pasajeros)?>)'>
+                           ASIENTO: <?=$i?><?=$j?>
                 
                             </td>
                             <?php
@@ -34,6 +34,7 @@
                 <div class="card">
                     <div >
                         <form id="asientos-seleccionados" action="tarjeta_embarque" method="post">
+                            <input type="hidden" name="cod_reserva" value=<?=$cod_reserva?> />
                             <button name="btn-asientos" class="w3-button w3-block w3-black w3-margin" type="submit">Enviar</button>
                             <h3>Asientos Seleccionados: </h3>
                         </form>

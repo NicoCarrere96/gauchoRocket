@@ -10,7 +10,7 @@ function login_index(){
     }
     
     if(isset($_GET["registro"])){
-        echo "<div class='w3-container w3-content w3-center'>Usuario creado correctamente</div>";
+        echo "<br><br><br><br><br><br><div class='w3-container w3-content w3-center'>Usuario creado correctamente</div>";
     }
 
     if(isset($_GET["logout"])){

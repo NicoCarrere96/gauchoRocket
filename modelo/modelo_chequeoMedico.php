@@ -7,7 +7,7 @@ function validarChequeo($cod_reserva){
     $db_conexion = getConexion();
 
     $sql = "SELECT * FROM reserva r
-            JOIN persona p ON p.dni = r.dni_pasajero
+            JOIN persona p ON r.dni_persona_reserva = p.dni_persona
             WHERE cod_reserva = '". $cod_reserva ."'";
 
     $result = mysqli_query($db_conexion, $sql);
@@ -23,7 +23,7 @@ function validarChequeo($cod_reserva){
                 var_dump($persona);
                 $persona['nombre'] = $row["nombre"];
                 $persona['apellido'] = $row["apellido"];
-                $persona['dni'] = $row["dni"];
+                $persona['dni'] = $row["dni_persona"];
                 $persona['mail'] = $row["mail"];
                 $personas_noAptas[] = $persona;
             }
