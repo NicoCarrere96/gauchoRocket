@@ -23,11 +23,14 @@
         <?php
             session_start(); 
             if(isset($_SESSION["logueado"])){
-                echo "<a href='/gauchoRocket2/login?logout=1' style=\"text-decoration:none\" class='w3-bar-item w3-text-white w3-padding-large w3-display-right'>Cerrar Sesion</a>";
+                echo "<a href='/gauchoRocket/checkin' style=\"text-decoration:none\" class='w3-bar-item w3-button w3-padding-large'>Check-In</a>";
+                echo "<a href='/gauchoRocket/login?logout=1' style=\"text-decoration:none\" class='w3-bar-item w3-text-white w3-padding-large w3-display-right'>Cerrar Sesion</a>";
+
             } else {
                 echo "<a href='/gauchoRocket2/login' style=\"text-decoration:none\" class='w3-bar-item w3-button w3-padding-large w3-display-right w3-margin-right'>Login</a>";
 
             }
+
         ?>
     </div>
 </div>

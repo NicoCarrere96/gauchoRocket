@@ -144,4 +144,5 @@ function getDestinos(){
 
     return $destinos;
 }
+
 ?>

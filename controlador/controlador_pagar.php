@@ -10,9 +10,9 @@ function pagar_index(){
     $codSeguridad = $_POST['codSeguridad'];
     $nombre = $_POST['nombre'];
     $dni = $_POST['dni'];
-
+    confirmarPago($dni);
     if(pagar($numeroTarjeta, $fechaVencimiento, $codSeguridad, $nombre, $dni)){
-    header('location:home');
+    header('location:checkin');
 
     }
     }

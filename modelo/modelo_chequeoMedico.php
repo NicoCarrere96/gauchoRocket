@@ -29,11 +29,11 @@ function validarChequeo($cod_reserva){
             }
 
         }
-        return $personas_noAptas;
-
+        
     }
-
     mysqli_close($db_conexion);
+    
+    return $personas_noAptas;
 }
 
 function validarPasajero( $dni ){

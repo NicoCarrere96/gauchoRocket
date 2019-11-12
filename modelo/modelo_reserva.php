@@ -28,6 +28,7 @@ function generarReserva($reserva_vuelo, $pasajeros, $reserva_trayecto){
         (dni_persona_reserva, cod_reserva, reserva_vuelo, reserva_trayecto, cantidad_lugares, pagado) 
         VALUES
         ('".$pasajero['dni']."', '". $cod_reserva. "', '". $reserva_vuelo ."', '". $reserva_trayecto ."', 1, 0)";
+
         $resultInsertReserva = mysqli_query($conn, $insertReserva);
     }
 
@@ -42,6 +43,7 @@ function consultarDatosReserva($cod_reserva){
             JOIN trayecto tr ON r.reserva_vuelo = tr.id_vuelo_trayecto
             JOIN vuelo v ON tr.id_vuelo_trayecto = v.id_vuelo
             JOIN persona p ON r.dni_persona_reserva = p.dni_persona
+
             WHERE r.cod_reserva = '". $cod_reserva ."'";
 
     $result = mysqli_query($db_conexion, $sql);
@@ -64,11 +66,10 @@ function consultarDatosReserva($cod_reserva){
             $datos_reserva[] = $dato;
 
         }
-
-        return $datos_reserva;
     }
-
-
+    
+    
+    return $datos_reserva;
 
 }
 ?>
