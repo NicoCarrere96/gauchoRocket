@@ -46,7 +46,7 @@
                     </div>
                     <div class="w3-half" id="destino-div">
                         <label><i class="fa fa-rocket"></i> Destino</label>
-                        <select class="w3-select w3-border w3-padding-16 w3-margin-top" id="destino" name="destino" disabled>
+                        <select class="w3-select w3-border w3-padding-16 w3-margin-top" id="destino" name="destino">
                             <option value="" disabled selected>Seleccione Destino</option>
                             <?php
                             foreach( $destinos as $destino ){
@@ -69,28 +69,32 @@
         <div class="w3-container w3-deep-orange w3-round">
           <h2><i class="fa fa-rocket w3-margin-right"></i>Vuelos</h2>
         </div>
-        <div class='w3-row'>
-            <?php
+        <table>
+
+            <tr class='w3-row'>
+                <?php
                 foreach ( $vuelos as $vuelo){
-                    echo   "<div class='w3-third w3-section w3-border w3-white' style='margin: 1% 1%; width: 31%; padding: 1%'>
-                                    <h3>". $vuelo['origen'] ;
-                                
-                                if($vuelo['id_tipo'] == 3){
-                                    echo " -> ".$vuelo['destino'] ."</h3>";
-                                }
+                    echo   "<td class='w3-third w3-section w3-border w3-white' style='margin: 1% 1%; width: 31%; padding: 1%;'>
+                    <h3>". $vuelo['origen'] ;
+                    
+                    if($vuelo['id_tipo'] == 3){
+                        echo " -> ".$vuelo['destino'] ."</h3>";
+                    }
 
-                            echo"<h6 class='w3-opacity'>Desde $99.999</h6>
-                                    <p>". $vuelo['tipo'] ."</p>
-                                    <p>Fecha:". $vuelo['fecha'] ."</p>";
-                                if(isset($_SESSION["logueado"])){
-                                    echo "<button onclick='abrirModalReserva(". $vuelo['id_vuelo'] .")' class='w3-button w3-block w3-black w3-auto'>Reservar</button>";
-
-                                }
-                    echo    "</div>";
-                                
+                    echo"<h6 class='w3-opacity'>$". $vuelo['precio'] ."</h6>
+                    <p>Tipo de vuelo: ". $vuelo['tipo'] ."</p>
+                    <p>Fecha: ". $vuelo['fecha'] ."</p>
+                    <p>Horario: ". $vuelo['hora'] .":00 hs</p>";
+                    if(isset($_SESSION["logueado"])){
+                        echo "<button onclick='abrirModalReserva(". $vuelo['id_vuelo'] .")' class='w3-button w3-block w3-black w3-auto'>Reservar</button>";
+                        
+                    }
+                    echo    "</td>";
+                    
                 }
-            ?>
-        </div>
+                ?>
+            </tr>
+    </table>
     </div>
 </div>
 
