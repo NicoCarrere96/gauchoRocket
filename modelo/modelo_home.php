@@ -4,8 +4,9 @@ include_once("helpers/conexion.php");
 function buscarVuelo($tipo, $fecha_desde, $fecha_hasta, $origen, $destino){
     $conn = getConexion();
 
-    $sql = "SELECT v.*, tv.*, tr.duracion, tr.precio, d1.descripcion origen, d2.descripcion destino  
-            FROM vuelo v 
+    $sql = "SELECT v.*, tv.*, e.modelo_equipo, tr.duracion, tr.precio, d1.descripcion origen, d2.descripcion destino  
+            FROM vuelo v
+            JOIN equipo e ON v.equipo_vuelo = e.id_equipo 
             JOIN tipo_viaje tv ON v.tipo_viaje_vuelo = tv.id_tipo_viaje
             JOIN trayecto tr ON v.id_vuelo = tr.id_vuelo_trayecto 
             JOIN destino d1 ON tr.origen = d1.id_destino
@@ -35,8 +36,9 @@ function buscarVuelo($tipo, $fecha_desde, $fecha_hasta, $origen, $destino){
 function todosLosVuelos(){
     $conn = getConexion();
 
-    $sql = "SELECT v.*, tv.*, tr.duracion, tr.precio, d1.descripcion origen, d2.descripcion destino  
+    $sql = "SELECT v.*, tv.*, e.modelo_equipo, tr.duracion, tr.precio, d1.descripcion origen, d2.descripcion destino  
         FROM vuelo v 
+        JOIN equipo e ON v.equipo_vuelo = e.id_equipo 
         JOIN tipo_viaje tv ON v.tipo_viaje_vuelo = tv.id_tipo_viaje
         JOIN trayecto tr ON v.id_vuelo = tr.id_vuelo_trayecto 
         JOIN destino d1 ON tr.origen = d1.id_destino
@@ -113,6 +115,7 @@ function getVuelos($result){
             $vuelo = Array();
             $vuelo['id_vuelo'] = $row["id_vuelo"];
             $vuelo['id_tipo'] = $row["id_tipo_viaje"];
+            $vuelo['modelo_equipo'] = $row["modelo_equipo"];
             $vuelo['tipo'] =  $row["descripcion_tv"];
             $vuelo['origen'] =  $row["origen"];
             $vuelo['destino'] =  $row["destino"];

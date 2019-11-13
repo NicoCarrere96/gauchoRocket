@@ -1,8 +1,30 @@
 <?php
 include_once("helpers/conexion.php");
 
-function validarCantidadPasajeros($id_vuelo, $cantidad){
-    return true;
+function validarCantidadPasajeros($id_vuelo, $tipo_cabina, $cantidad_pasajeros){
+    $conn = getConexion();
+    $sql = "SELECT count(*), c.capacidad FROM vuelo v
+    JOIN equipo e ON v.equipo_vuelo = e.id_equipo
+    JOIN cabina c ON e.modelo_equipo = c.cabina_id_modelo
+    JOIN asientos_ocupados ao ON v.id_vuelo = ao.id_vuelo 
+        AND ao.id_cabina = c.cabina_id_modelo 
+        AND ao.tipo_cabina = c.descripcion
+    WHERE v.id_vuelo = ? 
+        AND c.descripcion = ?";
+
+    $stmt = mysqli_prepare($conn,$sql);    
+        
+    mysqli_stmt_bind_param($stmt, "is", $id_vuelo, $tipo_cabina );
+    
+    mysqli_stmt_bind_result($stmt, $ocupados, $total);
+    
+    mysqli_stmt_execute($stmt);
+
+    mysqli_stmt_fetch($stmt);
+    
+    var_dump($total, $ocupados);
+
+    return ($total - $ocupados) < $cantidad_pasajeros ? false : true;
 }
 
 function generarReserva($reserva_vuelo, $pasajeros, $tipo_cabina){

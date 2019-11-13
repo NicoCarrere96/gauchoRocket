@@ -86,7 +86,7 @@
                     <p>Fecha: ". $vuelo['fecha'] ."</p>
                     <p>Horario: ". $vuelo['hora'] .":00 hs</p>";
                     if(isset($_SESSION["logueado"])){
-                        echo "<button onclick='abrirModalReserva(". $vuelo['id_vuelo'] .")' class='w3-button w3-block w3-black w3-auto'>Reservar</button>";
+                        echo "<button onclick='abrirModalReserva(". $vuelo['id_vuelo'] .", ". $vuelo['modelo_equipo'] .")' class='w3-button w3-block w3-black w3-auto'>Reservar</button>";
                         
                     }
                     echo    "</td>";
@@ -127,6 +127,14 @@
             </header>
                 <form class="w3-container" action="/gauchoRocket/reserva" method="post">
                     <input type="hidden" name="id_vuelo" id="id_vuelo">
+                    <div>
+                        <label for="tipo_cabina">Seleccione Tipo de Cabina</label>
+                        <select class="w3-select" name="tipo_cabina" id="tipo_cabina">
+                            <option value="S">Suite</option>
+                            <option value="G">General</option>
+                            <option value="F">Familiar</option>
+                        </select>
+                    </div>
                     <label for="cantidad">Pasajeros</label>
                     <input class="w3-input" name="cantidad" type="text">
                     <button class='w3-button w3-block w3-black w3-margin' name="btn-cantidad-pasajeros" type="submit">Enviar</button>

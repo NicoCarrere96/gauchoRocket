@@ -55,16 +55,6 @@
                 ";
             }
         ?>
-            <br>
-
-            <div>
-                <label for="tipo_cabina">Seleccione Tipo de Cabina</label>
-                <select class="w3-select" name="tipo_cabina" id="tipo_cabina">
-                    <option value="S">Suite</option>
-                    <option value="G">General</option>
-                    <option value="F">Familiar</option>
-                </select>
-            </div>
 
 
             <input type="hidden" name="id_vuelo" value="<?=$reserva_vuelo ?>">
