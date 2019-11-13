@@ -41,9 +41,9 @@ function enviarMailConfirmacion($hash, $nick){
     $subject = "Confirmar usuario";
     $body = "<div>
                 <p>Haga click en el siguiente boton para confirmar su cuenta</p>
-                <a href='localhost/gauchoRocket2/confirmar?hash=$hash'> <button>Confirmar cuenta</button></a>
+                <a href='localhost/gauchoRocket/confirmar?hash=$hash'> <button>Confirmar cuenta</button></a>
                 <br>
-                <p>En caso de no poder ingresar, <a href='localhost/gauchoRocket2/confirmar?hash=$hash'>localhost/gauchoRocket/confirmar?hash=$hash</a></p>
+                <p>En caso de no poder ingresar, <a href='localhost/gauchoRocket/confirmar?hash=$hash'>localhost/gauchoRocket/confirmar?hash=$hash</a></p>
                 <p>Se ruega no contestar este mail</p>
                 </div>";
     

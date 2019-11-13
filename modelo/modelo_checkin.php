@@ -26,7 +26,7 @@ function  registrarCheckin($cod_reserva){
 
     } else {
         header("location: checkin");
-
+        agregarLog("Se intento realizar checkin de un codigo inexistente: ". $cod_reserva);
     }
 
     return $pasajeros;
@@ -39,7 +39,7 @@ function getAsientosDisponibles($cod_reserva){
     $select_asientos = "SELECT * FROM reserva r
     JOIN vuelo v ON r.reserva_vuelo = v.id_vuelo
     JOIN equipo e ON v.equipo_vuelo = e.id_equipo
-    JOIN cabina c ON r.tipo_cabina = c.descripcion AND e.id_equipo = c.cabina_id_modelo
+    JOIN cabina c ON r.tipo_cabina = c.descripcion AND e.modelo_equipo = c.cabina_id_modelo
     WHERE cod_reserva = '".$cod_reserva."'  ";
 
     $resultado = mysqli_query($db_conexion, $select_asientos);
@@ -57,7 +57,7 @@ function getAsientosDisponibles($cod_reserva){
         $cabina['ocupadas'] = Array();
 
         $cabinas_ocupadas = "SELECT * FROM asientos_ocupados
-                                WHERE id_cabina = ".$cabina['cabina_id_modelo']." 
+                                WHERE tipo_cabina = '".$cabina['descripcion']."' 
                                 AND id_vuelo = ". $cabina['id_vuelo'];
 
         $res_ocupadas = mysqli_query($db_conexion, $cabinas_ocupadas);

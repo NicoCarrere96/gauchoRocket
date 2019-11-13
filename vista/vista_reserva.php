@@ -59,6 +59,7 @@
 
             <input type="hidden" name="id_vuelo" value="<?=$reserva_vuelo ?>">
             <input type="hidden" name="cantidad_pasajeros" value="<?=$cantidad ?>">
+            <input type="hidden" name="tipo_cabina" value="<?=$tipo_cabina ?>">
             <br>
             <div>
                 <button class="w3-button w3-black w3-animate-zoom" type="submit" name="btn-reservar">Confirmar Reserva</button>

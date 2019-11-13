@@ -22,7 +22,7 @@
                 <div class="card">
                     <div class="loginBox">
 
-                        <form action="/gauchoRocket/checkin" method="post">
+                        <form action="checkin" method="post">
                             <div class="form-group">
                                 <input type="text" class="form-control input-lg" name="cod_reserva" placeholder="Codigo De Reserva" required>
                             </div>

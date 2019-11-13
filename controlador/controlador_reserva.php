@@ -18,6 +18,7 @@ function reserva_index(){
     if(isset($_POST['btn-reservar'])){
         $reserva_vuelo = $_POST['id_vuelo'];
         $cantidad = $_POST['cantidad_pasajeros'];
+        $tipo_cabina = $_POST['tipo_cabina'];
 /*         if(isset($_POST['reserva_trayecto']));{
             $reserva_trayecto = $_POST['reserva_trayecto'];
         } */

@@ -51,7 +51,7 @@
                     <div >
                         <form id="asientos-seleccionados" action="tarjeta_embarque" method="post">
                             <input type="hidden" name="id_vuelo" value=<?=$cabina['id_vuelo']?> />
-                            <input type="hidden" name="cabina_id_modelo" value=<?=$cabina['cabina_id_modelo']?> />
+                            <input type="hidden" name="tipo_cabina" value=<?=$cabina['descripcion']?> />
                             <button name="btn-asientos" class="w3-button w3-block w3-black w3-margin" type="submit">Enviar</button>
                             <h3>Asientos Seleccionados: </h3>
                         </form>

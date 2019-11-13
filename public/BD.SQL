@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `gauchorocket2` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `gauchorocket2`;
+CREATE DATABASE  IF NOT EXISTS `gauchorocket` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `gauchorocket`;
 -- MySQL dump 10.13  Distrib 5.7.26, for Win64 (x86_64)
 --
--- Host: localhost    Database: gauchorocket2
+-- Host: localhost    Database: gauchorocket
 -- ------------------------------------------------------
 -- Server version	5.7.27-log
 
@@ -16,6 +16,33 @@ USE `gauchorocket2`;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `asientos_ocupados`
+--
+
+DROP TABLE IF EXISTS `asientos_ocupados`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `asientos_ocupados` (
+  `fila` int(11) NOT NULL,
+  `asiento` int(11) NOT NULL,
+  `id_vuelo` int(11) NOT NULL,
+  `tipo_cabina` varchar(1) NOT NULL,
+  KEY `id_vuelo` (`id_vuelo`),
+  CONSTRAINT `asientos_ocupados_ibfk_2` FOREIGN KEY (`id_vuelo`) REFERENCES `vuelo` (`id_vuelo`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `asientos_ocupados`
+--
+
+LOCK TABLES `asientos_ocupados` WRITE;
+/*!40000 ALTER TABLE `asientos_ocupados` DISABLE KEYS */;
+INSERT INTO `asientos_ocupados` VALUES (1,1,3,'F'),(0,1,3,'F'),(0,1,8,'F'),(0,2,8,'F'),(1,2,8,'F'),(1,1,8,'F'),(0,3,8,'F'),(0,0,8,'F'),(0,1,8,'F'),(4,3,8,'F'),(4,4,8,'F'),(0,3,3,'F'),(0,9,2,'F'),(0,9,2,'F'),(0,9,2,'F'),(0,8,2,'F'),(0,8,2,'F'),(0,8,2,'F'),(0,8,2,'F'),(0,8,2,'F'),(0,8,2,'F'),(2,4,8,'F'),(0,8,8,'F'),(0,8,8,'F'),(0,8,8,'F'),(0,8,8,'F'),(0,8,8,'F'),(0,8,8,'F'),(0,8,8,'F'),(0,8,8,'F'),(0,8,8,'F'),(0,8,8,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(2,3,2,'F'),(2,3,2,'F'),(2,3,2,'F'),(2,3,2,'F'),(2,3,2,'F'),(2,3,2,'F'),(2,3,2,'F'),(2,3,2,'F'),(2,3,2,'F'),(0,4,3,'S'),(0,1,3,'S'),(0,3,3,'S'),(0,2,1,'F'),(1,2,1,'F'),(0,3,1,'F'),(1,3,1,'F'),(9,3,1,'F');
+/*!40000 ALTER TABLE `asientos_ocupados` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `cabina`
@@ -223,7 +250,7 @@ CREATE TABLE `persona` (
 
 LOCK TABLES `persona` WRITE;
 /*!40000 ALTER TABLE `persona` DISABLE KEYS */;
-INSERT INTO `persona` VALUES ('Nicolas','Admin','1996-10-21',11222333,'moronmoron 14',0,'admintest@test.com'),('qwfsda','fqewfwqe','1994-12-20',2526362589,'asdfawe 213',NULL,'asdcas@sdyuvca.scu');
+INSERT INTO `persona` VALUES ('admin','admin','0001-01-01',11111111,'gaucho rocket 0000',3,'admin@gauchorocket.com.ar'),('Nicolas','Admin','1996-10-21',11222333,'moronmoron 14',0,'admintest@test.com'),('primer','pasajero','2000-11-15',12344321,'falsa 123',NULL,'testing@test.bb'),('Nico','Del Canio','1990-01-31',12345678,'Izq 1111',NULL,'nico@gmail.com'),('Manuela','Castaneira','1999-12-31',23456789,'Izq 1111',NULL,'manu@gmail.com'),('Ana','Molina','1981-05-31',31008831,'Guaycuru 1253',3,'jm@gmail.com'),('Carlos','Fernandez','1998-12-31',31008832,'Guaycuru 1253',2,'jm2@gmail.com'),('Cesar','Segovia','1999-10-29',31008833,'Guaycuru 1253',3,'jm3@gmail.com'),('Fabiola','Fernandez','1989-01-31',31008834,'Guaycuru 1253',3,'jm4@gmail.com'),('Fernanda','Segovia','1997-11-11',31008836,'Guaycuru 1253',1,'jm5@gmail.com'),('Samuel','Levingston','1990-11-11',32547698,'Laselva 1234',0,'levingston@gmail.com'),('el ','cheto','1980-03-22',44444444,'chetolandia 123',NULL,'algun@email.com'),('Nico','nico','2000-11-09',66666666,'lala 123',NULL,'eldeltrabajo@work.com'),('Nico','nar','1980-12-12',77777777,'lala 123',NULL,'eldeltrabajo@work.com'),('Otro','Nico','1990-12-13',88888888,'lala 123',NULL,'eldeltrabajo@work.com'),('Angel','Labruna','2007-01-23',98765431,'Monumental',NULL,'labru@g.com'),('Alguno ','de Por ahi','1970-12-14',99999999,'lala 123',NULL,'eldeltrabajo@work.com'),('asdc','asdc','2019-11-21',123412341,'asdc',NULL,'aasc@asdc.ds'),('sdcas','vsdcsa','2019-11-19',1234123412,'asasdca',NULL,'asca@acs.sdc'),('qwfsda','fqewfwqe','1994-12-20',2526362589,'asdfawe 213',0,'asdcas@sdyuvca.scu');
 /*!40000 ALTER TABLE `persona` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -240,14 +267,16 @@ CREATE TABLE `reserva` (
   `cod_reserva` varchar(10) NOT NULL,
   `dni_persona_reserva` bigint(20) NOT NULL,
   `tipo_cabina` varchar(1) NOT NULL,
-  `pagado` tinyint(1) DEFAULT NULL,
+  `tipo_servicio` varchar(15) DEFAULT NULL,
+  `pagado` tinyint(1) NOT NULL DEFAULT '0',
+  `checkin` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_reserva`),
   KEY `dni_persona_reserva` (`dni_persona_reserva`),
   KEY `vuelo_idx` (`reserva_vuelo`),
   KEY `tipoCabina_idx` (`tipo_cabina`),
   CONSTRAINT `reserva_ibfk_2` FOREIGN KEY (`dni_persona_reserva`) REFERENCES `persona` (`dni_persona`),
   CONSTRAINT `vuelo` FOREIGN KEY (`reserva_vuelo`) REFERENCES `vuelo` (`id_vuelo`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -256,7 +285,7 @@ CREATE TABLE `reserva` (
 
 LOCK TABLES `reserva` WRITE;
 /*!40000 ALTER TABLE `reserva` DISABLE KEYS */;
-INSERT INTO `reserva` VALUES (3,2,'LAcjZFfH',2526362589,'G',0);
+INSERT INTO `reserva` VALUES (3,2,'LAcjZFfH',2526362589,'G','',0,1),(4,8,'ZXtabjhp',31008831,'S','',0,1),(5,8,'ZXtabjhp',31008832,'S','',0,1),(6,8,'ZXtabjhp',31008833,'S','',0,1),(7,8,'ZXtabjhp',31008834,'S','',0,1),(8,8,'ZXtabjhp',31008836,'S','',0,1),(9,8,'Mi7w18pQ',23456789,'S','',0,1),(10,8,'Mi7w18pQ',12345678,'S','',0,1),(11,3,'9GSvEfRd',11111111,'S','',1,1),(12,3,'T3ChwS9F',98765431,'S','gourmet',0,1),(13,3,'YJqaWdsD',31008831,'S','standard',0,1),(14,1,'FDNo8Kwr',66666666,'F',NULL,0,1),(15,1,'FDNo8Kwr',77777777,'F',NULL,0,1),(16,1,'FDNo8Kwr',88888888,'F',NULL,0,1),(17,1,'FDNo8Kwr',99999999,'F',NULL,0,1),(18,1,'jYufUK27',44444444,'F',NULL,0,1);
 /*!40000 ALTER TABLE `reserva` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -373,8 +402,8 @@ DROP TABLE IF EXISTS `usuario`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usuario` (
   `nick` varchar(50) NOT NULL,
-  `password` varchar(40) DEFAULT NULL,
-  `rol` varchar(15) NOT NULL,
+  `password` varchar(40) NOT NULL,
+  `admin` int(1) NOT NULL,
   `dni_usuario` bigint(20) NOT NULL,
   PRIMARY KEY (`dni_usuario`),
   CONSTRAINT `dni` FOREIGN KEY (`dni_usuario`) REFERENCES `persona` (`dni_persona`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -387,7 +416,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES ('admin','b59c67bf196a4758191e42f76670ceba','2',11222333);
+INSERT INTO `usuario` VALUES ('admin','81dc9bdb52d04dc20036dbd8313ed055',1,11111111),('anamolina','81dc9bdb52d04dc20036dbd8313ed055',0,31008831),('levingston','81dc9bdb52d04dc20036dbd8313ed055',0,32547698);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -423,11 +452,11 @@ INSERT INTO `vuelo` VALUES (1,1,1,12,'2019-11-04'),(2,2,1,15,'2019-11-04'),(3,3,
 UNLOCK TABLES;
 
 --
--- Dumping events for database 'gauchorocket2'
+-- Dumping events for database 'gauchorocket'
 --
 
 --
--- Dumping routines for database 'gauchorocket2'
+-- Dumping routines for database 'gauchorocket'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -439,4 +468,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-12 15:29:34
+-- Dump completed on 2019-11-13 16:55:15
