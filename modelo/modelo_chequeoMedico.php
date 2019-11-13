@@ -41,7 +41,7 @@ function validarPasajero( $dni ){
 
     $tipo = rand(1,3);
 
-    $sql = "UPDATE persona SET tipo_pasajero = $tipo WHERE dni = $dni";
+    $sql = "UPDATE persona SET tipo_pasajero = $tipo WHERE dni_persona = $dni";
 
     $result = mysqli_query($db_conexion, $sql);
 

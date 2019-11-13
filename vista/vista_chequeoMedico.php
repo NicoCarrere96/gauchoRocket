@@ -22,8 +22,8 @@
                 <label>Seleccione Centro Médico:</label>
                 <select>
                     <option value="Buenos Aires">Buenos Aires</option>
-                    <option value="Chapadmalal">Chapadmalal</option>
-                    <option value="Villa Luzuriaga">Villa Luzuriaga</option>
+                    <option value="Ankara">Ankara</option>
+                    <option value="Shangai">Shangai</option>
                 </select>
             </div>
 

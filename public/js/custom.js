@@ -24,7 +24,7 @@ function seleccionarAsiento(fila, columna, cantidad_pasajeros){
   let form = document.getElementById("asientos-seleccionados");
   let inputExist = document.getElementById(fila + "-" + columna)
 
-  if(form.getElementsByTagName('input').length - 1 >= cantidad_pasajeros && inputExist == null){
+  if(form.getElementsByTagName('input').length - 2 >= cantidad_pasajeros && inputExist == null){
     alert("Solo puede seleccionar " + cantidad_pasajeros + " asiento/s");
     return;
   } 
