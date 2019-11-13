@@ -19,7 +19,7 @@ function registrar($nick, $email, $password, $nombre, $apellido, $dni, $direccio
             VALUES ('". $nombre ."','". $apellido ."','". $dni ."', '". $direccion ."','" . $fecha_nac ."','". $email ."', 0)";
         $registro_persona = mysqli_query($db_conexion,$insertar_persona );
         
-        $insertar_valor = "INSERT INTO usuario (nick, password, rol, dni_usuario) VALUES ('" . $nick . "', '" .md5($password). "',2,'".$dni."')";
+        $insertar_valor = "INSERT INTO usuario (nick, password, dni_usuario) VALUES ('" . $nick . "', '" .md5($password). "','".$dni."')";
         $registro_usuario = mysqli_query($db_conexion,$insertar_valor );
 
 

@@ -23,8 +23,8 @@ function home_index(){
         $vuelos = todosLosVuelos();
     }
 
-    $origenes = getOrigenes();
-    $destinos = getDestinos();
+    $origenes = getArrayOrigenes();
+    $destinos = getArrayDestinos();
     $tipos_vuelo = getTipos();
 
     include("vista/vista_home.php");

@@ -17,31 +17,15 @@ function buscarVuelo($tipo, $fecha_desde, $fecha_hasta, $origen, $destino){
     }
 
     if($origen != null || $origen != ""){
-        $sql .= "AND tr.origen = '". $origen ."'";
+        $sql .= "AND d1.descripcion = '". $origen ."'";
     }
     if($destino != null || $destino != ""){
-        $sql .= "AND tr.destino = '".$destino."'";
+        $sql .= "AND d2.descripcion = '".$destino."'";
     }
 
-    echo $sql;
     $result = mysqli_query($conn, $sql);
 
-    $vuelos = Array();
-    if (mysqli_num_rows($result) > 0) {
-
-        while($row = mysqli_fetch_assoc($result)) {
-            $vuelo = Array();
-            $vuelo['id_vuelo'] = $row["id_vuelo"];
-            $vuelo['id_tipo'] = $row["id_tipo_viaje"];
-            $vuelo['tipo'] =  $row["descripcion_tv"];
-            $vuelo['origen'] =  $row["origen"];
-            $vuelo['destino'] =  $row["destino"];
-            $vuelo['fecha'] = $row["fecha"];
-            $vuelo['hora'] = $row["hora_partida"];
-            $vuelo['precio'] = $row["precio"];
-            $vuelos[] = $vuelo;
-        }
-    }
+    $vuelos = getVuelos($result);
 
     mysqli_close($conn);
 
@@ -60,26 +44,11 @@ function todosLosVuelos(){
 
     $result = mysqli_query($conn, $sql);
 
-    $vuelos = Array();
-    if (mysqli_num_rows($result) > 0) {
-
-        while($row = mysqli_fetch_assoc($result)) {
-            $vuelo = Array();
-            $vuelo['id_vuelo'] = $row["id_vuelo"];
-            $vuelo['id_tipo'] = $row["id_tipo_viaje"];
-            $vuelo['tipo'] =  $row["descripcion_tv"];
-            $vuelo['origen'] =  $row["origen"];
-            $vuelo['destino'] =  $row["destino"];
-            $vuelo['fecha'] = $row["fecha"];
-            $vuelo['hora'] = $row["hora_partida"];
-            $vuelo['precio'] = $row["precio"];
-            $vuelos[] = $vuelo;
-        }
-    }
+    $vuelos = getVuelos($result);
 
     mysqli_close($conn);
-
     return $vuelos;
+
 }
 
 function getTipos(){
@@ -105,9 +74,7 @@ function getTipos(){
     return $tipos;
 }
 
-$origenes = getOrigenes();
-$destinos = getDestinos();
-function getOrigenes(){
+function getArrayOrigenes(){
     $conn = getConexion();
 
     $sql = "SELECT DISTINCT descripcion FROM destino
@@ -115,22 +82,14 @@ function getOrigenes(){
 
     $result = mysqli_query($conn, $sql);
 
-    $origenes = Array();
-    if (mysqli_num_rows($result) > 0) {
-
-        while($row = mysqli_fetch_assoc($result)) {
-            $origen = Array();
-            $origen['origen'] =  $row["descripcion"];
-            $origenes[] = $origen;
-        }
-    }
+    $origenes = getDestinos($result);
 
     mysqli_close($conn);
 
     return $origenes;
 }
 
-function getDestinos(){
+function getArrayDestinos(){
     $conn = getConexion();
 
     $sql = "SELECT DISTINCT descripcion FROM destino
@@ -138,7 +97,37 @@ function getDestinos(){
 
     $result = mysqli_query($conn, $sql);
 
+    $destinos = getDestinos($result);
+
+    mysqli_close($conn);
+
+    return $destinos;
+
+}
+
+function getVuelos($result){
+    $vuelos = Array();
+    if (mysqli_num_rows($result) > 0) {
+
+        while($row = mysqli_fetch_assoc($result)) {
+            $vuelo = Array();
+            $vuelo['id_vuelo'] = $row["id_vuelo"];
+            $vuelo['id_tipo'] = $row["id_tipo_viaje"];
+            $vuelo['tipo'] =  $row["descripcion_tv"];
+            $vuelo['origen'] =  $row["origen"];
+            $vuelo['destino'] =  $row["destino"];
+            $vuelo['fecha'] = $row["fecha"];
+            $vuelo['hora'] = $row["hora_partida"];
+            $vuelo['precio'] = $row["precio"];
+            $vuelos[] = $vuelo;
+        }
+    }
+    return $vuelos;
+}
+
+function getDestinos($result){
     $destinos = Array();
+
     if (mysqli_num_rows($result) > 0) {
 
         while($row = mysqli_fetch_assoc($result)) {
@@ -148,9 +137,6 @@ function getDestinos(){
         }
     }
 
-    mysqli_close($conn);
-
     return $destinos;
 }
-
 ?>

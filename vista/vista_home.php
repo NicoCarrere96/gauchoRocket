@@ -39,7 +39,7 @@
                             <option value="" disabled selected>Seleccione Origen</option>
                             <?php
                             foreach( $origenes as $origen ){
-                                echo "<option value='". $origen["origen"] ."'>". $origen["origen"] ."</option>";
+                                echo "<option value='". $origen["destino"] ."'>". $origen["destino"] ."</option>";
                             }
                             ?>
                         </select>
