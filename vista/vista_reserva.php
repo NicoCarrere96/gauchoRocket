@@ -4,8 +4,24 @@
         <h1 class="text-center" style="padding-top: 10px;">Reserva de Vuelo<img src="public/img/rocket.png" height="50px"></h1>
     </div>
     <div class="w3-container w3-margin-left w3-margin-bottom">
+    <div class="col-xs-12 nopadding">
 
-        <div class="col-xs-12 nopadding">
+    <?php
+        if($lista_espera == 1){
+            ?>
+        <div class="w3-panel w3-yellow">
+            <h3>¡Tenemos toda la cabina completa!</h3>
+            <p>
+            Su reserva quedara registrada pero lamentablemente no contamos con asientos disponibles para cubrir la cantidad de pasajeros que solicito.
+            Por ello estara formando para de nuestra lista de espera para este vuelo, en caso que se habilite el lugar necesario se le hara saber para 
+            que pueda realizar el check-in correspondiente.
+            </p>
+        </div> 
+
+            <?php
+        }
+    ?>
+
             <form action="/gauchoRocket/reserva" method="post">
             <?php
             for ( $i = 1; $i <= $cantidad; $i++){
@@ -52,27 +68,30 @@
 
                 </div>
                 </div>
-                ";}
-                ?>
-                <br>
+                ";
+            }
+        ?>
+            <br>
                 <div>
-                    <label for="tipo_cabina">Seleccione Tipo de Cabina</label>
-                    <select class="w3-select" name="tipo_cabina" id="tipo_cabina">
-                        <option value="suite">Suite</option>
-                        <option value="general">General</option>
-                        <option value="familiar">Familiar</option>
+                    <label for="tipo_servicio">Seleccione Tipo de Servicio a Bordo</label>
+                    <select class="w3-select" name="tipo_servicio" id="tipo_servicio">
+                        <option value="standard">Standard</option>
+                        <option value="gourmet">Gourmet</option>
+                        <option value="spa">Spa</option>
                     </select>
                 </div>
 
-                <input type="hidden" name="id_vuelo" value="<?=$id_vuelo ?>">
-                <input type="hidden" name="cantidad_pasajeros" value="<?=$cantidad ?>">
-                <br>
-                <div>
-                    <button class="w3-button w3-black w3-animate-zoom" type="submit" name="btn-reservar">Confirmar Reserva</button>
-                </div>
-            </form>
-            
-        </div>
+            <input type="hidden" name="id_vuelo" value="<?=$reserva_vuelo ?>">
+            <input type="hidden" name="cantidad_pasajeros" value="<?=$cantidad ?>">
+            <input type="hidden" name="tipo_cabina" value="<?=$tipo_cabina ?>">
+            <input type="hidden" name="lista_espera" value="<?=$lista_espera ?>">
+            <br>
+            <div>
+                <button class="w3-button w3-black w3-animate-zoom" type="submit" name="btn-reservar">Confirmar Reserva</button>
+            </div>
+        </form>
+        
+    </div>
 </div>
 
 

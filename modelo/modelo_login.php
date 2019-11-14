@@ -12,7 +12,7 @@ function validarLogin($usuario, $password){
     
     mysqli_stmt_bind_param($stmt, "ss", $usuario, $passmd5);
 
-
+    mysqli_stmt_bind_result($stmt, $nick, $pass, $admin, $dni);
     mysqli_stmt_execute($stmt);
 
     
@@ -40,6 +40,10 @@ function validarLogin($usuario, $password){
             echo "<div class='w3-container w3-content w3-center' >Falta confirmar su cuenta</div>";
         } else {
             $_SESSION["logueado"] = TRUE;
+
+            if($admin == 1){
+                $_SESSION["admin"] = TRUE;
+            }
             header("location: home");
             
         }

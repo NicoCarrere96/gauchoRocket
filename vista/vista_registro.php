@@ -9,7 +9,7 @@
           <div class="card">
             <div class="loginBox">
               
-              <form action="/gauchoRocket/registro" method="post">                             
+              <form action="/gauchoRocket/registro" method="post">
                 <div class="form-group">                  
                   <input type="text" class="form-control input-lg" name="nombre" placeholder="Nombre" required>        
                 </div>              

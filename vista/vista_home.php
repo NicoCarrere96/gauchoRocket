@@ -7,16 +7,16 @@
             <h2><i class="fa fa-rocket w3-margin-right"></i>Buscador de Vuelos</h2>
         </div>
         <div class="w3-container w3-white">
-            <form action="/gauchoRocket/home" method="post">
+            <form action="home" method="post">
 
                 <div class="w3-row-padding w3-margin">
 
                     <label>Seleccione tipo de vuelo</label>
                     <?php
                         foreach( $tipos_vuelo as $tipo_vuelo){
-                            echo "<input class='w3-radio w3-margin' type='radio' name='tipo' value='". $tipo_vuelo["id_tipo_vuelo"] ."' checked>
+                            echo "<input class='w3-radio w3-margin' type='radio' name='tipo' value='". $tipo_vuelo["id_tipo_viaje"] ."' checked>
 
-                            <label>". $tipo_vuelo["descripcion"] ."</label>";
+                            <label>". $tipo_vuelo["descripcion_tv"] ."</label>";
 
                         }
                     ?>
@@ -39,14 +39,14 @@
                             <option value="" disabled selected>Seleccione Origen</option>
                             <?php
                             foreach( $origenes as $origen ){
-                                echo "<option value='".$origen["origen"] ."'>". $origen["origen"] ."</option>";
+                                echo "<option value='". $origen["destino"] ."'>". $origen["destino"] ."</option>";
                             }
                             ?>
                         </select>
                     </div>
-                    <div class="w3-half">
+                    <div class="w3-half" id="destino-div">
                         <label><i class="fa fa-rocket"></i> Destino</label>
-                        <select class="w3-select w3-border w3-padding-16 w3-margin-top" name="destino">
+                        <select class="w3-select w3-border w3-padding-16 w3-margin-top" id="destino" name="destino">
                             <option value="" disabled selected>Seleccione Destino</option>
                             <?php
                             foreach( $destinos as $destino ){
@@ -69,23 +69,32 @@
         <div class="w3-container w3-deep-orange w3-round">
           <h2><i class="fa fa-rocket w3-margin-right"></i>Vuelos</h2>
         </div>
-        <div class='w3-row'>
-            <?php
-                foreach ( $vuelos as $vuelo){
-                    echo   "<div class='w3-third w3-section w3-border w3-white' style='margin: 1% 1%; width: 31%; padding: 1%'>
-                                    <h3>". $vuelo['origen'] ." -> ".$vuelo['destino'] ."</h3>
-                                    <h6 class='w3-opacity'>Desde $9.999</h6>
-                                    <p>". $vuelo['tipo'] ."</p>
-                                    <p>Fecha:". $vuelo['fecha'] ."</p>";
-                                if(isset($_SESSION["logueado"])){
-                                    echo "<button onclick='abrirModalReserva(". $vuelo['id_vuelo'] .")' class='w3-button w3-block w3-black w3-auto'>Reservar</button>";
+        <table>
 
-                                }
-                    echo    "</div>";
-                                
+            <tr class='w3-row'>
+                <?php
+                foreach ( $vuelos as $vuelo){
+                    echo   "<td class='w3-third w3-section w3-border w3-white' style='margin: 1% 1%; width: 31%; padding: 1%;'>
+                    <h3>". $vuelo['origen'] ;
+                    
+                    if($vuelo['id_tipo'] == 3){
+                        echo " -> ".$vuelo['destino'] ."</h3>";
+                    }
+
+                    echo"<h6 class='w3-opacity'>$". $vuelo['precio'] ."</h6>
+                    <p>Tipo de vuelo: ". $vuelo['tipo'] ."</p>
+                    <p>Fecha: ". $vuelo['fecha'] ."</p>
+                    <p>Horario: ". $vuelo['hora'] .":00 hs</p>";
+                    if(isset($_SESSION["logueado"])){
+                        echo "<button onclick='abrirModalReserva(". $vuelo['id_vuelo'] .", ". $vuelo['modelo_equipo'] .")' class='w3-button w3-block w3-black w3-auto'>Reservar</button>";
+                        
+                    }
+                    echo    "</td>";
+                    
                 }
-            ?>
-        </div>
+                ?>
+            </tr>
+    </table>
     </div>
 </div>
 
@@ -118,6 +127,14 @@
             </header>
                 <form class="w3-container" action="/gauchoRocket/reserva" method="post">
                     <input type="hidden" name="id_vuelo" id="id_vuelo">
+                    <div>
+                        <label for="tipo_cabina">Seleccione Tipo de Cabina</label>
+                        <select class="w3-select" name="tipo_cabina" id="tipo_cabina">
+                            <option value="S">Suite</option>
+                            <option value="G">General</option>
+                            <option value="F">Familiar</option>
+                        </select>
+                    </div>
                     <label for="cantidad">Pasajeros</label>
                     <input class="w3-input" name="cantidad" type="text">
                     <button class='w3-button w3-block w3-black w3-margin' name="btn-cantidad-pasajeros" type="submit">Enviar</button>

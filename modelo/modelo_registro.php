@@ -12,14 +12,14 @@ function registrar($nick, $email, $password, $nombre, $apellido, $dni, $direccio
 
     if (mysqli_num_rows($resultado) > 0){
 
-        header('Location: error.php');
+        header('Location: erro.php');
 
     } else {
-        $insertar_persona = "INSERT INTO persona (nombre, apellido, dni, direccion, fecha_nac, mail, tipo_pasajero) 
+        $insertar_persona = "INSERT INTO persona (nombre, apellido, dni_persona, direccion, fecha_nac, mail, tipo_pasajero) 
             VALUES ('". $nombre ."','". $apellido ."','". $dni ."', '". $direccion ."','" . $fecha_nac ."','". $email ."', 0)";
         $registro_persona = mysqli_query($db_conexion,$insertar_persona );
         
-        $insertar_valor = "INSERT INTO usuario (nick, password, rol, dni) VALUES ('" . $nick . "', '" .md5($password). "',2,'".$dni."')";
+        $insertar_valor = "INSERT INTO usuario (nick, password, dni_usuario) VALUES ('" . $nick . "', '" .md5($password). "','".$dni."')";
         $registro_usuario = mysqli_query($db_conexion,$insertar_valor );
 
 
