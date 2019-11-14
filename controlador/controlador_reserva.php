@@ -8,10 +8,25 @@ function reserva_index(){
         $tipo_cabina = $_POST['tipo_cabina'];
         $cantidad = $_POST['cantidad'];
 
-        if(validarCantidadPasajeros($reserva_vuelo, $tipo_cabina, $cantidad)){
-            include_once("vista/vista_reserva.php");
-        } else {
-            echo "<p>No hay lugares suficientes</p>";
+        $cantidad_validada = validarCantidadPasajeros($reserva_vuelo, $tipo_cabina, $cantidad);
+
+        switch($cantidad_validada){
+
+            case 1:
+                $lista_espera = 0;
+                include_once("vista/vista_reserva.php");
+            break;
+            case 0: 
+                $lista_espera = 1;
+                include_once("vista/vista_reserva.php");
+            break;
+            case -1:
+                echo "<br>";
+                echo "<br>";
+                echo "<br>";
+                echo "<p>No hay lugares suficientes</p>";
+            break;
+
         }
 
     }
@@ -20,6 +35,7 @@ function reserva_index(){
         $cantidad = $_POST['cantidad_pasajeros'];
         $tipo_cabina = $_POST['tipo_cabina'];
         $tipo_servicio = $_POST['tipo_servicio'];
+        $lista_espera = $_POST['lista_espera'];
 
 /*         if(isset($_POST['reserva_trayecto']));{
             $reserva_trayecto = $_POST['reserva_trayecto'];
@@ -38,7 +54,7 @@ function reserva_index(){
             $pasajeros[] = $pasajero;
         }
 
-        $cod_reserva = generarReserva($reserva_vuelo, $pasajeros, $tipo_cabina, $tipo_servicio);
+        $cod_reserva = generarReserva($reserva_vuelo, $pasajeros, $tipo_cabina, $tipo_servicio, $lista_espera);
 
         include_once('vista/vista_cod_reserva.php');
     }

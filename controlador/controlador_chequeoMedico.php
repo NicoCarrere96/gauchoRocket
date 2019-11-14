@@ -1,7 +1,7 @@
 <?php
 
 include_once('modelo/modelo_chequeoMedico.php');
-include_once ('modelo/modelo_reserva.php');
+include_once('modelo/modelo_reserva.php');
 
 function chequeoMedico_index(){
 
@@ -16,10 +16,10 @@ function chequeoMedico_index(){
 
         $personas_noValidadas = validarChequeo($cod_reserva);
         if(sizeOf($personas_noValidadas) > 0){
-            include_once ('vista/vista_chequeoMedico.php');
+            include_once('vista/vista_chequeoMedico.php');
         } else {
             $datos_reserva = consultarDatosReserva($cod_reserva);
-            include_once ('vista/vista_pagar.php');
+            include_once('vista/vista_pagar.php');
         }
 
 

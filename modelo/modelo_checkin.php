@@ -13,16 +13,17 @@ function  registrarCheckin($cod_reserva){
 
     $pasajeros = Array();
     if (mysqli_num_rows($resultado) > 0){
-        while($row = mysqli_fetch_assoc($resultado)){
-            $pasajero = Array();
-            $pasajero['dni'] = $row['dni_persona'];
-            $pasajero['nombre'] = $row['nombre'];
-            $pasajero['apellido'] = $row['apellido'];
-            $pasajeros[] = $pasajero;
-        }
-
-        $realizarCheckin = "UPDATE reserva SET checkin = 1 WHERE cod_reserva = '". $cod_reserva ."'";
-        $checkin_usuario = mysqli_query($db_conexion,$realizarCheckin);
+            
+            while($row = mysqli_fetch_assoc($resultado)){
+                $pasajero = Array();
+                $pasajero['dni'] = $row['dni_persona'];
+                $pasajero['nombre'] = $row['nombre'];
+                $pasajero['apellido'] = $row['apellido'];
+                $pasajeros[] = $pasajero;
+            }
+            
+            $realizarCheckin = "UPDATE reserva SET checkin = 1 WHERE cod_reserva = '". $cod_reserva ."'";
+            $checkin_usuario = mysqli_query($db_conexion, $realizarCheckin);
 
     } else {
         header("location: checkin");
@@ -73,4 +74,17 @@ function getAsientosDisponibles($cod_reserva){
     return $cabina;
 
 
+}
+
+function verificarPago($cod_reserva){
+    $conn = getConexion();
+
+    $query = "SELECT pagado FROM reserva r
+            WHERE cod_reserva = '". $cod_reserva ."'";
+
+    $resulto = mysqli_query($conn, $query);
+
+    while($row = mysqli_fetch_assoc($resulto)){
+        return $row["pagado"] == 1;
+    }
 }

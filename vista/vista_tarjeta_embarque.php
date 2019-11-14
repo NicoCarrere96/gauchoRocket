@@ -9,30 +9,49 @@
         <div class="w3-row">
             <div class="w3-col m8 l8">
                 <h3>Tarjeta de embarque Nº: </h3>
-                <h6>Datos de los pasajeros</h6>
+                <h4>Datos de la reserva: </h4>
+                <table class="w3-table w3-bordered">
+                    <tr>
+                        <th>Código de Reserva :</th>
+                        <td><?=$datos_reserva[0]['cod_reserva']?></t>
+                    </tr>
+                    <tr>
+                        <th>Tipo de Viaje :</th>
+                        <td><?=$datos_reserva[0]['tipo']?></td>
+                    </tr>
+                    <tr>
+                        <th>Tipo de Cabina :</th>
+                        <td><?=$datos_reserva[0]['tipo_cabina']?></td>
+                    </tr>
+                    <tr>
+                        <th>Fecha :</th>
+                        <td><?=$datos_reserva[0]['fecha']?> <?=$datos_reserva[0]['hora']?>:00 hs</td>
+                    </tr>
+                    <tr>
+                        <th>Asientos reservados :</th>
+                        <td></td>
+                    </tr>
+                </table>
+
+                <h4>Datos de los pasajeros: </h4>
                 <table class="w3-table w3-bordered">
                     <thead>
                     <tr>
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>DNI</th>
-                        <th>Asiento</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td>
-                        <?php
-                        foreach($datos_reserva as $dato){
-                            echo "<tr>
-                                <td>". $dato['nombre'] . "</td>
-                                <td>". $dato['apellido'] . "</td>
-                                <td>". $dato['dni'] . "</td>
-                                <td></td>
-                                ";
-                        }
-                    ?>
-                        </td>
+                            <?php
+                                foreach($datos_reserva as $dato){
+                                    echo "<tr>
+                                        <td>". $dato['nombre'] . "</td>
+                                        <td>". $dato['apellido'] . "</td>
+                                        <td>". $dato['dni'] . "</td>";
+                                }
+                            ?>
                     </tr>
                 </table>
             </div>

@@ -26,10 +26,8 @@
                 echo "<tr>
                                 <td>". $dato['nombre'] . "</td>
                                 <td>". $dato['apellido'] . "</td>
-                                <td>". $dato['dni'] . "</td>
-                                ";
+                                <td>". $dato['dni'] . "</td>";
 
-                echo "<br>";
                 $count++;
             }
 
@@ -54,6 +52,7 @@
         <input type="date" name="fechaVencimiento" class="form-control">
         <label>Codigo de Seguridad de la Tarjeta</label>
         <input type="number" name="codSeguridad" class="form-control">
+        <input type="hidden" name="cod_reserva" value=<?=$datos_reserva[0]['cod_reserva'] ?>>
         <br>
         </div>
             <button class="w3-button w3-teal w3-center" type="submit" name="btn-pagar">Pagar</button>

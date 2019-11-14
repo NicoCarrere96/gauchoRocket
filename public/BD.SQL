@@ -29,7 +29,10 @@ CREATE TABLE `asientos_ocupados` (
   `asiento` int(11) NOT NULL,
   `id_vuelo` int(11) NOT NULL,
   `tipo_cabina` varchar(1) NOT NULL,
+  `cod_reserva` varchar(10) NOT NULL,
+  PRIMARY KEY (`fila`,`asiento`,`id_vuelo`,`tipo_cabina`,`cod_reserva`),
   KEY `id_vuelo` (`id_vuelo`),
+  KEY `reser_idx` (`cod_reserva`),
   CONSTRAINT `asientos_ocupados_ibfk_2` FOREIGN KEY (`id_vuelo`) REFERENCES `vuelo` (`id_vuelo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -40,7 +43,7 @@ CREATE TABLE `asientos_ocupados` (
 
 LOCK TABLES `asientos_ocupados` WRITE;
 /*!40000 ALTER TABLE `asientos_ocupados` DISABLE KEYS */;
-INSERT INTO `asientos_ocupados` VALUES (1,1,3,'F'),(0,1,3,'F'),(0,1,8,'F'),(0,2,8,'F'),(1,2,8,'F'),(1,1,8,'F'),(0,3,8,'F'),(0,0,8,'F'),(0,1,8,'F'),(4,3,8,'F'),(4,4,8,'F'),(0,3,3,'F'),(0,9,2,'F'),(0,9,2,'F'),(0,9,2,'F'),(0,8,2,'F'),(0,8,2,'F'),(0,8,2,'F'),(0,8,2,'F'),(0,8,2,'F'),(0,8,2,'F'),(2,4,8,'F'),(0,8,8,'F'),(0,8,8,'F'),(0,8,8,'F'),(0,8,8,'F'),(0,8,8,'F'),(0,8,8,'F'),(0,8,8,'F'),(0,8,8,'F'),(0,8,8,'F'),(0,8,8,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(3,2,2,'F'),(2,3,2,'F'),(2,3,2,'F'),(2,3,2,'F'),(2,3,2,'F'),(2,3,2,'F'),(2,3,2,'F'),(2,3,2,'F'),(2,3,2,'F'),(2,3,2,'F'),(0,4,3,'S'),(0,1,3,'S'),(0,3,3,'S'),(0,2,1,'F'),(1,2,1,'F'),(0,3,1,'F'),(1,3,1,'F'),(9,3,1,'F');
+INSERT INTO `asientos_ocupados` VALUES (0,1,1,'F','FDNo8Kwr'),(0,2,1,'F','FDNo8Kwr'),(0,3,1,'F','FDNo8Kwr'),(1,1,1,'F','FDNo8Kwr'),(2,1,1,'F','jYufUK27'),(0,3,2,'G','LAcjZFfH'),(0,0,3,'S','T3ChwS9F'),(1,0,3,'S','YJqaWdsD'),(0,0,5,'S','rzhLqJDl'),(0,1,5,'S','rzhLqJDl'),(0,0,8,'S','ZXtabjhp'),(0,1,8,'S','ZXtabjhp'),(0,2,8,'S','ZXtabjhp'),(0,3,8,'S','ZXtabjhp'),(0,4,8,'S','ZXtabjhp');
 /*!40000 ALTER TABLE `asientos_ocupados` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -238,7 +241,7 @@ CREATE TABLE `persona` (
   `fecha_nac` date DEFAULT NULL,
   `dni_persona` bigint(20) NOT NULL,
   `direccion` varchar(30) DEFAULT NULL,
-  `tipo_pasajero` tinyint(4) DEFAULT NULL,
+  `tipo_pasajero` tinyint(4) DEFAULT '0',
   `mail` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`dni_persona`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -250,7 +253,7 @@ CREATE TABLE `persona` (
 
 LOCK TABLES `persona` WRITE;
 /*!40000 ALTER TABLE `persona` DISABLE KEYS */;
-INSERT INTO `persona` VALUES ('admin','admin','0001-01-01',11111111,'gaucho rocket 0000',3,'admin@gauchorocket.com.ar'),('Nicolas','Admin','1996-10-21',11222333,'moronmoron 14',0,'admintest@test.com'),('primer','pasajero','2000-11-15',12344321,'falsa 123',NULL,'testing@test.bb'),('Nico','Del Canio','1990-01-31',12345678,'Izq 1111',NULL,'nico@gmail.com'),('Manuela','Castaneira','1999-12-31',23456789,'Izq 1111',NULL,'manu@gmail.com'),('Ana','Molina','1981-05-31',31008831,'Guaycuru 1253',3,'jm@gmail.com'),('Carlos','Fernandez','1998-12-31',31008832,'Guaycuru 1253',2,'jm2@gmail.com'),('Cesar','Segovia','1999-10-29',31008833,'Guaycuru 1253',3,'jm3@gmail.com'),('Fabiola','Fernandez','1989-01-31',31008834,'Guaycuru 1253',3,'jm4@gmail.com'),('Fernanda','Segovia','1997-11-11',31008836,'Guaycuru 1253',1,'jm5@gmail.com'),('Samuel','Levingston','1990-11-11',32547698,'Laselva 1234',0,'levingston@gmail.com'),('el ','cheto','1980-03-22',44444444,'chetolandia 123',NULL,'algun@email.com'),('Nico','nico','2000-11-09',66666666,'lala 123',NULL,'eldeltrabajo@work.com'),('Nico','nar','1980-12-12',77777777,'lala 123',NULL,'eldeltrabajo@work.com'),('Otro','Nico','1990-12-13',88888888,'lala 123',NULL,'eldeltrabajo@work.com'),('Angel','Labruna','2007-01-23',98765431,'Monumental',NULL,'labru@g.com'),('Alguno ','de Por ahi','1970-12-14',99999999,'lala 123',NULL,'eldeltrabajo@work.com'),('asdc','asdc','2019-11-21',123412341,'asdc',NULL,'aasc@asdc.ds'),('sdcas','vsdcsa','2019-11-19',1234123412,'asasdca',NULL,'asca@acs.sdc'),('qwfsda','fqewfwqe','1994-12-20',2526362589,'asdfawe 213',0,'asdcas@sdyuvca.scu');
+INSERT INTO `persona` VALUES ('admin','admin','0001-01-01',0,'gaucho rocket 0000',3,'admin@gauchorocket.com.ar'),('Primer','Pasajero','2000-11-01',11111111,'Casilla 4',2,'fliaPasajero@familiar.com'),('Nicolas','Admin','1996-10-21',11222333,'moronmoron 14',0,'admintest@test.com'),('primer','pasajero','2000-11-15',12344321,'falsa 123',0,'testing@test.bb'),('Nico','Del Canio','1990-01-31',12345678,'Izq 1111',0,'nico@gmail.com'),('Segundo','Pasajero','2000-11-01',22222222,'Casilla 4',1,'fliaPasajero@familiar.com'),('el colado','que quiere sumarse','2000-11-30',22777999,'rere 22 ',3,'rere@elloco.com'),('Manuela','Castaneira','1999-12-31',23456789,'Izq 1111',0,'manu@gmail.com'),('Ana','Molina','1981-05-31',31008831,'Guaycuru 1253',3,'jm@gmail.com'),('Carlos','Fernandez','1998-12-31',31008832,'Guaycuru 1253',2,'jm2@gmail.com'),('Cesar','Segovia','1999-10-29',31008833,'Guaycuru 1253',3,'jm3@gmail.com'),('Fabiola','Fernandez','1989-01-31',31008834,'Guaycuru 1253',3,'jm4@gmail.com'),('Fernanda','Segovia','1997-11-11',31008836,'Guaycuru 1253',1,'jm5@gmail.com'),('Samuel','Levingston','1990-11-11',32547698,'Laselva 1234',0,'levingston@gmail.com'),('Tercer','Pasajero','2000-11-01',33333333,'Casilla 4',2,'fliaPasajero@familiar.com'),('el ','cheto','1980-03-22',44444444,'chetolandia 123',0,'algun@email.com'),('Llenando','La suite','1900-11-22',55666888,'test 123',1,'nono@asd.a'),('Nico','nico','2000-11-09',66666666,'lala 123',0,'eldeltrabajo@work.com'),('Nico','nar','1980-12-12',77777777,'lala 123',0,'eldeltrabajo@work.com'),('El otro','Que llena','1900-11-23',88777999,'test 123',3,'nono@asd.a'),('Otro','Nico','1990-12-13',88888888,'lala 123',0,'eldeltrabajo@work.com'),('Angel','Labruna','2007-01-23',98765431,'Monumental',0,'labru@g.com'),('Alguno ','de Por ahi','1970-12-14',99999999,'lala 123',0,'eldeltrabajo@work.com'),('asdc','asdc','2019-11-21',123412341,'asdc',0,'aasc@asdc.ds'),('sdcas','vsdcsa','2019-11-19',1234123412,'asasdca',0,'asca@acs.sdc'),('qwfsda','fqewfwqe','1994-12-20',2526362589,'asdfawe 213',0,'asdcas@sdyuvca.scu');
 /*!40000 ALTER TABLE `persona` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -270,13 +273,14 @@ CREATE TABLE `reserva` (
   `tipo_servicio` varchar(15) DEFAULT NULL,
   `pagado` tinyint(1) NOT NULL DEFAULT '0',
   `checkin` tinyint(1) NOT NULL DEFAULT '0',
+  `lista_espera` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_reserva`),
   KEY `dni_persona_reserva` (`dni_persona_reserva`),
   KEY `vuelo_idx` (`reserva_vuelo`),
   KEY `tipoCabina_idx` (`tipo_cabina`),
   CONSTRAINT `reserva_ibfk_2` FOREIGN KEY (`dni_persona_reserva`) REFERENCES `persona` (`dni_persona`),
   CONSTRAINT `vuelo` FOREIGN KEY (`reserva_vuelo`) REFERENCES `vuelo` (`id_vuelo`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -285,7 +289,7 @@ CREATE TABLE `reserva` (
 
 LOCK TABLES `reserva` WRITE;
 /*!40000 ALTER TABLE `reserva` DISABLE KEYS */;
-INSERT INTO `reserva` VALUES (3,2,'LAcjZFfH',2526362589,'G','',0,1),(4,8,'ZXtabjhp',31008831,'S','',0,1),(5,8,'ZXtabjhp',31008832,'S','',0,1),(6,8,'ZXtabjhp',31008833,'S','',0,1),(7,8,'ZXtabjhp',31008834,'S','',0,1),(8,8,'ZXtabjhp',31008836,'S','',0,1),(9,8,'Mi7w18pQ',23456789,'S','',0,1),(10,8,'Mi7w18pQ',12345678,'S','',0,1),(11,3,'9GSvEfRd',11111111,'S','',1,1),(12,3,'T3ChwS9F',98765431,'S','gourmet',0,1),(13,3,'YJqaWdsD',31008831,'S','standard',0,1),(14,1,'FDNo8Kwr',66666666,'F',NULL,0,1),(15,1,'FDNo8Kwr',77777777,'F',NULL,0,1),(16,1,'FDNo8Kwr',88888888,'F',NULL,0,1),(17,1,'FDNo8Kwr',99999999,'F',NULL,0,1),(18,1,'jYufUK27',44444444,'F',NULL,0,1);
+INSERT INTO `reserva` VALUES (3,2,'LAcjZFfH',2526362589,'G','gourmet',1,1,0),(4,8,'ZXtabjhp',31008831,'S','gourmet',1,1,0),(5,8,'ZXtabjhp',31008832,'S','gourmet',1,1,0),(6,8,'ZXtabjhp',31008833,'S','gourmet',1,1,0),(7,8,'ZXtabjhp',31008834,'S','gourmet',1,1,0),(8,8,'ZXtabjhp',31008836,'S','gourmet',1,1,0),(9,8,'Mi7w18pQ',23456789,'S','gourmet',1,1,0),(10,8,'Mi7w18pQ',12345678,'S','gourmet',1,1,0),(12,3,'T3ChwS9F',98765431,'S','gourmet',1,1,0),(13,3,'YJqaWdsD',31008831,'S','standard',1,1,0),(14,1,'FDNo8Kwr',66666666,'F','gourmet',1,1,0),(15,1,'FDNo8Kwr',77777777,'F','gourmet',1,1,0),(16,1,'FDNo8Kwr',88888888,'F','standard',1,1,0),(17,1,'FDNo8Kwr',99999999,'F','standard',1,1,0),(18,1,'jYufUK27',44444444,'F','standard',1,1,0),(19,1,'BQ8lNJvk',11111111,'S','standard',1,1,0),(20,1,'BQ8lNJvk',22222222,'S','standard',1,1,0),(21,1,'BQ8lNJvk',33333333,'S','standard',1,1,0),(22,1,'BQ8lNJvk',44444444,'S','standard',1,1,0),(23,5,'rzhLqJDl',55666888,'S','standard',1,1,0),(24,5,'rzhLqJDl',88777999,'S','standard',1,1,0),(25,5,'uAKNqMRw',22777999,'S','spa',1,1,1);
 /*!40000 ALTER TABLE `reserva` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -416,7 +420,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES ('admin','81dc9bdb52d04dc20036dbd8313ed055',1,11111111),('anamolina','81dc9bdb52d04dc20036dbd8313ed055',0,31008831),('levingston','81dc9bdb52d04dc20036dbd8313ed055',0,32547698);
+INSERT INTO `usuario` VALUES ('anamolina','81dc9bdb52d04dc20036dbd8313ed055',0,31008831),('levingston','81dc9bdb52d04dc20036dbd8313ed055',0,32547698),('admin','81dc9bdb52d04dc20036dbd8313ed055',1,99999999);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -468,4 +472,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-13 16:55:15
+-- Dump completed on 2019-11-14 17:16:37
