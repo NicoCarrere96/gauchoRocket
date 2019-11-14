@@ -24,7 +24,7 @@ function validarCantidadPasajeros($id_vuelo, $tipo_cabina, $cantidad_pasajeros){
     return ($total - $ocupados) < $cantidad_pasajeros ? false : true;
 }
 
-function generarReserva($reserva_vuelo, $pasajeros, $tipo_cabina){
+function generarReserva($reserva_vuelo, $pasajeros, $tipo_cabina, $tipo_servicio){
     $conn = getConexion();
 
     $generador_codigo = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -44,9 +44,9 @@ function generarReserva($reserva_vuelo, $pasajeros, $tipo_cabina){
         }
 
         $insertReserva = "INSERT INTO reserva
-        (dni_persona_reserva, cod_reserva, reserva_vuelo, tipo_cabina, pagado) 
+        (dni_persona_reserva, cod_reserva, reserva_vuelo, tipo_cabina,tipo_servicio, pagado) 
         VALUES
-        (".$pasajero['dni'].", '". $cod_reserva. "', '". $reserva_vuelo ."','". $tipo_cabina ."', 0)";
+        (".$pasajero['dni'].", '". $cod_reserva. "', '". $reserva_vuelo ."','". $tipo_cabina ."','". $tipo_servicio ."', 0)";
 
 
         $resultInsertReserva = mysqli_query($conn, $insertReserva);
@@ -63,6 +63,7 @@ function consultarDatosReserva($cod_reserva){
 
     $sql = "SELECT * FROM reserva r
             JOIN vuelo v ON r.reserva_vuelo = v.id_vuelo
+            JOIN trayecto tr ON v.id_vuelo = tr.id_vuelo_trayecto
             JOIN tipo_viaje tv ON v.tipo_viaje_vuelo =  tv.id_tipo_viaje
             JOIN persona p ON r.dni_persona_reserva = p.dni_persona
             WHERE r.cod_reserva = '". $cod_reserva ."'";
@@ -84,6 +85,8 @@ function consultarDatosReserva($cod_reserva){
             $dato['nombre'] = $row["nombre"];
             $dato['apellido'] = $row['apellido'];
             $dato['dni'] = $row['dni_persona'];
+            $dato['precio'] = $row['precio'];
+
 
             $datos_reserva[] = $dato;
 

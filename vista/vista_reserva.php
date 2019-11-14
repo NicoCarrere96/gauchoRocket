@@ -55,7 +55,24 @@
                 ";
             }
         ?>
+            <br>
 
+            <div>
+                <label for="tipo_cabina">Seleccione Tipo de Cabina</label>
+                <select class="w3-select" name="tipo_cabina" id="tipo_cabina">
+                    <option value="S">Suite</option>
+                    <option value="G">General</option>
+                    <option value="F">Familiar</option>
+                </select>
+            </div>
+                <div>
+                    <label for="tipo_servicio">Seleccione Tipo de Servicio a Bordo</label>
+                    <select class="w3-select" name="tipo_servicio" id="tipo_servicio">
+                        <option value="standard">Standard</option>
+                        <option value="gourmet">Gourmet</option>
+                        <option value="spa">Spa</option>
+                    </select>
+                </div>
 
             <input type="hidden" name="id_vuelo" value="<?=$reserva_vuelo ?>">
             <input type="hidden" name="cantidad_pasajeros" value="<?=$cantidad ?>">

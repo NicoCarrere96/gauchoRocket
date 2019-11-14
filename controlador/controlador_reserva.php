@@ -19,6 +19,8 @@ function reserva_index(){
         $reserva_vuelo = $_POST['id_vuelo'];
         $cantidad = $_POST['cantidad_pasajeros'];
         $tipo_cabina = $_POST['tipo_cabina'];
+        $tipo_servicio = $_POST['tipo_servicio'];
+
 /*         if(isset($_POST['reserva_trayecto']));{
             $reserva_trayecto = $_POST['reserva_trayecto'];
         } */
@@ -36,7 +38,7 @@ function reserva_index(){
             $pasajeros[] = $pasajero;
         }
 
-        $cod_reserva = generarReserva($reserva_vuelo, $pasajeros, $tipo_cabina);
+        $cod_reserva = generarReserva($reserva_vuelo, $pasajeros, $tipo_cabina, $tipo_servicio);
 
         include_once('vista/vista_cod_reserva.php');
     }

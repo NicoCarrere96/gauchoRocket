@@ -33,7 +33,7 @@
                 $count++;
             }
 
-            $total = $count * 3000;
+            $total = $count * $dato['precio'];
         ?>
 
         </tbody>

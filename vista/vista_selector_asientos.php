@@ -49,7 +49,7 @@
             <div class="w3-col m4 l4">
                 <div class="card">
                     <div >
-                        <form id="asientos-seleccionados" action="tarjeta_embarque" method="post">
+                        <form id="asientos-seleccionados" action="tarjeta_embarque?cod_reserva=<?=$cod_reserva?>" method="post">
                             <input type="hidden" name="id_vuelo" value=<?=$cabina['id_vuelo']?> />
                             <input type="hidden" name="tipo_cabina" value=<?=$cabina['descripcion']?> />
                             <button name="btn-asientos" class="w3-button w3-block w3-black w3-margin" type="submit">Enviar</button>

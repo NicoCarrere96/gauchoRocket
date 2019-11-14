@@ -11,18 +11,28 @@
                 <h3>Tarjeta de embarque Nº: </h3>
                 <h6>Datos de los pasajeros</h6>
                 <table class="w3-table w3-bordered">
+                    <thead>
                     <tr>
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>DNI</th>
                         <th>Asiento</th>
                     </tr>
-
+                    </thead>
+                    <tbody>
                     <tr>
-                        <td>Tester</td>
-                        <td>Testando</td>
-                        <td>12345699</td>
-                        <td>Fila 0 - Asiento 0</td>
+                        <td>
+                        <?php
+                        foreach($datos_reserva as $dato){
+                            echo "<tr>
+                                <td>". $dato['nombre'] . "</td>
+                                <td>". $dato['apellido'] . "</td>
+                                <td>". $dato['dni'] . "</td>
+                                <td></td>
+                                ";
+                        }
+                    ?>
+                        </td>
                     </tr>
                 </table>
             </div>
