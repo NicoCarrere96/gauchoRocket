@@ -29,7 +29,9 @@
                     </tr>
                     <tr>
                         <th>Asientos reservados :</th>
-                        <td></td>
+                        <td>
+                            <?=$array_asientos ?>
+                        </td>
                     </tr>
                 </table>
 

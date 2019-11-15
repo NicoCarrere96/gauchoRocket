@@ -34,7 +34,7 @@ function  registrarCheckin($cod_reserva){
 
 }
 
-function getAsientosDisponibles($cod_reserva){
+function getAsientos($cod_reserva){
     $db_conexion = getConexion();
     
     $select_asientos = "SELECT * FROM reserva r
@@ -69,6 +69,8 @@ function getAsientosDisponibles($cod_reserva){
                 $cabina_ocupada['asiento'] = $row_ocupadas["asiento"];
                 $cabina['ocupadas'][] = $cabina_ocupada;
             }
+
+        $cabina['disponibles'] = ($cabina['filas'] * $cabina['asientos']) - sizeOf($cabina['ocupadas']); 
 
     }
     return $cabina;

@@ -19,7 +19,11 @@ function chequeoMedico_index(){
             include_once('vista/vista_chequeoMedico.php');
         } else {
             $datos_reserva = consultarDatosReserva($cod_reserva);
-            include_once('vista/vista_pagar.php');
+            if($datos_reserva[0]['lista_espera'] == 1){
+                header('location:checkin');
+            } else {
+                include_once('vista/vista_pagar.php');
+            }
         }
 
 
