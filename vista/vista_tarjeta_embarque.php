@@ -30,7 +30,12 @@
                     <tr>
                         <th>Asientos reservados :</th>
                         <td>
-                            <?=$array_asientos ?>
+                            <?php 
+                            foreach( $array_asientos as $asiento){
+                                echo " | ". $asiento ." | ";
+                            }
+                            
+                            ?>
                         </td>
                     </tr>
                 </table>

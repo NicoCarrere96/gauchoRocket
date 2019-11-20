@@ -15,7 +15,7 @@ function abrirModalReserva(idVuelo){
 }
 
 function abrirModalTurno(dni, cod_reserva){
-    document.getElementById('sacarTurno').href = 'chequeoMedico?cod_reserva=' + cod_reserva + '&dni_pasajero=' + dni;
+    document.getElementById('form-turno').action = 'chequeoMedico?cod_reserva=' + cod_reserva + '&dni_pasajero=' + dni;
     document.getElementById('turno_chequeo').style.display='block';
 }
 
