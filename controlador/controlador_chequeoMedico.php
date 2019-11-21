@@ -11,7 +11,7 @@ function chequeoMedico_index(){
         $cod_reserva = $_GET['cod_reserva'];
 
         if(isset($_GET['dni_pasajero'])){
-            validarPasajero($_GET['dni_pasajero'], $cod_reserva);
+            validarPasajero($_GET['dni_pasajero'], $_POST['centro']);
         }
 
         $personas_noValidadas = validarChequeo($cod_reserva);
