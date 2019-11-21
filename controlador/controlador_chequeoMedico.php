@@ -11,7 +11,7 @@ function chequeoMedico_index(){
         $cod_reserva = $_GET['cod_reserva'];
 
         if(isset($_GET['dni_pasajero'])){
-            validarPasajero($_GET['dni_pasajero'], $cod_reserva);
+            validarPasajero($_GET['dni_pasajero'], $_POST['centro']);
         }
 
         $personas_noValidadas = validarChequeo($cod_reserva);
@@ -19,7 +19,11 @@ function chequeoMedico_index(){
             include_once('vista/vista_chequeoMedico.php');
         } else {
             $datos_reserva = consultarDatosReserva($cod_reserva);
-            include_once('vista/vista_pagar.php');
+            if($datos_reserva[0]['lista_espera'] == 1){
+                header('location:checkin');
+            } else {
+                include_once('vista/vista_pagar.php');
+            }
         }
 
 

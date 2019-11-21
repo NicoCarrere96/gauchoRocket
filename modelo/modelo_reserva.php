@@ -3,12 +3,11 @@ include_once("helpers/conexion.php");
 
 function validarCantidadPasajeros($id_vuelo, $tipo_cabina, $cantidad_pasajeros){
     $conn = getConexion();
-    $sql = "SELECT count(*), c.capacidad FROM vuelo v
+    $sql = "SELECT count(*), c.capacidad FROM reserva r
+	JOIN vuelo v ON r.reserva_vuelo = v.id_vuelo
     JOIN equipo e ON v.equipo_vuelo = e.id_equipo
     JOIN cabina c ON e.modelo_equipo = c.cabina_id_modelo
-    JOIN asientos_ocupados ao ON v.id_vuelo = ao.id_vuelo 
-        AND ao.tipo_cabina = c.descripcion
-    WHERE v.id_vuelo = ? 
+    WHERE r.reserva_vuelo = ? 
         AND c.descripcion = ?";
 
     $stmt = mysqli_prepare($conn,$sql);    
@@ -20,17 +19,15 @@ function validarCantidadPasajeros($id_vuelo, $tipo_cabina, $cantidad_pasajeros){
     mysqli_stmt_execute($stmt);
 
     mysqli_stmt_fetch($stmt);
-
-    if($total == $ocupados){
-        if($cantidad_pasajeros > $total)
-        return -1;
+     
+    if($total == $ocupados || $ocupados > $total){
         return 0;
     }
 
     return ($total - $ocupados) > $cantidad_pasajeros ? 1 : -1;
 }
 
-function generarReserva($reserva_vuelo, $pasajeros, $tipo_cabina, $tipo_servicio, $lista_espera){
+function generarReserva($reserva_vuelo, $pasajeros, $tipo_cabina, $tipo_servicio, $lista_espera, $trayectos){
     $conn = getConexion();
 
     $generador_codigo = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -57,6 +54,22 @@ function generarReserva($reserva_vuelo, $pasajeros, $tipo_cabina, $tipo_servicio
 
         $resultInsertReserva = mysqli_query($conn, $insertReserva);
 
+        if(is_array($trayectos)){
+            foreach($trayectos as $trayecto){
+                $insertReservaTrayecto = "INSERT INTO reserva_trayecto (cod_reserva, id_trayecto) 
+                    VALUES ('". $cod_reserva . "', ". $trayecto .")";
+    
+                $resultInsertReserva = mysqli_query($conn, $insertReservaTrayecto);
+            }
+        } else {
+            $insertReservaTrayecto = "INSERT INTO reserva_trayecto (cod_reserva, id_trayecto) 
+                    VALUES ('". $cod_reserva . "', ". $trayectos .")";
+    
+            $resultInsertReserva = mysqli_query($conn, $insertReservaTrayecto);
+        }
+
+
+
         echo mysqli_error($conn);
 }
 
@@ -70,6 +83,7 @@ function consultarDatosReserva($cod_reserva){
     $sql = "SELECT * FROM reserva r
             JOIN vuelo v ON r.reserva_vuelo = v.id_vuelo
             JOIN tipo_viaje tv ON v.tipo_viaje_vuelo =  tv.id_tipo_viaje
+            JOIN trayecto tr ON v.id_vuelo = tr.id_vuelo_trayecto
             JOIN persona p ON r.dni_persona_reserva = p.dni_persona
             WHERE r.cod_reserva = '". $cod_reserva ."'";
 
@@ -91,6 +105,9 @@ function consultarDatosReserva($cod_reserva){
             $dato['apellido'] = $row['apellido'];
             $dato['dni'] = $row['dni_persona'];
             $dato['precio'] = $row['precio'];
+            $dato['checkin'] = $row['checkin'];
+            $dato['lista_espera'] = $row['lista_espera'];
+            $dato['id_vuelo'] = $row['id_vuelo'];
 
 
             $datos_reserva[] = $dato;
@@ -101,5 +118,34 @@ function consultarDatosReserva($cod_reserva){
     
     return $datos_reserva;
 
+}
+
+function getTrayectos($reserva_vuelo){
+    $conn = getConexion();
+    $sql = "SELECT id_trayecto, d.descripcion destino, o.descripcion origen FROM vuelo v
+    JOIN trayecto t ON v.id_vuelo = t.id_vuelo_trayecto
+    JOIN destino d ON t.destino = d.id_destino
+    JOIN destino o ON t.origen = o.id_destino
+    WHERE id_vuelo = ?";
+
+    $stmt = mysqli_prepare($conn,$sql);    
+        
+    mysqli_stmt_bind_param($stmt, "i", $reserva_vuelo);
+    
+    mysqli_stmt_bind_result($stmt, $id_trayecto, $destino, $origen);
+    
+    mysqli_stmt_execute($stmt);
+
+    $trayectos = Array();
+    while( $row = mysqli_stmt_fetch($stmt)){
+        $trayecto = Array();
+        $trayecto['id_trayecto'] = $id_trayecto;
+        $trayecto['origen'] = $origen;
+        $trayecto['destino'] = $destino;
+        $trayectos[] = $trayecto;
+    }
+
+    return $trayectos;
+     
 }
 ?>

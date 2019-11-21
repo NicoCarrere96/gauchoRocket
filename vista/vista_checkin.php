@@ -6,6 +6,30 @@
 
 
     <div class="w3-container">
+    <?php
+        if(isset($noValido) && $noValido){
+            ?>
+        <div class="w3-panel w3-red">
+            <h3>No esta autorizada su reserva</h3>
+            <p>
+                Su reserva no se encuentra autorizada para realizar el checkin.
+            </p>
+        </div> 
+
+            <?php
+        }
+    ?> 
+
+    <?php
+        if(isset($sinAsientos) && $sinAsientos){
+            ?>
+        <div class="w3-panel w3-red">
+            <h3>Debe seleccionar los asientos correspondientes</h3>
+        </div> 
+
+            <?php
+        }
+    ?> 
         <div class="w3-row">
             <div class="w3-col m4 l4">
                 <h1>Check-in</h1>

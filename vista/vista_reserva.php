@@ -22,7 +22,7 @@
         }
     ?>
 
-            <form action="/gauchoRocket/reserva" method="post">
+            <form class="w3-container" action="/gauchoRocket/reserva" method="post">
             <?php
             for ( $i = 1; $i <= $cantidad; $i++){
                 echo "
@@ -71,8 +71,25 @@
                 ";
             }
         ?>
-            <br>
-                <div>
+                <div class="w3-container w3-margin-top">
+                <?php 
+                    
+                    foreach( $trayectos as $trayecto ){
+                        if(sizeOf($trayectos) == 1){
+                            echo "<input type='hidden' name='trayectos' value='". $trayecto['id_trayecto'] ."'>" ;
+                        } else {
+                            echo "<label>Seleccione trayectos: </label>
+                                <br>";
+                            echo "<input  class='w3-check' type='checkbox' name='trayectos[]' id='trayectos' value='". $trayecto['id_trayecto'] ."' checked> " ;
+                            echo "<label>". $trayecto['origen'] . " -> " . $trayecto['destino'] . "</label>";
+                            echo "<br>";
+                        }
+                    }
+                    
+                    ?>
+                </div>
+
+                <div class="w3-container w3-margin-top">
                     <label for="tipo_servicio">Seleccione Tipo de Servicio a Bordo</label>
                     <select class="w3-select" name="tipo_servicio" id="tipo_servicio">
                         <option value="standard">Standard</option>
