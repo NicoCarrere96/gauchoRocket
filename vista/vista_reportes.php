@@ -75,5 +75,67 @@
 <div class="w3-container w3-pale-yellow w3-center w3-round">
     <h3>Tasa de Ocupacion por Viaje y Equipo</h3>
 </div>
+    <h4>Tasa de Ocupacion por Vuelo</h4>    
+    <table  class="w3-table-all">
+            <thead>
+            <tr class="w3-light-grey">
+                <th>Id del vuelo</th>
+                <th>Capacidad</th>
+                <th>Ocupados</th>
+                <th>Tasa de Ocupacion</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <?php
+                foreach ($tasaOcupacion["vuelos"] as $vuelo) {
+            ?>
+            <tr>
+
+                <td><?= $vuelo['id_vuelo'] ?></td>
+                <td><?= $vuelo['capacidad'] ?></td>
+                <td><?= $vuelo['ocupados'] ?></td>
+                <td><?=number_format($vuelo['ocupacion'], 2) ?> %</td>
+            </tr>
+            <?php
+                }
+            ?>
+
+
+            </tbody>
+        </table>
+
+        <h4>Tasa de Ocupacion por Equipo</h4>
+
+        <table  class="w3-table-all">
+            <thead>
+            <tr class="w3-light-grey">
+                <th>Matricula</th>
+                <th>Modelo</th>
+                <th>Capacidad</th>
+                <th>Ocupados</th>
+                <th>Tasa de Ocupacion</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <?php
+                foreach ($tasaOcupacion["equipos"] as $equipo) {
+            ?>
+            <tr>
+
+                <td><?= $equipo['matricula'] ?></td>
+                <td><?= $equipo['descripcion'] ?></td>
+                <td><?= $equipo['capacidad'] ?></td>
+                <td><?= $equipo['ocupados'] ?></td>
+                <td><?=number_format($equipo['ocupacion'], 2) ?> %</td>
+            </tr>
+            <?php
+                }
+            ?>
+
+
+            </tbody>
+        </table>
     <a class="w3-btn w3-black" href="reportes?reporte=tasaDeOcupacion">Exportar a PDF</a>
 </div>

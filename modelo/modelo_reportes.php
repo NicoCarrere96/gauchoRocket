@@ -42,6 +42,46 @@ function facturacionMensual(){
     return $total;
 }
 
+function tasaOcupacion(){
+    $totalPorVuelos = totalAsientosPorViaje();
+    $totalPorEquipos = totalAsientosPorEquipo();
+    $ocupadosPorVuelo = ocupadosPorViaje();
+    $ocupadosPorEquipo = ocupadosPorEquipo();
+
+    $tasaPorVuelos = Array();
+    foreach( $totalPorVuelos as $totalPorVuelo ){
+        foreach( $ocupadosPorVuelo as $ocupado ){
+            if( $totalPorVuelo["id_vuelo"] == $ocupado["id_vuelo"] ){
+                $vuelo = Array();
+                $vuelo["id_vuelo"] = $ocupado["id_vuelo"];
+                $vuelo["ocupacion"] = ($ocupado["ocupados"] / $totalPorVuelo["capacidad"]) * 100;
+                $vuelo["ocupados"] = $ocupado["ocupados"];
+                $vuelo["capacidad"] = $totalPorVuelo["capacidad"];
+                $tasaPorVuelos[] = $vuelo;
+            }
+        }
+    }
+
+    $tasaPorEquipo = Array();
+    foreach( $totalPorEquipos as $totalPorEquipo ){
+        foreach( $ocupadosPorEquipo as $ocupado ){
+            if( $totalPorEquipo["matricula"] == $ocupado["matricula"] ){
+                $equipo = Array();
+                $equipo["matricula"] = $ocupado["matricula"];
+                $equipo["descripcion"] = $ocupado["descripcion"];
+                $equipo["ocupacion"] = ( $ocupado["ocupados"] / $totalPorEquipo["capacidad"] ) * 100;
+                $equipo["ocupados"] = $ocupado["ocupados"];
+                $equipo["capacidad"] = $totalPorEquipo["capacidad"];
+                $tasaPorEquipo[] = $equipo;
+            }
+        }
+    }
+
+    $tasaOcupacion = Array("vuelos" => $tasaPorVuelos, "equipos" => $tasaPorEquipo);
+
+    return $tasaOcupacion;
+
+}
 
 function tipoCabinaMasVendida(){
 
@@ -59,28 +99,6 @@ function tipoCabinaMasVendida(){
     return  $mayor;
 }
 
-function tasaOcupacion(){
-    $conn = getConexion();
-    $asientosOcupadosEquipo="SELECT COUNT(*), m.descripcion from asientos_ocupados ao
-    join vuelo v ON  ao.id_vuelo = v.id_vuelo
-    JOIN equipo e ON v.equipo_vuelo = e.id_equipo
-    join modelo m on e.modelo_equipo = m.id_modelo
-    JOIN cabina c ON e.modelo_equipo = c.cabina_id_modelo
-    GROUP BY m.id_modelo";
-    $asientosOcupadosVuelo="SELECT COUNT(*), v.id_vuelo from asientos_ocupados ao
-    join vuelo v ON  ao.id_vuelo = v.id_vuelo
-    JOIN equipo e ON v.equipo_vuelo = e.id_equipo
-    join modelo m on e.modelo_equipo = m.id_modelo
-    JOIN cabina c ON e.modelo_equipo = c.cabina_id_modelo
-    GROUP BY v.id_vuelo";
-    $capacidadEquipo="";
-
-    $capacidadVuelo="";
-
-
-}
-
-
 function cantidadVendidaPorCabina($tipo_cabina){
     $conn = getConexion();
 
@@ -96,6 +114,105 @@ function cantidadVendidaPorCabina($tipo_cabina){
     mysqli_stmt_fetch($stmt);
 
     return $cantidad;
+}
+
+
+function totalAsientosPorViaje(){
+    $conn = getConexion();
+
+    $totalAsientos = "SELECT sum(c.capacidad) capacidad, id_vuelo from cabina c
+	JOIN equipo e on c.cabina_id_modelo = e.modelo_equipo
+    JOIN vuelo v on v.equipo_vuelo = e.id_equipo
+    group by v.id_vuelo";
+
+    $resultado = mysqli_query($conn, $totalAsientos);
+
+    $vuelos = Array();
+    if(mysqli_num_rows($resultado) > 0){
+
+        while($row = mysqli_fetch_assoc($resultado)){
+            $vuelo = Array();
+            $vuelo["capacidad"] = $row["capacidad"];
+            $vuelo["id_vuelo"] = $row["id_vuelo"];
+            $vuelos[] = $vuelo; 
+        }
+    }
+
+    return $vuelos;
+}
+
+function totalAsientosPorEquipo(){
+    $conn = getConexion();
+
+    $totalAsientos="SELECT sum(c.capacidad) capacidad, m.descripcion, e.matricula from cabina c
+	JOIN modelo m on c.cabina_id_modelo = m.id_modelo
+    JOIN equipo e on m.id_modelo = e.modelo_equipo
+    group by e.matricula";
+
+    $resultado = mysqli_query($conn, $totalAsientos);
+
+    $equipos = Array();
+    if(mysqli_num_rows($resultado) > 0){
+
+        while($row = mysqli_fetch_assoc($resultado)){
+            $equipo = Array();
+            $equipo["capacidad"] = $row["capacidad"];
+            $equipo["descripcion"] = $row["descripcion"];
+            $equipo["matricula"] = $row["matricula"];
+            $equipos[] = $equipo; 
+        }
+    }
+
+    return $equipos;
+}
+
+function ocupadosPorEquipo(){
+    $conn = getConexion();
+
+    $totalOcupados="SELECT count(*) ocupados, m.descripcion, e.matricula from asientos_ocupados ao
+    JOIN vuelo v ON ao.id_vuelo = v.id_vuelo
+    JOIN equipo e ON v.equipo_vuelo = e.id_equipo
+    JOIN modelo m on e.modelo_equipo = m.id_modelo
+    GROUP BY e.matricula";
+
+    $resultado = mysqli_query($conn, $totalOcupados);
+
+    $equipos = Array();
+    if(mysqli_num_rows($resultado) > 0){
+
+        while($row = mysqli_fetch_assoc($resultado)){
+            $equipo = Array();
+            $equipo["ocupados"] = $row["ocupados"];
+            $equipo["descripcion"] = $row["descripcion"];
+            $equipo["matricula"] = $row["matricula"];
+            $equipos[] = $equipo; 
+        }
+    }
+
+    return $equipos;
+}
+
+function ocupadosPorViaje(){
+    $conn = getConexion();
+
+    $totalOcupados = "SELECT count(*) ocupados, v.id_vuelo from asientos_ocupados ao
+    JOIN vuelo v ON ao.id_vuelo = v.id_vuelo
+    GROUP BY v.id_vuelo";
+
+    $resultado = mysqli_query($conn, $totalOcupados);
+
+    $vuelos = Array();
+    if(mysqli_num_rows($resultado) > 0){
+
+        while($row = mysqli_fetch_assoc($resultado)){
+            $vuelo = Array();
+            $vuelo["ocupados"] = $row["ocupados"];
+            $vuelo["id_vuelo"] = $row["id_vuelo"];
+            $vuelos[] = $vuelo; 
+        }
+    }
+
+    return $vuelos;
 }
 
 function generaPdf($tipo_reporte){
