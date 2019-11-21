@@ -18,7 +18,7 @@
 <div class="w3-container w3-light-blue w3-center w3-round">
 
     <h3>Total Facturación Mensual: $<?=  $facturacionMensual[0] ?></h3>
-    <input name="PDF_1" type="submit" value="VER PDF" />
+        <a class="w3-btn w3-black" href="reportes?reporte=facturacionMensual">Exportar a PDF</a>
 </div>
 </div>
 <br><br>
@@ -26,8 +26,8 @@
 <div id="cabVen" class="w3-container w3-hide">
 <div class="w3-container w3-light-green w3-center w3-round">
     <h3>Cabina más vendida:</h3>
-    <h5> <?=  $cabinaMasVendida ?></h5>
-    <input name="PDF_1" type="submit" value="VER PDF" />
+    <h5> <?=$cabinaMasVendida ?></h5>
+        <a class="w3-btn w3-black" href="reportes?reporte=cabinaMasVendida">Exportar a PDF</a>
 </div>
 </div>
 <br><br>
@@ -49,25 +49,25 @@
 
         <tbody>
         <?php
-        $total =0;
-        foreach ($facturaciones as $facturacion) {
-        $total = $facturacion['precio'];
-
-
+            foreach ($facturaciones as $facturacion) {
         ?>
         <tr>
 
             <td><?= $facturacion['nombre'] ?></td>
             <td><?= $facturacion['apellido'] ?></td>
             <td><?= $facturacion['dni_persona'] ?></td>
-            <td><?=$total?></td>
-            <?php
-            }?>
+            <td><?= $facturacion['precio'] ?></td>
+        </tr>
+        <?php
+            }
+        ?>
 
 
         </tbody>
     </table>
-    <input name="PDF_3" type="submit" value="VER PDF" />
+
+    <a class="w3-btn w3-black" href="reportes?reporte=facturacionPorCliente">Exportar a PDF</a>
+
 </div>
 <br><br>
 <button onclick="mostrarInfo('tasaOc')" class="w3-btn w3-block w3-black w3-left-align"><h4>Tasa de Ocupacion por Viaje y Equipo</h4></button>
@@ -75,7 +75,5 @@
 <div class="w3-container w3-pale-yellow w3-center w3-round">
     <h3>Tasa de Ocupacion por Viaje y Equipo</h3>
 </div>
-    <form  action="pdf" method="POST">
-    <input name="Dompdf" type="submit" value="VER PDF" />
-    </form>
+    <a class="w3-btn w3-black" href="reportes?reporte=tasaDeOcupacion">Exportar a PDF</a>
 </div>

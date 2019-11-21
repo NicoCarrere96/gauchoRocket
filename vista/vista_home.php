@@ -74,22 +74,27 @@
             <tr class='w3-row'>
                 <?php
                 foreach ( $vuelos as $vuelo){
-                    echo   "<td class='w3-third w3-section w3-border w3-white' style='margin: 1% 1%; width: 31%; padding: 1%;'>
+                    echo   "<td class='w3-third w3-section w3-border w3-white' style='margin: 1% 1%; width:30%;height: 25em; padding: 1%;'>
+                    <div class='w3-container'>
                     <h3>". $vuelo['origen'] ;
                     
                     if($vuelo['id_tipo'] == 3){
-                        echo " -> ".$vuelo['destino'] ."</h3>";
+                        echo " -> ".$vuelo['destino'];
                     }
+                    echo "</h3> </div>";
 
-                    echo"<h6 class='w3-opacity'>$". $vuelo['precio'] ."</h6>
+                    echo"<div class='w3-container'>
+                    <h6 class='w3-opacity'>$". $vuelo['precio'] ."</h6>
                     <p>Tipo de vuelo: ". $vuelo['tipo'] ."</p>
                     <p>Fecha: ". $vuelo['fecha'] ."</p>
-                    <p>Horario: ". $vuelo['hora'] .":00 hs</p>";
+                    <p>Horario: ". $vuelo['hora'] .":00 hs</p>
+                    </div>
+                    <div class='w3-container w3-margin w3-padding-16'>";
                     if(isset($_SESSION["logueado"])){
                         echo "<button onclick='abrirModalReserva(". $vuelo['id_vuelo'] .", ". $vuelo['modelo_equipo'] .")' class='w3-button w3-block w3-black w3-auto'>Reservar</button>";
                         
                     }
-                    echo    "</td>";
+                    echo    "</div></td>";
                     
                 }
                 ?>
