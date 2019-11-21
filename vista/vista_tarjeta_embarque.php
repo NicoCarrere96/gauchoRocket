@@ -13,7 +13,7 @@
                 <table class="w3-table w3-bordered">
                     <tr>
                         <th>Código de Reserva :</th>
-                        <td><?=$datos_reserva[0]['cod_reserva']?></t>
+                        <td><?=$datos_reserva[0]['cod_reserva']?></td>
                     </tr>
                     <tr>
                         <th>Tipo de Viaje :</th>
@@ -30,7 +30,7 @@
                     <tr>
                         <th>Asientos reservados :</th>
                         <td>
-                            <?=$array_asientos ?>
+                            <?=$array_asientos[0] ?>
                         </td>
                     </tr>
                 </table>
