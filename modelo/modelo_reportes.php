@@ -6,7 +6,7 @@ use Dompdf\Dompdf;
 
 
 
-function facturacionPorCliente(){
+function facturacionPorCliente($fecha_desde, $fecha_hasta){
 
     $conn = getConexion();
 
@@ -14,6 +14,8 @@ function facturacionPorCliente(){
             JOIN reserva_trayecto rt ON tr.id_trayecto = rt.id_trayecto
             JOIN reserva r ON rt.cod_reserva = r.cod_reserva
             JOIN persona p ON r.dni_persona_reserva = p.dni_persona
+             join vuelo v on r.reserva_vuelo = id_vuelo
+            WHERE v.fecha BETWEEN '". $fecha_desde ."' AND '". $fecha_hasta ."' 
             group by p.dni_persona";
     $result = mysqli_query($conn, $sql);
 
@@ -34,16 +36,19 @@ function facturacionPorCliente(){
     return $facturaciones;
 }
 
-function facturacionMensual(){
+function facturacionMensual($fecha_desde, $fecha_hasta){
     $conn = getConexion();
     $sql = "SELECT SUM(tr.precio) FROM trayecto tr
-            JOIN reserva_trayecto r ON tr.id_trayecto = r.id_trayecto";
+            JOIN reserva_trayecto rt ON tr.id_trayecto = rt.id_trayecto
+            JOIN reserva r ON rt.cod_reserva = r.cod_reserva
+             join vuelo v on r.reserva_vuelo = id_vuelo
+              WHERE v.fecha BETWEEN '". $fecha_desde ."' AND '". $fecha_hasta ."'";
     $result = mysqli_query($conn, $sql);
     $total = mysqli_fetch_row($result);
     return $total;
 }
 
-function tasaOcupacion(){
+function tasaOcupacion($fecha_desde, $fecha_hasta){
     $totalPorVuelos = totalAsientosPorViaje();
     $totalPorEquipos = totalAsientosPorEquipo();
     $ocupadosPorVuelo = ocupadosPorViaje();
@@ -63,7 +68,7 @@ function tasaOcupacion(){
         }
     }
 
-    $tasaPorEquipo = Array();
+    $tasaPorEquipo = Array($fecha_desde, $fecha_hasta);
     foreach( $totalPorEquipos as $totalPorEquipo ){
         foreach( $ocupadosPorEquipo as $ocupado ){
             if( $totalPorEquipo["matricula"] == $ocupado["matricula"] ){
@@ -103,7 +108,8 @@ function tipoCabinaMasVendida(){
 function cantidadVendidaPorCabina($tipo_cabina){
     $conn = getConexion();
 
-    $sql = "select COUNT(*) from reserva where tipo_cabina = ?";
+    $sql = "select COUNT(*) from reserva 
+            where tipo_cabina = ?";
     $stmt = mysqli_prepare($conn, $sql);
 
     mysqli_stmt_bind_param($stmt, "s", $tipo_cabina);

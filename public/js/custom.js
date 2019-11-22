@@ -55,7 +55,11 @@ $("input:radio[name=tipo]").click(function() {
   if($(this).is(':checked') && $(this).val() == 3) {  
      $("#destino-div").removeClass('hide');
      $("#destino").attr("disabled", false);
+      $("#origen-div").removeClass('hide');
+      $("#origen").attr("disabled", false);
   } else {
+    $("#origen-div").addClass('hide');
+    $("#origen").attr("disabled", true);
     $("#destino-div").addClass('hide');
     $("#destino").attr("disabled", true);
   }

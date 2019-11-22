@@ -33,12 +33,9 @@
                 }
                 
                 echo "<a href='/gauchoRocket/login?logout=1' style=\"text-decoration:none\" class='w3-bar-item w3-text-white w3-padding-large w3-display-right'>Cerrar Sesion</a>";
-
-            } else {
-                echo "<a href='login' style=\"text-decoration:none\" class='w3-bar-item w3-button w3-padding-large w3-display-right w3-margin-right'>Login</a>";
-
-            }
-
+        } else {
+            echo "<a href='login' style=\"text-decoration:none\" class='w3-bar-item w3-button w3-padding-large w3-display-right w3-margin-right'>Login</a>";
+        }
         ?>
     </div>
 </div>

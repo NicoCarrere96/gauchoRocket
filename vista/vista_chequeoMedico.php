@@ -20,8 +20,8 @@
             </header>
             <form id="form-turno" action="" method="post">
             <div class="w3-padding-large">
-                <label>Seleccione Centro Médico:</label>
-                <select name="centro">
+                <label for="centro">Seleccione Centro Médico:</label>
+                <select name="centro" id="centro">
                     <option value="1">Buenos Aires</option>
                     <option value="3">Ankara</option>
                     <option value="2">Shangai</option>

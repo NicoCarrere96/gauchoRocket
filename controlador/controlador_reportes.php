@@ -3,12 +3,16 @@
 include("modelo/modelo_reportes.php");
 
 function reportes_index(){
-    $facturaciones  = facturacionPorCliente();
-    $facturacionMensual = facturacionMensual();
-    $cabinaMasVendida   =  tipoCabinaMasVendida();
-    $tasaOcupacion  = tasaOcupacion();
+    if(isset($_POST["btn-reportes"])) {
+        $fecha_desde = $_POST['fecha_desde'];
+        $fecha_hasta = $_POST['fecha_hasta'];
 
-    isset($_GET['reporte']) ? generaPdf($_GET['reporte']) : "";
-    
+        $facturaciones = facturacionPorCliente($fecha_desde, $fecha_hasta);
+        $facturacionMensual = facturacionMensual($fecha_desde, $fecha_hasta);
+        $cabinaMasVendida = tipoCabinaMasVendida();
+        $tasaOcupacion = tasaOcupacion($fecha_desde, $fecha_hasta);
+
+        isset($_GET['reporte']) ? generaPdf($_GET['reporte']) : "";
+    }
     include("vista/vista_reportes.php");
 }
