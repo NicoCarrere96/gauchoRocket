@@ -1,5 +1,6 @@
 <?php
 include_once("helpers/conexion.php");
+include_once("helpers/logger.php");
 
 function crearTarjetaEmbarque($cod_reserva)
 {

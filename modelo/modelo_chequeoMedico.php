@@ -77,6 +77,7 @@ function hayTurnosDisponibles($centro) {
                         No hay turnos disponibles en el centro medico solicitado.
                     </p>
                 </div> ";
+        agregarLog("No se encontraron turnos disponibles en el centro con id: ". $centro);
         return false;
     }
 }

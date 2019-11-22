@@ -1,5 +1,6 @@
 <?php
 include_once("helpers/conexion.php");
+include_once("helpers/logger.php");
 
 function validarCantidadPasajeros($id_vuelo, $tipo_cabina, $cantidad_pasajeros){
     $conn = getConexion();

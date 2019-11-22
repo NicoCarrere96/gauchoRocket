@@ -1,6 +1,6 @@
 <?php
-include("helpers/conexion.php");
-include("helpers/logger.php");
+include_once("helpers/conexion.php");
+include_once("helpers/logger.php");
 
 function  registrarCheckin($cod_reserva){
 
@@ -89,4 +89,6 @@ function verificarPago($cod_reserva){
     while($row = mysqli_fetch_assoc($resulto)){
         return $row["pagado"] == 1;
     }
+
+    agregarLog("No se encontro reserva al verificar pago: ". $cod_reserva);
 }

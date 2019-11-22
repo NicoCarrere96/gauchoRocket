@@ -1,5 +1,6 @@
 <?php
 include_once("helpers/conexion.php");
+include_once("helpers/logger.php");
 require_once('public/dompdf/autoload.inc.php');
 use Dompdf\Dompdf;
 

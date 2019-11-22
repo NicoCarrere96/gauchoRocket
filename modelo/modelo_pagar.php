@@ -1,5 +1,6 @@
 <?php
 include_once("helpers/conexion.php");
+include_once("helpers/logger.php");
 
 function pagar($numeroTarjeta, $fechaVencimiento, $codSeguridad, $nombre, $dni){
     return true;
@@ -53,6 +54,7 @@ function verificarHorario($id_vuelo){
         return true;
     }
 
+    agregarLog("Todavia no abrio la lista de espera del vuelo con id:". $id_vuelo);
     return false;
     
 }

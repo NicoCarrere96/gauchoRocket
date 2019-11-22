@@ -11,8 +11,8 @@ function registrar($nick, $email, $password, $nombre, $apellido, $dni, $direccio
 
 
     if (mysqli_num_rows($resultado) > 0){
-
-        header('Location: erro.php');
+        echo "Ya existe un usuario con el nick". $nick;
+        agregarLog("Ya existe un usuario con el nick". $nick);
 
     } else {
         $insertar_persona = "INSERT INTO persona (nombre, apellido, dni_persona, direccion, fecha_nac, mail, tipo_pasajero) 
