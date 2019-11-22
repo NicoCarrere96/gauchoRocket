@@ -35,19 +35,26 @@ function validarChequeo($cod_reserva){
     return $personas_noAptas;
 }
 
-function validarPasajero( $dni ){
+function validarPasajero( $dni, $centro ){
     $db_conexion = getConexion();
 
-    $tipo = rand(1,3);
+    if(hayTurnosDisponibles($centro)){
 
-    $sql = "UPDATE persona SET tipo_pasajero = $tipo WHERE dni_persona = $dni";
-
-    $result = mysqli_query($db_conexion, $sql);
+        $tipo = rand(1,3);
+        
+        $actualiza_pasajero = "UPDATE persona SET tipo_pasajero = $tipo WHERE dni_persona = $dni";
+        $actualiza_pasajero_result = mysqli_query($db_conexion, $actualiza_pasajero);
+        
+        $resta_turno = "UPDATE centro_medico SET cantidad_turnos = cantidad_turnos - 1 WHERE id_centro_medico = $centro";
+        $resta_turno_result = mysqli_query($db_conexion, $resta_turno);
+        
+    }
 
     mysqli_close($db_conexion);
 
 }
 
+<<<<<<< HEAD
 function guardarTurno( $cod_reserva, $id_centro, $fecha )
 {
     $db_conexion = getConexion();
@@ -73,5 +80,31 @@ function guardarTurno( $cod_reserva, $id_centro, $fecha )
         mysqli_close($db_conexion);
 
 
+=======
+function hayTurnosDisponibles($centro) {
+
+    $conn = getConexion();
+
+    $sql = "SELECT cantidad_turnos FROM centro_medico WHERE id_centro_medico = ?";
+    $stmt = mysqli_prepare($conn, $sql); 
+
+    mysqli_stmt_bind_param($stmt, "i", $centro);
+
+    mysqli_stmt_bind_result($stmt, $cantidad_disponible);
+
+    mysqli_stmt_execute($stmt);
+
+    mysqli_stmt_fetch($stmt);
+    
+    if($cantidad_disponible > 0){
+        return true;
+    } else {
+        echo "<br><br><br> <div class='w3-panel w3-red'>
+                    <p>
+                        No hay turnos disponibles en el centro medico solicitado.
+                    </p>
+                </div> ";
+        return false;
+>>>>>>> a246329312c5cf9a0071139f1fd74fbfa5546758
     }
 }
