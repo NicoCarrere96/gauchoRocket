@@ -9,10 +9,19 @@ function reportes_index(){
 
         $facturaciones = facturacionPorCliente($fecha_desde, $fecha_hasta);
         $facturacionMensual = facturacionMensual($fecha_desde, $fecha_hasta);
-        $cabinaMasVendida = tipoCabinaMasVendida();
-        $tasaOcupacion = tasaOcupacion($fecha_desde, $fecha_hasta);
+    } else {
+        $facturaciones = facturacionPorCliente();
+        $facturacionMensual = facturacionMensual();
+    }
+    $cabinaMasVendida = tipoCabinaMasVendida();
+    $tasaOcupacion = tasaOcupacion();
 
-        isset($_GET['reporte']) ? generaPdf($_GET['reporte']) : "";
+    if(isset($_GET['reporte'])){
+        if(isset($_GET['fecha_desde'])){
+            generaPdf($_GET['reporte'], $_GET['fecha_desde'], $_GET['fecha_hasta']);
+        } else {
+            generaPdf($_GET['reporte']);
+        }
     }
     include("vista/vista_reportes.php");
 }

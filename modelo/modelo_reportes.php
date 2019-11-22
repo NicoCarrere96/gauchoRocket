@@ -6,19 +6,23 @@ use Dompdf\Dompdf;
 
 
 
-function facturacionPorCliente($fecha_desde, $fecha_hasta){
+function facturacionPorCliente($fecha_desde = 0, $fecha_hasta = 0){
 
     $conn = getConexion();
 
-    $sql = "SELECT p.nombre, p.apellido,p.dni_persona, SUM(tr.precio) as precio from trayecto tr 
+    $sql = "SELECT p.nombre, p.apellido, p.dni_persona, SUM(tr.precio) as precio from trayecto tr 
             JOIN reserva_trayecto rt ON tr.id_trayecto = rt.id_trayecto
             JOIN reserva r ON rt.cod_reserva = r.cod_reserva
             JOIN persona p ON r.dni_persona_reserva = p.dni_persona
-             join vuelo v on r.reserva_vuelo = id_vuelo
-            WHERE v.fecha BETWEEN '". $fecha_desde ."' AND '". $fecha_hasta ."' 
-            group by p.dni_persona";
-    $result = mysqli_query($conn, $sql);
+            JOIN vuelo v on r.reserva_vuelo = id_vuelo";
+            
+    if($fecha_desde != 0 ){
+        $sql .= " WHERE v.fecha BETWEEN '". $fecha_desde ."' AND '". $fecha_hasta ."'";
+    }     
 
+    $sql .= " group by p.dni_persona";
+    
+    $result = mysqli_query($conn, $sql);
 
     $facturaciones = Array();
     if (mysqli_num_rows($result) > 0) {
@@ -36,19 +40,23 @@ function facturacionPorCliente($fecha_desde, $fecha_hasta){
     return $facturaciones;
 }
 
-function facturacionMensual($fecha_desde, $fecha_hasta){
+function facturacionMensual($fecha_desde = 0, $fecha_hasta = 0){
     $conn = getConexion();
     $sql = "SELECT SUM(tr.precio) FROM trayecto tr
             JOIN reserva_trayecto rt ON tr.id_trayecto = rt.id_trayecto
             JOIN reserva r ON rt.cod_reserva = r.cod_reserva
-             join vuelo v on r.reserva_vuelo = id_vuelo
-              WHERE v.fecha BETWEEN '". $fecha_desde ."' AND '". $fecha_hasta ."'";
+            JOIN vuelo v on r.reserva_vuelo = id_vuelo";
+
+    if($fecha_desde != 0 ){
+        $sql .= " WHERE v.fecha BETWEEN '". $fecha_desde ."' AND '". $fecha_hasta ."'";
+    }  
+
     $result = mysqli_query($conn, $sql);
     $total = mysqli_fetch_row($result);
     return $total;
 }
 
-function tasaOcupacion($fecha_desde, $fecha_hasta){
+function tasaOcupacion(){
     $totalPorVuelos = totalAsientosPorViaje();
     $totalPorEquipos = totalAsientosPorEquipo();
     $ocupadosPorVuelo = ocupadosPorViaje();
@@ -68,7 +76,7 @@ function tasaOcupacion($fecha_desde, $fecha_hasta){
         }
     }
 
-    $tasaPorEquipo = Array($fecha_desde, $fecha_hasta);
+    $tasaPorEquipo = Array();
     foreach( $totalPorEquipos as $totalPorEquipo ){
         foreach( $ocupadosPorEquipo as $ocupado ){
             if( $totalPorEquipo["matricula"] == $ocupado["matricula"] ){
@@ -110,6 +118,7 @@ function cantidadVendidaPorCabina($tipo_cabina){
 
     $sql = "select COUNT(*) from reserva 
             where tipo_cabina = ?";
+
     $stmt = mysqli_prepare($conn, $sql);
 
     mysqli_stmt_bind_param($stmt, "s", $tipo_cabina);
@@ -222,9 +231,9 @@ function ocupadosPorViaje(){
     return $vuelos;
 }
 
-function generaPdf($tipo_reporte){
+function generaPdf($tipo_reporte, $fecha_desde = 0, $fecha_hasta = 0){
 
-    $html = generarHtml($tipo_reporte);
+    $html = generarHtml($tipo_reporte, $fecha_desde, $fecha_hasta);
 
     $pdf = new DOMPDF();
     
@@ -239,7 +248,7 @@ function generaPdf($tipo_reporte){
     $pdf->stream($tipo_reporte . ".pdf");
 }
 
-function generarHtml($tipo_reporte){
+function generarHtml($tipo_reporte, $fecha_desde = 0, $fecha_hasta = 0){
     $html = '<h1>No valido</h1>';
     
     switch($tipo_reporte){
@@ -248,11 +257,11 @@ function generarHtml($tipo_reporte){
             break;
 
         case 'facturacionMensual':
-            $html = reporteFM();
+            $html = reporteFM($fecha_desde, $fecha_hasta);
             break;
 
         case 'facturacionPorCliente':
-            $html = reporteFPC();
+            $html = reporteFPC($fecha_desde, $fecha_hasta);
             break;
 
         case 'tasaDeOcupacion':
@@ -271,16 +280,16 @@ function reporteCMV(){
     </section>";
 }
 
-function reporteFM(){
+function reporteFM($fecha_desde = 0, $fecha_hasta = 0){
     return "<h1>Facturacion Mensual</h1>
     <section>
         <p>$ ".
-            facturacionMensual()[0]
+            facturacionMensual($fecha_desde, $fecha_hasta)[0]
         ."</p>
     </section>";
 }
 
-function reporteFPC(){
+function reporteFPC($fecha_desde = 0, $fecha_hasta = 0){
     $header = "<h1>Facturacion Mensual</h1>
     <section>";
     $footer = "</section>";
@@ -301,7 +310,7 @@ function reporteFPC(){
 
     $table_body = "";
     
-    $facturaciones = facturacionPorCliente();
+    $facturaciones = facturacionPorCliente($fecha_desde, $fecha_hasta);
     foreach( $facturaciones as $facturacion ){
         $table_body .= "<tr>
 
