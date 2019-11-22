@@ -309,5 +309,80 @@ function reporteFPC(){
 }
 
 function reporteTO(){
-    return "Tasa de Ocupacion";
+
+    $header = "<h1>Tasa de Ocupacion</h1>
+    <section>";
+    $footer = "</section>";
+    $table_viajes_inicio = "
+    <h4>Por Vuelo</h4>
+    <table>
+    <thead>
+    <tr>
+        <th>Id del vuelo</th>
+        <th>Capacidad</th>
+        <th>Ocupados</th>
+        <th>Tasa de Ocupacion</th>
+    </tr>
+    </thead>
+
+    <tbody>";
+
+    $table_viajes_fin = "</tbody>
+            </table>";
+
+    $table_viajes_body = "";
+    
+    $table_equipos_inicio = "
+    <h4>Por Equipos</h4>
+    <table>
+    <thead>
+    <tr>
+        <th>Matricula</th>
+        <th>Modelo</th>
+        <th>Capacidad</th>
+        <th>Ocupados</th>
+        <th>Tasa de Ocupacion</th>
+    </tr>
+    </thead>
+    
+    <tbody>";
+                    
+        $table_equipos_fin = "</tbody>
+        </table>";
+        
+        $table_equipos_body = "";
+                    
+        
+        $tasaOcupacion = tasaOcupacion();
+        foreach( $tasaOcupacion["vuelos"] as $vuelo ){
+            $table_viajes_body .= "<tr>
+    
+            <td>".  $vuelo['id_vuelo'] ."</td>
+            <td>".  $vuelo['capacidad'] ."</td>
+            <td>".  $vuelo['ocupados'] ."</td>
+            <td>". number_format($vuelo['ocupacion'], 2) ." %</td>
+        </tr>";
+        }
+
+        foreach( $tasaOcupacion["equipos"] as $equipo ){
+        $table_equipos_body .= "<tr>
+
+            <td>".  $equipo['matricula'] ."</td>
+            <td>".  $equipo['descripcion'] ."</td>
+            <td>".  $equipo['capacidad'] ."</td>
+            <td>".  $equipo['ocupados'] ."</td>
+            <td>". number_format($equipo['ocupacion'], 2) ." %</td>
+        </tr>";
+    }
+
+
+    return $header.
+    $table_viajes_inicio.
+    $table_viajes_body.
+    $table_viajes_fin.
+    "<br>".
+    $table_equipos_inicio.
+    $table_equipos_body.
+    $table_equipos_fin.
+    $footer;
 }
