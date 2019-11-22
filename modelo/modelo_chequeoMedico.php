@@ -20,7 +20,6 @@ function validarChequeo($cod_reserva){
             $persona = Array();
             $persona['tipo_pasajero'] = $row["tipo_pasajero"];
             if ($persona["tipo_pasajero"] == "0") {
-                var_dump($persona);
                 $persona['nombre'] = $row["nombre"];
                 $persona['apellido'] = $row["apellido"];
                 $persona['dni'] = $row["dni_persona"];
@@ -47,4 +46,32 @@ function validarPasajero( $dni ){
 
     mysqli_close($db_conexion);
 
+}
+
+function guardarTurno( $cod_reserva, $id_centro, $fecha )
+{
+    $db_conexion = getConexion();
+
+    $sql = "SELECT *
+    FROM centro_medico cm
+    JOIN turnos_centro_medico tcm ON cm.id_centro_medico = tcm.id_centro
+    WHERE tcm.cod_reserva = $cod_reserva";
+
+    $resultado = mysqli_query($db_conexion, $sql);
+
+
+    if (mysqli_num_rows($resultado) > 0) {
+
+        header('Location: erro.php');
+
+    } else {
+
+        $sql2 = "INSERT INTO turnos_centro_medico (id_centro, cod_reserva, fecha) VALUES('" . $id_centro . "','" . $cod_reserva . "','" . $fecha . "')";
+
+        $result = mysqli_query($db_conexion, $sql2);
+
+        mysqli_close($db_conexion);
+
+
+    }
 }

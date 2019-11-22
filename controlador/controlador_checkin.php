@@ -8,6 +8,7 @@ function checkin_index()
 {
     if (isset($_POST["btn-checkin"])){
         $cod_reserva = $_POST['cod_reserva'];
+<<<<<<< Updated upstream
         $cabina = getAsientos($cod_reserva);
         $pasajeros = registrarCheckin($cod_reserva);
         $datos_reserva = consultarDatosReserva($cod_reserva);
@@ -29,6 +30,14 @@ function checkin_index()
                 }
             }
         }
+=======
+        $id_centro = $_POST['id_centro'];
+        $fecha = $_POST['fecha'];
+        $pasajeros = registrarCheckin($cod_reserva);
+        $cabina = getAsientosDisponibles($cod_reserva);
+        $turno = guardarTurno( $cod_reserva, $id_centro, $fecha );
+        include_once('vista/vista_selector_asientos.php');
+>>>>>>> Stashed changes
     } else {
         include_once('vista/vista_checkin.php');
 
