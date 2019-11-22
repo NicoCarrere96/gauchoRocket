@@ -3,13 +3,21 @@
 <div class="page-header w3-text-white" style="background-image: url('public/img/fondo4.jpg'); background-size: cover ">
     <h1 class="w3-center w3-centered" style="padding-top: 20px;">Reportes - Gaucho Rocket<img src="public/img/rocket.png" height="50px"></h1>
 </div>
-<div class="w3-half w3-margin-bottom">
-    <label><i class="fa fa-calendar-o"></i> Fecha Desde</label>
-    <input class="w3-input w3-border" type="date" name="fecha_desde" required>
-</div>
-<div class="w3-half">
-    <label><i class="fa fa-calendar-o"></i> Fecha Hasta</label>
-    <input class="w3-input w3-border" type="date" name="fecha_hasta" required>
+<div class="w3-row-padding" style="margin:8px 16px;">
+    <form action="reportes" method="post">
+    <div class="w3-show-inline-block">
+        <label><i class="fa fa-calendar-o"></i> Fecha Desde</label>
+        <input class="w3-input w3-border" type="date" name="fecha_desde" required>
+    </div>
+        <div class="w3-show-inline-block">
+        <label><i class="fa fa-calendar-o"></i> Fecha Hasta</label>
+        <input class="w3-input w3-border" type="date" name="fecha_hasta" required>
+        </div>
+        <div class="w3-show-inline-block">
+        <button name="btn-reportes"  class="w3-button w3-black" type="submit"><i class="fa fa-search w3-margin-right"></i> Buscar</button>
+    </div>
+
+    </form>
 </div>
 <br>
 

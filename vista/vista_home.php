@@ -33,9 +33,9 @@
                     </div>
                 </div>
                 <div class="w3-row-padding" style="margin:8px -16px;">
-                    <div class="w3-half w3-margin-bottom">
+                    <div class="w3-half w3-margin-bottom" id="origen-div">
                         <label><i class="fa fa-rocket"></i> Origen</label>
-                        <select class="w3-select w3-border w3-padding-16 w3-margin-top" name="origen">
+                        <select class="w3-select w3-border w3-padding-16 w3-margin-top" id="origen" name="origen">
                             <option value="" disabled selected>Seleccione Origen</option>
                             <?php
                             foreach( $origenes as $origen ){

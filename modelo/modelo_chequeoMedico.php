@@ -70,6 +70,7 @@ function hayTurnosDisponibles($centro) {
     mysqli_stmt_fetch($stmt);
 
     if($cantidad_disponible > 0){
+
         return true;
     } else {
         echo "<br><br><br> <div class='w3-panel w3-red'>

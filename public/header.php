@@ -1,4 +1,3 @@
-<?php
 <!DOCTYPE html>
 <html lang="en">
 <title>Gaucho Rocket</title>
@@ -23,23 +22,20 @@
 
 
         <?php
-            session_start();
+        session_start();
 
-            if(isset($_SESSION["logueado"])){
-                if(isset($_SESSION["admin"])){
-                    echo "<a href='/gauchoRocket/reportes' style=\"text-decoration:none\" class='w3-bar-item w3-button w3-padding-large'>Mantenimiento</a>";
-                } else {
-                    echo "<a href='/gauchoRocket/checkin' style=\"text-decoration:none\" class='w3-bar-item w3-button w3-padding-large'>Check-In</a>";
-                    echo "<a href='/gauchoRocket/checkin' style=\"text-decoration:none\" class='w3-bar-item w3-button w3-padding-large'>Pagar</a>";
-                }
-
-                echo "<a href='/gauchoRocket/login?logout=1' style=\"text-decoration:none\" class='w3-bar-item w3-text-white w3-padding-large w3-display-right'>Cerrar Sesion</a>";
-
+        if(isset($_SESSION["logueado"])){
+            if(isset($_SESSION["admin"])){
+                echo "<a href='/gauchoRocket/reportes' style=\"text-decoration:none\" class='w3-bar-item w3-button w3-padding-large'>Mantenimiento</a>";
             } else {
-                echo "<a href='login' style=\"text-decoration:none\" class='w3-bar-item w3-button w3-padding-large w3-display-right w3-margin-right'>Login</a>";
-
+                echo "<a href='/gauchoRocket/checkin' style=\"text-decoration:none\" class='w3-bar-item w3-button w3-padding-large'>Check-In</a>";
+                echo "<a href='/gauchoRocket/pagar' style=\"text-decoration:none\" class='w3-bar-item w3-button w3-padding-large'>Pagar</a>";
             }
 
+            echo "<a href='/gauchoRocket/login?logout=1' style=\"text-decoration:none\" class='w3-bar-item w3-text-white w3-padding-large w3-display-right'>Cerrar Sesion</a>";
+        } else {
+            echo "<a href='login' style=\"text-decoration:none\" class='w3-bar-item w3-button w3-padding-large w3-display-right w3-margin-right'>Login</a>";
+        }
         ?>
     </div>
 </div>
