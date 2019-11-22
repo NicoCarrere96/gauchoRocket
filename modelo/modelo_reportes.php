@@ -63,6 +63,7 @@ function tasaOcupacion(){
     $ocupadosPorEquipo = ocupadosPorEquipo();
 
     $tasaPorVuelos = Array();
+
     foreach( $totalPorVuelos as $totalPorVuelo ){
         foreach( $ocupadosPorVuelo as $ocupado ){
             if( $totalPorVuelo["id_vuelo"] == $ocupado["id_vuelo"] ){
@@ -77,6 +78,7 @@ function tasaOcupacion(){
     }
 
     $tasaPorEquipo = Array();
+
     foreach( $totalPorEquipos as $totalPorEquipo ){
         foreach( $ocupadosPorEquipo as $ocupado ){
             if( $totalPorEquipo["matricula"] == $ocupado["matricula"] ){
@@ -90,18 +92,17 @@ function tasaOcupacion(){
             }
         }
     }
-
     $tasaOcupacion = Array("vuelos" => $tasaPorVuelos, "equipos" => $tasaPorEquipo);
 
     return $tasaOcupacion;
 
 }
 
-function tipoCabinaMasVendida(){
+function tipoCabinaMasVendida($fecha_desde = 0, $fecha_hasta = 0){
 
-    $cabinaF = cantidadVendidaPorCabina('F');
-    $cabinaG = cantidadVendidaPorCabina('G');
-    $cabinaS = cantidadVendidaPorCabina('S');
+    $cabinaF = cantidadVendidaPorCabina('F', $fecha_desde, $fecha_hasta);
+    $cabinaG = cantidadVendidaPorCabina('G', $fecha_desde, $fecha_hasta);
+    $cabinaS = cantidadVendidaPorCabina('S', $fecha_desde, $fecha_hasta);
 
     if ($cabinaF > $cabinaG && $cabinaF > $cabinaS ){
         $mayor = "Familiar con ".$cabinaF. " lugares vendidos";
@@ -113,11 +114,17 @@ function tipoCabinaMasVendida(){
     return  $mayor;
 }
 
-function cantidadVendidaPorCabina($tipo_cabina){
+function cantidadVendidaPorCabina($tipo_cabina, $fecha_desde = 0, $fecha_hasta = 0){
     $conn = getConexion();
 
-    $sql = "select COUNT(*) from reserva 
-            where tipo_cabina = ?";
+    $sql = " select COUNT(*) from reserva r
+           join vuelo v on r.reserva_vuelo = v.id_vuelo
+			where r.tipo_cabina = ?";
+
+    if($fecha_desde != 0 ){
+        $sql .= " AND v.fecha BETWEEN '". $fecha_desde ."' AND '". $fecha_hasta ."'";
+    }
+
 
     $stmt = mysqli_prepare($conn, $sql);
 
@@ -130,6 +137,7 @@ function cantidadVendidaPorCabina($tipo_cabina){
     mysqli_stmt_fetch($stmt);
 
     return $cantidad;
+    mysqli_close($conn);
 }
 
 
@@ -163,7 +171,7 @@ function totalAsientosPorEquipo(){
     $totalAsientos="SELECT sum(c.capacidad) capacidad, m.descripcion, e.matricula from cabina c
 	JOIN modelo m on c.cabina_id_modelo = m.id_modelo
     JOIN equipo e on m.id_modelo = e.modelo_equipo
-    group by e.matricula";
+    group by e.matricula, m.id_modelo";
 
     $resultado = mysqli_query($conn, $totalAsientos);
 
@@ -189,7 +197,7 @@ function ocupadosPorEquipo(){
     JOIN vuelo v ON ao.id_vuelo = v.id_vuelo
     JOIN equipo e ON v.equipo_vuelo = e.id_equipo
     JOIN modelo m on e.modelo_equipo = m.id_modelo
-    GROUP BY e.matricula";
+    GROUP BY e.matricula, m.id_modelo";
 
     $resultado = mysqli_query($conn, $totalOcupados);
 
@@ -253,7 +261,7 @@ function generarHtml($tipo_reporte, $fecha_desde = 0, $fecha_hasta = 0){
     
     switch($tipo_reporte){
         case 'cabinaMasVendida':
-            $html = reporteCMV();
+            $html = reporteCMV($fecha_desde, $fecha_hasta);
             break;
 
         case 'facturacionMensual':
@@ -271,11 +279,11 @@ function generarHtml($tipo_reporte, $fecha_desde = 0, $fecha_hasta = 0){
     return $html;
 }
 
-function reporteCMV(){
+function reporteCMV($fecha_desde, $fecha_hasta){
     return "<h1>Cabina mas vendida</h1>
     <section>
         <p>".
-            tipoCabinaMasVendida()
+            tipoCabinaMasVendida($fecha_desde, $fecha_hasta)
         ."</p>
     </section>";
 }

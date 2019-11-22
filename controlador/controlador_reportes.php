@@ -9,11 +9,13 @@ function reportes_index(){
 
         $facturaciones = facturacionPorCliente($fecha_desde, $fecha_hasta);
         $facturacionMensual = facturacionMensual($fecha_desde, $fecha_hasta);
+        $cabinaMasVendida = tipoCabinaMasVendida($fecha_desde, $fecha_hasta);
     } else {
         $facturaciones = facturacionPorCliente();
         $facturacionMensual = facturacionMensual();
+        $cabinaMasVendida = tipoCabinaMasVendida();
     }
-    $cabinaMasVendida = tipoCabinaMasVendida();
+
     $tasaOcupacion = tasaOcupacion();
 
     if(isset($_GET['reporte'])){

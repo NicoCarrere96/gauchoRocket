@@ -85,7 +85,14 @@
 <div class="w3-container w3-light-green w3-center w3-round">
     <h3>Cabina más vendida:</h3>
     <h5> <?=$cabinaMasVendida ?></h5>
-        <a class="w3-btn w3-black" href="reportes?reporte=cabinaMasVendida">Exportar a PDF</a>
+    <?php
+    if($cabinaMasVendida == ""){echo "No se encontraron los datos solicitadas";}
+
+    if(isset($fecha_desde)){
+        echo "<a class='w3-btn w3-black' href='reportes?reporte=cabinaMasVendida&fecha_desde=". $fecha_desde ."&fecha_hasta=". $fecha_hasta ."'>";
+    } else {
+        echo "<a class='w3-btn w3-black' href='reportes?reporte=cabinaMasVendida'>";
+    } ?> Exportar a PDF</a>
 </div>
 </div>
 <br><br>
