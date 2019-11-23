@@ -1,6 +1,6 @@
 <?php
-include("helpers/conexion.php");
-include("helpers/logger.php");
+include_once("helpers/conexion.php");
+include_once("helpers/logger.php");
 
 function validarLogin($usuario, $password){
     $passmd5 = md5($password);
@@ -38,11 +38,13 @@ function validarLogin($usuario, $password){
             echo "<br>";
             echo "<br>";
             echo "<div class='w3-container w3-content w3-center' >Falta confirmar su cuenta</div>";
+            agregarLog("Intento ingresar sin confirmar: ". $usuario);
         } else {
             $_SESSION["logueado"] = TRUE;
 
             if($admin == 1){
                 $_SESSION["admin"] = TRUE;
+                agregarLog("---INGRESO EL ADMINISTRADOR---");
             }
             header("location: home");
             
@@ -55,7 +57,7 @@ function validarLogin($usuario, $password){
         echo "<br>";
         echo "<br>";
         echo "<div class='w3-center' >Mail o contrase&ntilde;a incorrectos</div>";
-        agregarLog("$usuario intento ingresar al sistema");
+        agregarLog("$usuario intento ingresar al sistema: Password Incorrecta");
     }
 
 }

@@ -10,7 +10,7 @@ function checkin_index()
         $cod_reserva = $_POST['cod_reserva'];
         $cabina = getAsientos($cod_reserva);
         $datos_reserva = consultarDatosReserva($cod_reserva);
-        
+
         if(verificarPago($cod_reserva)){
             $pasajeros = registrarCheckin($cod_reserva);
             include_once('vista/vista_selector_asientos.php');
@@ -19,7 +19,7 @@ function checkin_index()
                 if(verificarHorario($datos_reserva[0]['id_vuelo'])){
                     $pasajeros = registrarCheckin($cod_reserva);
                     if($cabina['disponibles'] > sizeOf($pasajeros) ){
-                        include_once('vista/vista_pagar.php'); 
+                        include_once('vista/vista_pagar.php');
                     } else {
                         $noValido = true;
                         include_once('vista/vista_checkin.php');
@@ -29,7 +29,7 @@ function checkin_index()
                     include_once('vista/vista_checkin.php');
                 }
             } else {
-                include_once('vista/vista_pagar.php'); 
+                include_once('vista/vista_pagar.php');
             }
         }
     } else {

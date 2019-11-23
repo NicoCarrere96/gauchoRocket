@@ -1,7 +1,7 @@
 <?php
             
-include("helpers/conexion.php");
-include("helpers/logger.php");
+include_once("helpers/conexion.php");
+include_once("helpers/logger.php");
 
 function confirmarUsuario($hash){			
 			$conn = getConexion();
@@ -22,6 +22,7 @@ function confirmarUsuario($hash){
                         <p>Cuenta confirmada</p>
                     <p></div>";
 			} else {
-				echo "Lo siento, ese email no esta registrado.";
+				echo "Lo siento, ese usuario no esta registrado.";
+				agregarLog("No se pudo encontrar un usuario a confirmar: ". $hash);
 		}
 	}   

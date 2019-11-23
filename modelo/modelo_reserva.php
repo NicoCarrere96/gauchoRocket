@@ -1,25 +1,45 @@
 <?php
 include_once("helpers/conexion.php");
+include_once("helpers/logger.php");
 
 function validarCantidadPasajeros($id_vuelo, $tipo_cabina, $cantidad_pasajeros){
     $conn = getConexion();
-    $sql = "SELECT count(*), c.capacidad FROM reserva r
+    $sqlOc = "SELECT count(*) FROM reserva r
 	JOIN vuelo v ON r.reserva_vuelo = v.id_vuelo
     JOIN equipo e ON v.equipo_vuelo = e.id_equipo
     JOIN cabina c ON e.modelo_equipo = c.cabina_id_modelo
     WHERE r.reserva_vuelo = ? 
         AND c.descripcion = ?";
 
-    $stmt = mysqli_prepare($conn,$sql);    
-        
+    $stmt = mysqli_prepare($conn,$sqlOc);
+
     mysqli_stmt_bind_param($stmt, "is", $id_vuelo, $tipo_cabina );
-    
-    mysqli_stmt_bind_result($stmt, $ocupados, $total);
-    
+
+    mysqli_stmt_bind_result($stmt, $ocupados);
+
     mysqli_stmt_execute($stmt);
 
     mysqli_stmt_fetch($stmt);
-     
+
+    $conn = getConexion();
+    $sqlCap = "SELECT c.capacidad FROM vuelo v
+join equipo e on v.equipo_vuelo = e.id_equipo
+join modelo m on m.id_modelo = e.modelo_equipo
+join cabina c on c.cabina_id_modelo = m.id_modelo
+    WHERE v.id_vuelo = ? 
+        AND c.descripcion = ?";
+
+    $stmt2 = mysqli_prepare($conn,$sqlCap);
+
+    mysqli_stmt_bind_param($stmt2, "is", $id_vuelo, $tipo_cabina );
+
+    mysqli_stmt_bind_result($stmt2, $total);
+
+    mysqli_stmt_execute($stmt2);
+
+    mysqli_stmt_fetch($stmt2);
+
+
     if($total == $ocupados || $ocupados > $total){
         return 0;
     }

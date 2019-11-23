@@ -28,10 +28,10 @@ function validarChequeo($cod_reserva){
             }
 
         }
-        
+
     }
     mysqli_close($db_conexion);
-    
+
     return $personas_noAptas;
 }
 
@@ -41,13 +41,13 @@ function validarPasajero( $dni, $centro ){
     if(hayTurnosDisponibles($centro)){
 
         $tipo = rand(1,3);
-        
+
         $actualiza_pasajero = "UPDATE persona SET tipo_pasajero = $tipo WHERE dni_persona = $dni";
         $actualiza_pasajero_result = mysqli_query($db_conexion, $actualiza_pasajero);
-        
+
         $resta_turno = "UPDATE centro_medico SET cantidad_turnos = cantidad_turnos - 1 WHERE id_centro_medico = $centro";
         $resta_turno_result = mysqli_query($db_conexion, $resta_turno);
-        
+
     }
 
     mysqli_close($db_conexion);
@@ -59,7 +59,7 @@ function hayTurnosDisponibles($centro) {
     $conn = getConexion();
 
     $sql = "SELECT cantidad_turnos FROM centro_medico WHERE id_centro_medico = ?";
-    $stmt = mysqli_prepare($conn, $sql); 
+    $stmt = mysqli_prepare($conn, $sql);
 
     mysqli_stmt_bind_param($stmt, "i", $centro);
 
@@ -68,8 +68,9 @@ function hayTurnosDisponibles($centro) {
     mysqli_stmt_execute($stmt);
 
     mysqli_stmt_fetch($stmt);
-    
+
     if($cantidad_disponible > 0){
+
         return true;
     } else {
         echo "<br><br><br> <div class='w3-panel w3-red'>
@@ -77,6 +78,7 @@ function hayTurnosDisponibles($centro) {
                         No hay turnos disponibles en el centro medico solicitado.
                     </p>
                 </div> ";
+        agregarLog("No se encontraron turnos disponibles en el centro con id: ". $centro);
         return false;
     }
 }

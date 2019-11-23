@@ -1,5 +1,6 @@
 <?php
 include_once("helpers/conexion.php");
+include_once("helpers/logger.php");
 
 function crearTarjetaEmbarque($cod_reserva)
 {
@@ -14,11 +15,9 @@ function crearTarjetaEmbarque($cod_reserva)
 	JOIN trayecto tr ON v.id_vuelo = tr.id_vuelo_trayecto
     JOIN persona p ON r.dni_persona_reserva = p.dni_persona
     WHERE cod_reserva = '" . $cod_reserva . "'  ";
-    var_dump($query);
-    echo $query;
+
     $resultado = mysqli_query($db_conexion, $query);
-    var_dump($resultado);
-    echo $resultado;
+
     $tarjetas = Array();
     if (mysqli_num_rows($resultado) > 0) {
 
