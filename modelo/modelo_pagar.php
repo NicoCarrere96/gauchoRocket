@@ -50,7 +50,7 @@ function verificarHorario($id_vuelo){
 
     $fecha_hoy -> modify('+ 2 hours');
 
-    if($fecha_hoy >= $fecha_completa_vuelo){
+    if($fecha_hoy <= $fecha_completa_vuelo){
         return true;
     }
 

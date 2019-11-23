@@ -20,7 +20,6 @@ function pagar_index(){
 
     } else {
         $datos_reserva = consultarDatosReserva($_GET['cod_reserva']);
-        var_dump($datos_reserva);
         include_once('vista/vista_pagar.php');
     }
 

@@ -10,7 +10,7 @@ function validarCantidadPasajeros($id_vuelo, $tipo_cabina, $cantidad_pasajeros){
     JOIN cabina c ON e.modelo_equipo = c.cabina_id_modelo
     WHERE r.reserva_vuelo = ? 
         AND c.descripcion = ?";
-    var_dump($id_vuelo);
+
     $stmt = mysqli_prepare($conn,$sqlOc);
 
     mysqli_stmt_bind_param($stmt, "is", $id_vuelo, $tipo_cabina );
@@ -39,8 +39,6 @@ join cabina c on c.cabina_id_modelo = m.id_modelo
 
     mysqli_stmt_fetch($stmt2);
 
-    var_dump($total);
-    var_dump($ocupados);
 
     if($total == $ocupados || $ocupados > $total){
         return 0;
