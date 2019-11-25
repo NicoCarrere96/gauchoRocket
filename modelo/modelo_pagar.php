@@ -21,40 +21,17 @@ function confirmarPago( $cod_reserva ){
 
 }
 
-function verificarHorario($id_vuelo){
-    $conn = getConexion();
+function validarPago($cod_reserva){
+$conn = getConexion();
+$sql = "SELECT pagado FROM reserva 
+        WHERE cod_reserva = '". $cod_reserva ."'";
 
-    $sql = "SELECT hora_partida, fecha FROM vuelo 
-            WHERE id_vuelo = ?";
+$val_pago = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($val_pago);
+if($row["pagado"] == 1) {
+    return 1;
+} else{
+    return 0;
+}
 
-    $stmt = mysqli_prepare($conn, $sql);
-
-    mysqli_stmt_bind_param($stmt, "i", $id_vuelo );
-
-    mysqli_stmt_bind_result($stmt, $hora, $fecha);
-
-    mysqli_stmt_execute($stmt);
-
-    mysqli_stmt_fetch($stmt);
-
-    mysqli_close($conn);
-
-    $date_timezone = timezone_open('America/Argentina/Buenos_Aires');
-
-    $fecha_completa_vuelo = new DateTime($fecha . " " . $hora . ":00:00");
-    $fecha_hoy = new DateTime();
-    date_timezone_set($fecha_hoy, $date_timezone);
-
-    $fecha_completa_vuelo -> format('d-m-Y H:i:s');
-    $fecha_hoy -> format('d-m-Y H:i:s');
-
-    $fecha_hoy -> modify('+ 2 hours');
-
-    if($fecha_hoy <= $fecha_completa_vuelo){
-        return true;
-    }
-
-    agregarLog("Todavia no abrio la lista de espera del vuelo con id:". $id_vuelo);
-    return false;
-    
 }

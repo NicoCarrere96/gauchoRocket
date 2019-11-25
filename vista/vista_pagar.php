@@ -11,6 +11,9 @@
             <th>Nombre</th>
             <th>Apellido</th>
             <th>DNI</th>
+            <th>Precio Trayecto</th>
+            <th>Destino</th>
+
         </tr>
         </thead>
         <tbody>
@@ -26,7 +29,10 @@
                 echo "<tr>
                                 <td>". $dato['nombre'] . "</td>
                                 <td>". $dato['apellido'] . "</td>
-                                <td>". $dato['dni'] . "</td>";
+                                <td>". $dato['dni'] . "</td>
+                                <td>$ ". $dato['precio'] . "</td>
+                                <td>". $dato['destino'] . "</td>
+                                ";
 
                 $count++;
             }

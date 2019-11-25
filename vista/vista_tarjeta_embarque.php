@@ -4,11 +4,10 @@
 </div>
 
 
-
     <div class="w3-container">
         <div class="w3-row">
             <div class="w3-col m8 l8">
-                <h3>Tarjeta de embarque Nº: </h3>
+                <h3>Tarjeta de embarque <?= $cod_alfanumerico ?></h3>
                 <h4>Datos de la reserva: </h4>
                 <table class="w3-table w3-bordered">
                     <tr>
@@ -65,9 +64,18 @@
             <div class="w3-col m4 l4">
                 <div class="card">
                     <div >
-                        <img src="public/img/qr.png" alt="Codigo QR">
+                        <?php
+                        $qr = new QR_BarCode();
 
-                    </div>
+                        // create text QR code
+                        $qr->text("http://localhost:8888/gauchoRocket/tarjeta_embarque?cod_reserva='".$datos_reserva[0]['cod_reserva']."'");
+
+                        // display QR code image
+                        
+                        $qr->qrCode(350,'temp/cw-qr.png');
+                        ?>
+                        <img src="temp/cw-qr.png">
+                     </div>
                 </div>
             </div>
         </div>

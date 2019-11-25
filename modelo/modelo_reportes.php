@@ -56,10 +56,10 @@ function facturacionMensual($fecha_desde = 0, $fecha_hasta = 0){
     return $total;
 }
 
-function tasaOcupacion(){
+function tasaOcupacion($fecha_desde = 0, $fecha_hasta = 0){
     $totalPorVuelos = totalAsientosPorViaje();
     $totalPorEquipos = totalAsientosPorEquipo();
-    $ocupadosPorVuelo = ocupadosPorViaje();
+    $ocupadosPorVuelo = ocupadosPorViaje($fecha_desde, $fecha_hasta);
     $ocupadosPorEquipo = ocupadosPorEquipo();
 
     $tasaPorVuelos = Array();
@@ -216,12 +216,18 @@ function ocupadosPorEquipo(){
     return $equipos;
 }
 
-function ocupadosPorViaje(){
+function ocupadosPorViaje($fecha_desde, $fecha_hasta){
     $conn = getConexion();
 
     $totalOcupados = "SELECT count(*) ocupados, v.id_vuelo from asientos_ocupados ao
-    JOIN vuelo v ON ao.id_vuelo = v.id_vuelo
-    GROUP BY v.id_vuelo";
+    JOIN vuelo v ON ao.id_vuelo = v.id_vuelo";
+
+
+    if($fecha_desde != 0 ){
+        $totalOcupados .= " WHERE v.fecha BETWEEN '". $fecha_desde ."' AND '". $fecha_hasta ."'";
+
+    }
+    $totalOcupados .= " GROUP BY v.id_vuelo";
 
     $resultado = mysqli_query($conn, $totalOcupados);
 
@@ -273,7 +279,7 @@ function generarHtml($tipo_reporte, $fecha_desde = 0, $fecha_hasta = 0){
             break;
 
         case 'tasaDeOcupacion':
-            $html = reporteTO();
+            $html = reporteTO($fecha_desde, $fecha_hasta);
             break;
     }
     return $html;
@@ -288,7 +294,7 @@ function reporteCMV($fecha_desde, $fecha_hasta){
     </section>";
 }
 
-function reporteFM($fecha_desde = 0, $fecha_hasta = 0){
+function reporteFM($fecha_desde, $fecha_hasta){
     return "<h1>Facturacion Mensual</h1>
     <section>
         <p>$ ".
@@ -297,7 +303,7 @@ function reporteFM($fecha_desde = 0, $fecha_hasta = 0){
     </section>";
 }
 
-function reporteFPC($fecha_desde = 0, $fecha_hasta = 0){
+function reporteFPC($fecha_desde, $fecha_hasta){
     $header = "<h1>Facturacion Mensual</h1>
     <section>";
     $footer = "</section>";
@@ -332,7 +338,7 @@ function reporteFPC($fecha_desde = 0, $fecha_hasta = 0){
     return $header.$table_inicio.$table_body.$table_fin.$footer;
 }
 
-function reporteTO(){
+function reporteTO($fecha_desde, $fecha_hasta){
 
     $header = "<h1>Tasa de Ocupacion</h1>
     <section>";

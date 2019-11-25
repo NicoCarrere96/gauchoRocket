@@ -20,7 +20,6 @@
         <span class="w3-bar-item w3-white w3-padding-large"><img src="public/img/rocket.png" height="15px">GauchoRocket</span>
         <a href="/gauchoRocket/home" style="text-decoration:none" class="w3-bar-item w3-button w3-padding-large">Home</a>
 
-
         <?php
             session_start();
             

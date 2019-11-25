@@ -34,6 +34,21 @@ function  registrarCheckin($cod_reserva){
 
 }
 
+function validarCheckin($cod_reserva){
+    $conn = getConexion();
+    $sql = "SELECT checkin FROM reserva 
+        WHERE cod_reserva = '". $cod_reserva ."'";
+
+    $val_checkin = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($val_checkin);
+        if($row["checkin"] == 1) {
+            return 1;
+        } else{
+            return 0;
+    }
+
+}
+
 function getAsientos($cod_reserva){
     $db_conexion = getConexion();
     
@@ -85,7 +100,6 @@ function verificarPago($cod_reserva){
             WHERE r.cod_reserva = '". $cod_reserva ."'";
 
     $resulto = mysqli_query($conn, $query);
-    var_dump($resulto);
     while($row = mysqli_fetch_assoc($resulto)){
         return $row["pagado"] == 1;
     }

@@ -10,6 +10,22 @@ function checkin_index()
         $cod_reserva = $_POST['cod_reserva'];
         $cabina = getAsientos($cod_reserva);
         $datos_reserva = consultarDatosReserva($cod_reserva);
+        $checkin_realizado = validarCheckin($cod_reserva);
+        switch($checkin_realizado){
+            case 1:
+                echo "<br>";
+                echo "<br>";
+                echo "<br>";
+                echo "<div class='w3-container w3-center'>";
+                echo "<p>Ya se ha realizado el checkin</p>";
+                echo "<a href='checkin'> <button class='w3-btn w3-amber'>Volver</a>";
+                echo "</div>";
+                echo "<br>";
+                echo "<br>";
+                echo "<br>";
+                return;
+        }
+
 
         if(verificarPago($cod_reserva)){
             $pasajeros = registrarCheckin($cod_reserva);
