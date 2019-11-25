@@ -100,12 +100,16 @@ function consultarDatosReserva($cod_reserva){
 
     $db_conexion = getConexion();
 
-    $sql = "SELECT * FROM reserva r
-            JOIN vuelo v ON r.reserva_vuelo = v.id_vuelo
-            JOIN tipo_viaje tv ON v.tipo_viaje_vuelo =  tv.id_tipo_viaje
-            JOIN trayecto tr ON v.id_vuelo = tr.id_vuelo_trayecto
-            JOIN persona p ON r.dni_persona_reserva = p.dni_persona
-            WHERE r.cod_reserva = '". $cod_reserva ."'";
+    $sql = "SELECT * 
+            FROM reserva r
+            JOIN persona p on p.dni_persona = r.dni_persona_reserva
+            join vuelo v on v.id_vuelo = r.reserva_vuelo
+            join tipo_viaje tp on tp.id_tipo_viaje = v.tipo_viaje_vuelo
+            join reserva_trayecto rt on rt.cod_reserva = r.cod_reserva
+            join trayecto tr on tr.id_trayecto = rt.id_trayecto
+            JOIN destino d ON tr.destino = d.id_destino
+            JOIN destino o ON tr.origen = o.id_destino
+            WHERE r.cod_reserva ='". $cod_reserva ."'";
 
     $result = mysqli_query($db_conexion, $sql);
 
@@ -128,6 +132,7 @@ function consultarDatosReserva($cod_reserva){
             $dato['checkin'] = $row['checkin'];
             $dato['lista_espera'] = $row['lista_espera'];
             $dato['id_vuelo'] = $row['id_vuelo'];
+            $dato['destino'] = $row['descripcion'];
 
 
             $datos_reserva[] = $dato;

@@ -1,4 +1,6 @@
 <div class="w3-container w3-margin-top">
+    <br>
+    <br>
 
     <h3>Falta realizar chequeo medico de los siguientes pasajeros:</h3>
     <?php

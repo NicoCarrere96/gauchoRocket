@@ -21,16 +21,11 @@
                 <div class="card">
                     <div class="loginBox">
 
-                        <form action="pagar" method="get">
+                        <form action="pagar" method="GET">
                             <div class="form-group">
-
-
                                 <input type="text" class="form-control input-lg" name="cod_reserva" placeholder="Codigo De Reserva" required>
-
                             </div>
-                            <button name="btn-checkin" type="submit" class="btn btn-block w3-deep-orange">Pagar</button>
-                            <?php
-                            if($resulto = 0){echo "No se encontraron las facturaciones solicitadas";}?>
+                            <button type="submit" class="btn btn-block w3-deep-orange">Pagar</button>
                         </form>
 
                     </div>
